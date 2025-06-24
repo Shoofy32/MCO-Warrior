@@ -60,6 +60,7 @@ public class EventController {
 
             System.out.printf("Input: ");
             menuInput = input.nextLine().charAt(0); //Gets Player for main menu
+            menuInput = Character.toUpperCase(menuInput);
 
             if(menuInput != 'A' && menuInput != 'Q')
                 System.out.printf("\nPlease provide a valid input.\n"); //Display invalid input        
@@ -188,6 +189,7 @@ public class EventController {
     
             System.out.printf("Input: ");
             choiceInput = input.nextLine().charAt(0); //Gets character input
+            choiceInput = Character.toUpperCase(choiceInput);
 
             //Checks for invalid input
             if(choiceInput != 'A' && choiceInput != 'D' && choiceInput != 'C' && choiceInput != 'I'){
@@ -261,6 +263,7 @@ public class EventController {
             display.displayEndMainMenu(); //Display ending main menu
             System.out.printf("Input (Char): ");
             choiceInput = input.nextLine().charAt(0); //Gets character input
+            choiceInput = Character.toUpperCase(choiceInput);
 
             //Checks for invalid input
             if(choiceInput != 'R' && choiceInput != 'Q'){
