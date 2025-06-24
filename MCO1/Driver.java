@@ -70,7 +70,7 @@ public class Driver {
                 event.getDisplay().displayGameBar();
 
                 choiceInput = event.playerChoice(input);
-                choiceInput = Character.toUpperCase(choiceInput);
+                choiceInput = Character.toUpperCase(choiceInput); //Converts input to uppercase to accept lowercase inputs like "q" and "a"
 
                 event.turnSystem(choiceInput);
 
