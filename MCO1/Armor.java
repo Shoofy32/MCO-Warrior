@@ -17,10 +17,10 @@ public class Armor {
     //Method Constructor
     public Armor(String name, String type, int defense, int speedPenalty){
 
-        name = name;
-        type = type;
-        defense = defense;
-        speedPenalty = speedPenalty;
+        this.name = name;
+        this.type = type;
+        this.defense = defense;
+        this.speedPenalty = speedPenalty;
         totalArmor++; //Increment counter
 
     }
