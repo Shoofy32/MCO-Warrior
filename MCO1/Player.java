@@ -1,7 +1,7 @@
 public class Player {
     
     //String attributes
-    private String name = "Player"; //Name of Player
+    private final String name; //Name of Player
 
     //Stat attributes
     private int hitPoints = 100; //Health of the Player
@@ -12,48 +12,71 @@ public class Player {
     //Weapon and Armor attributes
     private Armor armor = null; //Armor that the player can equip
     private Weapon weapon = null; //Weapon that the player can equip
+    private Consumable consumable = null; //Consumable that the player can use
 
     //State attributes
     private boolean isCharging = false; //Boolean check to see whether Player is charging
     private boolean isDefending = false; //Boolean check to see whether Player is defending
+    private boolean hasConsumeTemp = false; //Boolean check to see whether Player used a consumable that is temporary
 
     //Attributes for display
     private int getLastAttackDone; //Stores the amount of damage that was last done
 
     
-    //Setters
-    public void setName(String pName){
+    //Constructor
+    public Player(String name){
 
-        name = pName;
-
+       this.name = name;
+;
     }
 
+
+    //Setters
     public void setHitPoints(int hitPoints){
         
-        //Checks whether hitpoints provided is greater than 0
-        if(hitPoints >= 0)
-            this.hitPoints = hitPoints;
-        else
+        this.hitPoints = hitPoints;
+
+        //Checks if hitPoints has gone over the limit or has turned into negative values
+        if(this.hitPoints > 100) 
+            this.hitPoints = 100; //Forces it to be 100 
+        else if(this.hitPoints < 0)
             this.hitPoints = 0; //Forces it to be 0 to avoid any negative values   
 
     }
 
     public void setAttack(int attack){
 
-        this.attack = attack;
+        //Checks whether attack provided is greater or equal than 0
+        if(attack >= 0)
+            this.attack = attack;
+        else
+            this.attack = 0; //Forces it to be 0 to avoid any negative values   
 
     }
 
-    public void settSpeed(int speed){
+    public void setSpeed(int speed){
 
-        this.speed = speed;
+        if(speed >= 0)
+            this.speed = speed;
+        else
+            this.speed = 0; //Forces it to be 0 to avoid any negative values  
 
     }
 
     public void setDefense(int defense){
 
-        this.defense = defense;
+        //Checks whether defense provided is greater or equal than 0
+        if(defense >= 0)
+            this.defense = defense;
+        else
+            this.speed = 0; //Forces it to be 0 to avoid any negative values  
         
+    }
+
+    public void setHasConsumeTemp(boolean hasConsumeTemp){
+
+        this.hasConsumeTemp = hasConsumeTemp;
+
     }
 
 
@@ -100,6 +123,12 @@ public class Player {
 
     }
 
+    public Consumable getConsumable(){
+
+        return consumable;
+
+    }
+
     public boolean getIsCharging(){
 
         return isCharging;
@@ -109,6 +138,12 @@ public class Player {
     public boolean getIsDefending(){
 
         return isDefending;
+
+    }
+
+    public boolean getHasConsumeTemp(){
+
+        return hasConsumeTemp;
 
     }
 
@@ -144,6 +179,15 @@ public class Player {
     }
 
 
+    public void equipConsumable(Consumable consumable){
+
+        //If condition to check whether the parameter object it not null
+        if(consumable != null)
+            this.consumable = consumable; //Equip the consumable and set new stats of the player
+
+    }
+
+
     public void unequipArmor(){
 
         defense = 1;
@@ -158,6 +202,13 @@ public class Player {
         attack = 1;
         speed += weapon.getSpeedPenalty();
         weapon = null;
+
+    }
+
+
+    public void unequipConsumable(){
+
+        consumable = null;
 
     }
 
@@ -198,10 +249,19 @@ public class Player {
                 if(!isCharging){
 
                     playerChoice = "Charge";
-                    //C - Charge Player
-                    charge(); 
+                    charge(); //C - Charge Player
 
-                }        
+                }  
+                
+            case 'U':
+
+                //If condition to check whether the player is charging 
+                if(consumable.getChargesLeft() > 0){
+
+                    playerChoice = "Consume";
+                    consume(target); //U - Charge Player 
+
+                }    
 
         }
 
@@ -295,8 +355,7 @@ public class Player {
     }
 
 
-
-
+    //Method allows display to get the last attack's amount
     public int obtainLastAttackDealt(CLIViewer display){
 
         //If condition to check whether display is an instance of CLIViewer
@@ -304,6 +363,31 @@ public class Player {
             return getLastAttackDone;
         else 
             return 0;
+
+    }
+
+
+    //Method uses the consumable equipped and gets corresponding effects for both Player and Enemy
+    public void consume(Enemy target){
+
+        //Checks if there are any charges left
+        if(consumable.getChargesLeft() > 0){
+
+            //Checks if Consumable affects Player
+            if(consumable.getAffectsPlayer())
+                consumable.affectPlayer(this); //Calls method to affect Player stats
+            
+            //Checks if Consumable affects Enemy
+            if(consumable.getAffectsEnemy())
+                consumable.affectEnemy(target); //Calls method to affect Enemy stats
+
+            consumable.useCharges(); //Decrement charge
+
+            //Checks if Consumable is Temporary
+            if(consumable.getIsTemporary())
+                hasConsumeTemp = true;
+
+        }
 
     }
 
