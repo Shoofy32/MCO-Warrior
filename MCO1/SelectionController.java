@@ -10,10 +10,11 @@ public class SelectionController {
      * Arraylists for classes that are instanced for the player to select their choice.
      * Due to the use of Arraylists, it allows for any number of choices to be added or removed for the player.
      */
-    private static ArrayList<Weapon> weapons; //Arraylist for Weapon Class
-    private static ArrayList<Armor> armors; //Arraylist for Armor Class
-    private static ArrayList<Enemy> enemies; //Arraylist for Enemy Class
-    private static ArrayList<Environment> environments; //Arraylist for Environment Class
+    private static ArrayList<Weapon> weapons; //ArrayList for Weapon Class
+    private static ArrayList<Armor> armors; //ArrayList for Armor Class
+    private static ArrayList<Enemy> enemies; //ArrayList for Enemy Class
+    private static ArrayList<Environment> environments; //ArrayList for Environment Class
+    private static ArrayList<Consumable> consumables; //ArrayList for Consumable Class
 
 
     //Constructor
@@ -26,6 +27,7 @@ public class SelectionController {
         armors = new ArrayList<>();
         enemies = new ArrayList<>();
         environments = new ArrayList<>();
+        consumables = new ArrayList<>();
 
     }
 
@@ -55,6 +57,11 @@ public class SelectionController {
 
     }
 
+    public ArrayList<Consumable> getConsumables(){
+
+        return consumables;
+
+    }
 
     //Methods to add selections to ArrayList
 
@@ -85,6 +92,12 @@ public class SelectionController {
 
     }
 
+
+    public void addConsumable(Consumable consumable){
+
+        getConsumables().add(consumable); //Add Consumable instance to consumable Array List
+
+    }
 
     //Methods for Player to select choices of Weapon, Armor, Enemy, and Environmentfrom ArrayLists
 
@@ -170,7 +183,7 @@ public class SelectionController {
             if(!hasArmor && !armorSelect.equals("No Armor") && !armorSelect.equals("0"))
                 System.out.printf("\nPlease select a armor among the choices!\n");
 
-        }while(!hasArmor && armorSelect.equals("No Armor") && !armorSelect.equals("0"));
+        }while(!hasArmor && !armorSelect.equals("No Armor") && !armorSelect.equals("0"));
         
 
 
@@ -225,7 +238,7 @@ public class SelectionController {
 
         int listSize = getEnvironments().size(); //Gets size of the ArrayList
         String environmentSelect; //String for player input
-        boolean selectedEnvironment = false; //Checks whether Player has selected a enemy or not
+        boolean selectedEnvironment = false; //Checks whether Player has selected a environment or not
 
 
         //While loop in case Player has made invalid selection
@@ -254,6 +267,49 @@ public class SelectionController {
 
         }     
 
+        return null; //Return null here to satisfy Java compiler code path
+    }
+
+
+    public Consumable selectConsumable(Scanner input){
+
+        int listSize = getConsumables().size(); //Gets size of the ArrayList
+        String consumableSelect; //String for player input
+        boolean selectedConsumable = false; //Checks whether Player has selected a consumable or not
+
+
+        //Do-while loop in case Player has made invalid selection
+        do{
+
+            display.displaySelection("Consumable", this); //Display Consumable choices
+
+            System.out.printf("Select Consumable [Name/Number]: "); //Asks for name or number input
+                consumableSelect = input.nextLine();
+
+            //Checks whether the player picked an object or not. If not, then player equips nothing
+            if(!consumableSelect.equals("No Consumable") && !consumableSelect.equals("0")){
+
+                //For loop to go through the Enemy instances in the ArrayList to get the enemy the player chose
+                for(int i  = 0; i < listSize && !selectedConsumable; i++){
+
+                    //If conditon checks if the Enemy object in that index has the same name or number as the Player input
+                    if(getEnvironments().get(i).getName().equals(consumableSelect)|| String.valueOf(i+1).equals(consumableSelect)){
+
+                        selectedConsumable = true; 
+                        return getConsumables().get(i); //Returns the selected enemy
+
+                    }
+
+                }
+
+            }
+
+            //Error to display if Player input is not within the ArrayList
+            System.out.printf("\nPlease select a consumable among the choices!\n");
+
+        }while(!selectedConsumable && !consumableSelect.equals("No Armor") && !consumableSelect.equals("0"));
+        
+        
         return null; //Return null here to satisfy Java compiler code path
     }
 
