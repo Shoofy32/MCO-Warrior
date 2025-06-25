@@ -170,6 +170,52 @@ public class CLIViewer {
                 System.out.printf("|                                                                     |\n"); 
                 System.out.printf("=======================================================================\n");
 
+                break;
+
+            case "Consumable":
+
+                listSize = selection.getConsumables().size(); //Get size of Environment ArrayList
+
+                System.out.printf("\n\n\n=======================================================================\n"); 
+                System.out.printf("|                   CONSUMABLES SELECTION [%-2d CHOICES]                |\n", Consumable.getTotalConsumables() + 1); 
+                System.out.printf("|---------------------------------------------------------------------|\n"); 
+
+                System.out.printf("|  [0] No Consumable                                                  |\n"); 
+                System.out.printf("|                                                                     |\n"); 
+                System.out.printf("|  Type:             None                                             |\n"); 
+                System.out.printf("|  Player Effects:                                                    |\n"); 
+                System.out.printf("|     [] None                                                         |\n");
+                System.out.printf("|  Enemy Effects:                                                     |\n");
+                System.out.printf("|     [] None                                                         |\n"); 
+                System.out.printf("|  Turns Effect:     None                                             |\n");
+                System.out.printf("|  Charges:          None                                             |\n");
+                System.out.printf("|---------------------------------------------------------------------|\n");
+ 
+                //For loop to display the different Consumables available and their stats from the ArrayList
+                for(int i = 0; i < listSize; i++){
+
+                    System.out.printf("|  [%d] %-20s                                           |\n", i + 1, selection.getConsumables().get(i).getName()); 
+                    System.out.printf("|                                                                     |\n"); 
+                    System.out.printf("|  Type:             %-15s                                  |\n", selection.getConsumables().get(i).getType()); 
+                    System.out.printf("|  Player Effects:                                                    |\n"); 
+                    System.out.printf("|     [] %-60s |\n", selection.getConsumables().get(i).getPlayerConsumableDescription()); 
+                    System.out.printf("|  Enemy Effects:                                                     |\n");
+                    System.out.printf("|     [] %-60s |\n", selection.getConsumables().get(i).getEnemyConsumableDescription());  
+
+                    //Checks whether consumable is temporary or permanent and show display depending on condition.
+                    if(selection.getConsumables().get(i).getAffectingTurns() > 0)
+                        System.out.printf("|  Turns Effect:     %-2d                                               |\n", selection.getConsumables().get(i).getAffectingTurns());
+                    else
+                        System.out.printf("|  Turns Effect:     Permanent                                        |\n");
+                    
+                    System.out.printf("|  Charges:          %-2d                                               |\n", selection.getConsumables().get(i).getMaxCharges());
+                    System.out.printf("|---------------------------------------------------------------------|\n");       
+
+                }
+
+                System.out.printf("|                                                                     |\n"); 
+                System.out.printf("=======================================================================\n");
+
         }
 
 
@@ -182,7 +228,7 @@ public class CLIViewer {
         System.out.printf("==============================================================================\n");                                                                   
         System.out.printf("|                              PLAYER'S CHOICE                               |\n");
         System.out.printf("|----------------------------------------------------------------------------|\n");     
-        System.out.printf("|    [A] Attack                   [D] Defend                   [C] Charge    |\n");                                                                   
+        System.out.printf("|  [A] Attack        [D] Defend         [C] Charge       [U] Use Consumable  |\n");                                                                   
         System.out.printf("==============================================================================\n"); 
 
     }
@@ -191,29 +237,44 @@ public class CLIViewer {
     //Dispaly game stats
     public void displayGameBar(){
 
-        System.out.printf("==============================================================================\n");
+        System.out.printf("\n\n==============================================================================\n");
         System.out.printf("|   %-15s  |           IN PROGRESS            |   %-15s  |\n", player.getName(), enemy.getName());                                    
-        System.out.printf("|   HitPoints: %-3d   |       ----Environment----        |   HitPoints: %3d   |\n", player.getHitPoints(), enemy.getHitPoints());
-        System.out.printf("|      Attack: %-3d   |           %-15s        |      Attack: %-3d   |\n", player.getAttack(), environment.getName(), enemy.getAttack());
+        System.out.printf("|   HitPoints: %-3d   |       ----Environment----        |   HitPoints: %4d  |\n", player.getHitPoints(), enemy.getHitPoints());
+        System.out.printf("|      Attack: %-3d   |           %-20s   |      Attack: %-3d   |\n", player.getAttack(), environment.getName(), enemy.getAttack());
         System.out.printf("|     Defense: %-3d   |                                  |     Defense: %-3d   |\n", player.getDefense(), enemy.getDefense());
         System.out.printf("|       Speed: %-3d   |                                  |       Speed: %-3d   |\n", player.getSpeed(), enemy.getSpeed());
         System.out.printf("|----------------------------------------------------------------------------|\n"); 
         System.out.printf("|       STATUS / EFFECTS           |               EQUIPMENT                 |\n"); 
 
+
+        //Checks if player has a weapon equipped or not.
         if(player.getWeapon() != null)
             System.out.printf("|       Charging:   %-5s          |    Weapon:     %-20s     |\n", player.getIsCharging(), player.getWeapon().getName()); 
         else
             System.out.printf("|       Charging:   %-5s          |    Weapon:     None                     |\n", player.getIsCharging()); 
         
-        if(player.getArmor() != null )
-            System.out.printf("|                                  |    Armor:      %-20s     |\n", player.getArmor().getName()); 
-        else
+
+        //Statements check if player has armor and/or used a consumable with temporary effects.
+        if(player.getArmor() != null && player.getHasConsumeTemp()) //Display content if player has armor and temporary consumable is used
+            System.out.printf("|   Temp Effects:   %-2d             |    Armor:      %-20s     |\n", player.getConsumable().getAffectingTurns() - player.getConsumable().getTurnCounter(),  
+                              player.getArmor().getName()); 
+        else if(player.getArmor() == null && player.getHasConsumeTemp()) //Display content if no armor but temporary consumable is used
+            System.out.printf("|   Temp Effects:   %-2d           |    Armor:      None                     |\n", 
+                              player.getConsumable().getAffectingTurns() - player.getConsumable().getTurnCounter()); 
+        else //Display if neither apply
             System.out.printf("|                                  |    Armor:      None                     |\n"); 
 
-        System.out.printf("|                                  |    Consumable: None                     |\n"); 
+
+        //Checks if player has a consumable equipped or not.
+        if(player.getConsumable() != null)
+            System.out.printf("|                                  |    Consumable: %-20s [%d] |\n", player.getConsumable().getName(), player.getConsumable().getChargesLeft()); 
+        else
+            System.out.printf("|                                  |    Consumable: None                     |\n");
+
+
         System.out.printf("|----------------------------------------------------------------------------|\n"); 
         System.out.printf("|   CURRENT ENVIRONMENT   |           ENVIRONMENT EFFECTS                    |\n"); 
-        System.out.printf("|   %-15s       |  Player: %-40s|\n", environment.getName(), environment.getPlayerEffectDescription()); 
+        System.out.printf("|   %-20s  |  Player: %-40s|\n", environment.getName(), environment.getPlayerEffectDescription()); 
         System.out.printf("|                         |  Enemy:  %-40s|\n", environment.getEnemyEffectDescription()); 
         System.out.printf("==============================================================================\n"); 
     }
@@ -235,14 +296,14 @@ public class CLIViewer {
                 if(isCharging){
 
                     System.out.printf("%s Charge Attacks %s!\n", player.getName(), enemy.getName());      
-                    System.out.printf("%s Dealt %-3d Damage! (Triple Damage!)\n", player.getName(),  player.obtainLastAttackDealt(this));
+                    System.out.printf("%s Dealt %d Damage! (Triple Damage!)\n", player.getName(),  player.obtainLastAttackDealt(this));
                     isCharging = false;
 
                 }
                 else{
 
                     System.out.printf("%s Attacks %s!\n", player.getName(), enemy.getName());      
-                    System.out.printf("%s Dealt %-3d Damage!\n", player.getName(),  player.obtainLastAttackDealt(this));
+                    System.out.printf("%s Dealt %d Damage!\n", player.getName(),  player.obtainLastAttackDealt(this));
 
                 } 
 
@@ -261,6 +322,25 @@ public class CLIViewer {
                 System.out.printf("%s Next Attack Turn Will Deal Triple Damage!\n", player.getName()); 
                 isCharging = true;  
 
+            case "Consume":
+
+                System.out.printf("%s Consumes %s!\n", player.getName(), player.getConsumable().getName());  
+
+                if(player.getConsumable().getIsTemporary())    
+                    System.out.printf("%s Provides a Temporary Effect for %d Turns!\n", player.getConsumable().getName(), 
+                                      player.getConsumable().getAffectingTurns() - player.getConsumable().getTurnCounter()); 
+                else
+                     System.out.printf("%s Provides a Premanent Effect!\n", player.getConsumable().getName());
+                
+                if(player.getConsumable().getAffectsPlayer())
+                    System.out.printf(" %s\n", player.getConsumable().getPlayerConsumableDescription());  
+
+                if(player.getConsumable().getAffectsEnemy())
+                    System.out.printf("%s\n", player.getConsumable().getEnemyConsumableDescription());                
+
+
+                isCharging = false;           
+
         }
 
     }
@@ -277,13 +357,13 @@ public class CLIViewer {
         if(playerChoice.equals("Defend")){
 
             System.out.printf("%s Attacks %s But They Were Defending!\n", enemy.getName(), player.getName());      
-            System.out.printf("%s Dealt %-3d Damage! (Damage Halved!)\n", enemy.getName(), enemy.obtainLastAttackDealt(this));
+            System.out.printf("%s Dealt %d Damage! (Damage Halved!)\n", enemy.getName(), enemy.obtainLastAttackDealt(this));
 
         }
         else{
 
             System.out.printf("%s Attacks %s!\n", enemy.getName(), player.getName()); 
-            System.out.printf("%s Dealt %-3d Damage!\n", enemy.getName(), enemy.obtainLastAttackDealt(this));
+            System.out.printf("%s Dealt %d Damage!\n", enemy.getName(), enemy.obtainLastAttackDealt(this));
 
         }
         
@@ -307,16 +387,16 @@ public class CLIViewer {
                 if(isCharging){
 
                     System.out.printf("%s Charge Attacks and %s Attacks!\n", player.getName(), enemy.getName());      
-                    System.out.printf("%s Dealt %-3d Damage! (Triple Damage!)\n", player.getName(),  player.obtainLastAttackDealt(this));
-                    System.out.printf("%s Dealt %-3d Damage!\n", enemy.getName(), enemy.obtainLastAttackDealt(this));
+                    System.out.printf("%s Dealt %d Damage! (Triple Damage!)\n", player.getName(),  player.obtainLastAttackDealt(this));
+                    System.out.printf("%s Dealt %d Damage!\n", enemy.getName(), enemy.obtainLastAttackDealt(this));
                     isCharging = false;
 
                 }
                 else{
 
                     System.out.printf("%s and %s Attacks!\n", player.getName(), enemy.getName());      
-                    System.out.printf("%s Dealt %-3d Damage!\n", player.getName(),  player.obtainLastAttackDealt(this));
-                    System.out.printf("%s Dealt %-3d Damage!\n", enemy.getName(), enemy.obtainLastAttackDealt(this));
+                    System.out.printf("%s Dealt %d Damage!\n", player.getName(),  player.obtainLastAttackDealt(this));
+                    System.out.printf("%s Dealt %d Damage!\n", enemy.getName(), enemy.obtainLastAttackDealt(this));
 
                 } 
 
@@ -326,7 +406,7 @@ public class CLIViewer {
 
                 System.out.printf("%s Prepares to Charge and %s Attacks!\n", player.getName());      
                 System.out.printf("%s Next Attack Turn Will Deal Triple Damage!\n", player.getName()); 
-                System.out.printf("%s Dealt %-3d Damage!\n", enemy.getName(), enemy.obtainLastAttackDealt(this));
+                System.out.printf("%s Dealt %d Damage!\n", enemy.getName(), enemy.obtainLastAttackDealt(this));
                 isCharging = true;  
 
         }
@@ -354,9 +434,9 @@ public class CLIViewer {
 
             //Check if positive or negative values of enemyStatEffect
             if(environment.getEnemyStatEffect() > 0)
-                System.out.printf("%s's %s Is Increased by %d!\n", player.getName(), environment.getEnemyStatToEffect(), environment.getEnemyStatEffect()); 
+                System.out.printf("%s's %s Is Increased by %d!\n", enemy.getName(), environment.getEnemyStatToEffect(), environment.getEnemyStatEffect()); 
             else
-                System.out.printf("%s's %s Is Decreased By %d!\n", player.getName(), environment.getEnemyStatToEffect(), -environment.getEnemyStatEffect());  
+                System.out.printf("%s's %s Is Decreased By %d!\n", enemy.getName(), environment.getEnemyStatToEffect(), -environment.getEnemyStatEffect());  
 
         }
         else
@@ -377,7 +457,7 @@ public class CLIViewer {
 
 
         //If condition checks for who goes first(Same conditions for turnSystem)
-        if(enemy.getSpeed() < player.getSpeed() || player.getIsDefending()){
+        if(enemy.getSpeed() < player.getSpeed() || player.getIsDefending() || playerChoice.equals("Consume")){
             
             displayPlayerResult(playerChoice);
             displayEnemyResult(playerChoice);

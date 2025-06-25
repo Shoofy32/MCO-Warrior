@@ -2,7 +2,7 @@ public class Environment {
     
     //Private Attributes
     private String name; 
-    private boolean hasEffect = false; //Boolean stores whether the environment will deal an effect or not
+    private boolean hasEffect = false; //Stores whether the environment will deal an effect or not
 
     //Player Affecting Attributes
     private int playerStatEffect = 0; //Stores the value of how much the Player stat will be affected
@@ -173,7 +173,12 @@ public class Environment {
 
             case "HitPoints":
                 
-                enemyEffectDescription += " damage every turn.";
+                //Checks specifically for HitPoints whether statEffect is positive or negative and updates description.
+                if(enemyStatEffect < 0)
+                    enemyEffectDescription += " damage every turn.";
+                else if(enemyStatEffect > 0)
+                    enemyEffectDescription += " health every turn.";    
+                
                 break;
 
 
@@ -220,7 +225,7 @@ public class Environment {
 
             case "Speed":
 
-                player.settSpeed(player.getSpeed() + playerStatEffect); //Affect Speed
+                player.setSpeed(player.getSpeed() + playerStatEffect); //Affect Speed
 
 
         }
@@ -251,7 +256,7 @@ public class Environment {
 
             case "Speed":
 
-                enemy.settSpeed(enemy.getSpeed() + enemyStatEffect); //Affect Speed
+                enemy.setSpeed(enemy.getSpeed() + enemyStatEffect); //Affect Speed
 
         }
         

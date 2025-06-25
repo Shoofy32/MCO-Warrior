@@ -5,10 +5,10 @@ public class Enemy {
     private String type;
 
     //Stat attributes
-    private int hitPoints;
-    private int attack;
-    private int defense;
-    private int speed;
+    private int hitPoints; //Health of the Player
+    private int attack; //How much damage they will deal
+    private int defense; //How much damage can be resisted
+    private int speed; //How fast they will attack (Determines who goes first)
 
     //Static attributes
     private static int totalEnemies = 0; //Stores the amount of Enemy instances
@@ -78,29 +78,40 @@ public class Enemy {
     //Setters
     public void setHitPoints(int hitPoints){
         
-        //Checks whether hitpoints provided is greater than 0
-        if(hitPoints >= 0)
-            this.hitPoints = hitPoints;
-        else
-            this.hitPoints = 0; //Forces it to be 0 to avoid any negative values        
+        this.hitPoints = hitPoints;
+
+        //Checks if hitPoints has turned into negative values
+        if(this.hitPoints < 0)
+            this.hitPoints = 0; //Forces it to be 0 to avoid any negative values   
 
     }
 
     public void setAttack(int attack){
 
-        this.attack = attack;
+        //Checks whether attack provided is greater or equal than 0
+        if(attack >= 0)
+            this.attack = attack;
+        else
+            this.attack = 0; //Forces it to be 0 to avoid any negative values   
 
     }
 
-    public void settSpeed(int speed){
+    public void setSpeed(int speed){
 
-        this.speed = speed;
+        if(speed >= 0)
+            this.speed = speed;
+        else
+            this.speed = 0; //Forces it to be 0 to avoid any negative values  
 
     }
 
     public void setDefense(int defense){
 
-        this.defense = defense;
+        //Checks whether defense provided is greater or equal than 0
+        if(defense >= 0)
+            this.defense = defense;
+        else
+            this.speed = 0; //Forces it to be 0 to avoid any negative values  
         
     }
 
@@ -134,6 +145,8 @@ public class Enemy {
 
     }
 
+
+    //Method allows display to get the last attack's amount
     public int obtainLastAttackDealt(CLIViewer display){
 
         //If condition to check whether display is an instance of CLIViewer
