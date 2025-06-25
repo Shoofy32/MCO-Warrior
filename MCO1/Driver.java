@@ -140,12 +140,5 @@ public class Driver {
         event.getSelectionController().addConsumable(consumable1);
         event.getSelectionController().addConsumable(consumable2);
         event.getSelectionController().addConsumable(consumable3);
-
-
-                choiceInput = event.playerChoice(input);
-                choiceInput = Character.toUpperCase(choiceInput); //Converts input to uppercase to accept lowercase inputs like "q" and "a"
-
-
-
     }
 }
