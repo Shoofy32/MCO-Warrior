@@ -51,7 +51,7 @@ public class EventController {
     //EventController Methods
     public char mainMenu(Scanner input){
 
-        char menuInput;
+        char menuInput='Z';
 
         //Do-while loop for invalid input
         do{
@@ -59,10 +59,15 @@ public class EventController {
             display.displayMainMenu(); //Display main menu
 
             System.out.printf("Input: ");
-            menuInput = input.nextLine().charAt(0); //Gets Player for main menu
+            try{
+                menuInput = input.nextLine().charAt(0); //Gets Player for main menu
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.printf("\nCannot enter an empty character\n");
+            }
+            menuInput = Character.toUpperCase(menuInput);
 
             if(menuInput != 'A' && menuInput != 'Q')
-                System.out.printf("\nPlease provide a valid input.\n"); //Display invalid input        
+                System.out.printf("\nPlease provide a valid input.\n"); //Display invalid input
 
         }while(menuInput != 'A' && menuInput != 'Q');
 
@@ -179,7 +184,7 @@ public class EventController {
     //Method for Player's turn and their choice during this turn.
     public char playerChoice(Scanner input){
 
-        char choiceInput = 'Z'; //Sets default choiceInput to Z
+        char choiceInput = 'Z'; //Sets default choiceInput to newline
 
         //Do-while to check for invalid input
         do{
@@ -187,7 +192,12 @@ public class EventController {
             display.displayChoices(); //Display player choices for their turn
     
             System.out.printf("Input: ");
-            choiceInput = input.nextLine().charAt(0); //Gets character input
+            try{
+                choiceInput = input.nextLine().charAt(0); //Gets character input
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.printf("\nCannot enter an empty character\n");
+            }
+            choiceInput = Character.toUpperCase(choiceInput);
 
             //Checks for invalid input
             if(choiceInput != 'A' && choiceInput != 'D' && choiceInput != 'C' && choiceInput != 'I'){
@@ -260,7 +270,13 @@ public class EventController {
 
             display.displayEndMainMenu(); //Display ending main menu
             System.out.printf("Input (Char): ");
-            choiceInput = input.nextLine().charAt(0); //Gets character input
+            try {
+                choiceInput = input.nextLine().charAt(0); //Gets character input
+            }
+            catch (StringIndexOutOfBoundsException e) {
+                System.out.printf("\nCannot enter an empty character\n");
+            }
+            choiceInput = Character.toUpperCase(choiceInput);
 
             //Checks for invalid input
             if(choiceInput != 'R' && choiceInput != 'Q'){
