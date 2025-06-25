@@ -21,7 +21,6 @@ public class EventController {
     //Constructor
     public EventController(){
 
-        player = new Player();
         display = new CLIViewer();
         selection = new SelectionController(display);
         
@@ -52,6 +51,7 @@ public class EventController {
     public char mainMenu(Scanner input){
 
         char menuInput;
+        String name;
 
         //Do-while loop for invalid input
         do{
@@ -60,6 +60,7 @@ public class EventController {
 
             System.out.printf("Input: ");
             menuInput = input.nextLine().charAt(0); //Gets Player for main menu
+            menuInput = Character.toUpperCase(menuInput);
 
             if(menuInput != 'A' && menuInput != 'Q')
                 System.out.printf("\nPlease provide a valid input.\n"); //Display invalid input        
@@ -74,7 +75,9 @@ public class EventController {
             do{
 
                 System.out.printf("\n\nEnter Player Name (15 Character Limit): ");
-                player.setName(input.nextLine()); //Asks for Player name input
+                name = input.nextLine(); //Asks for Player name input
+                
+                player = new Player(name);
 
                 //Checks whether Player name length is higher than 15
                 if(player.getName().length() > 15)
@@ -106,10 +109,13 @@ public class EventController {
         //Weapon and Armor attributes that store selected choice
         Weapon equipWeapon = selection.selectWeapon(input); 
         Armor equipArmor = selection.selectArmor(input);
+       Consumable equipConsumable = selection.selectConsumable(input);
 
         player.equipWeapon(equipWeapon); //Calls method for Player to equip chosen Weapon
 
         player.equipArmor(equipArmor); //Calls method for Player to equip chosen Armor
+
+        player.equipConsumable(equipConsumable);
 
         enemy = selection.selectEnemy(input); //Updates enemy attribute to chosen Enemy
         
@@ -135,11 +141,15 @@ public class EventController {
 
         String playerTurnChoice; //Gets the choice of the Player that gets returned from the Player think method
 
+        //Checks if the player has previously consumed a potion that provides temporary effects.
+        if(player.getHasConsumeTemp())
+            player.getConsumable().countAffectingTurns(player, enemy); //Calls counter and restores stats once timer ends
+
 
         /* If conditions to check the turn system of the game (Determines who goes first)
          * Turn is determined by the checkWinner() method. (If theres a checkWin() method before their turn, then their turn was second)
          */
-        if(enemy.getSpeed() < player.getSpeed() || player.getIsDefending()){ //Checks if player is faster or defending
+        if(enemy.getSpeed() < player.getSpeed() || player.getIsDefending() || choice == 'U'){ //Checks if player is faster, defending, or consumed
             
             playerTurnChoice = player.think(choice, enemy); //Player goes first
             checkWinner(); //Check for win condition
@@ -187,10 +197,11 @@ public class EventController {
             display.displayChoices(); //Display player choices for their turn
     
             System.out.printf("Input: ");
-            choiceInput = input.nextLine().charAt(0); //Gets character input
+            choiceInput = input.nextLine().toUpperCase().charAt(0); //Gets character input
+            choiceInput = Character.toUpperCase(choiceInput);
 
             //Checks for invalid input
-            if(choiceInput != 'A' && choiceInput != 'D' && choiceInput != 'C' && choiceInput != 'I'){
+            if(choiceInput != 'A' && choiceInput != 'D' && choiceInput != 'C' && choiceInput != 'I' && choiceInput != 'U'){
 
                 System.out.printf("\nERROR: Please provide a valid input.\n");   
                 choiceInput = 'Z'; //Returns to deafault value
@@ -201,7 +212,21 @@ public class EventController {
                 System.out.printf("\nERROR: You can't charge again at the moment!\n");  
                 choiceInput = 'Z'; //Returns to deafult value
 
+            } 
+            else if(choiceInput == 'U' && player.getConsumable() == null){ //Checks if player tries to use a nonexistient consumable
+
+                System.out.printf("\nERROR: No consumable equipped!\n");  
+                choiceInput = 'Z'; //Returns to deafult value
+
             }
+            else if(choiceInput == 'U' && player.getConsumable() != null && player.getConsumable().getChargesLeft() == 0){
+                //Checks if player tries to use a consumable that is out of charges.
+
+                System.out.printf("\nERROR: No charges left!\n");  
+                choiceInput = 'Z'; //Returns to deafult value
+
+            }
+            
 
         }while(choiceInput == 'Z');      
     
@@ -261,6 +286,7 @@ public class EventController {
             display.displayEndMainMenu(); //Display ending main menu
             System.out.printf("Input (Char): ");
             choiceInput = input.nextLine().charAt(0); //Gets character input
+            choiceInput = Character.toUpperCase(choiceInput);
 
             //Checks for invalid input
             if(choiceInput != 'R' && choiceInput != 'Q'){
@@ -296,14 +322,16 @@ public class EventController {
         //Removes any existing equipment and resets character to default sats
         player.unequipArmor();
         player.unequipWeapon();
+        player.getConsumable().resetCharges();
+        player.unequipConsumable();
         player.setHitPoints(100);
-        player.settSpeed(50);
+        player.setSpeed(50);
 
         //Resets the enemy to its original values
         enemy.setHitPoints(enemyHitPointsCopy); 
         enemy.setAttack(enemyAttackCopy);
         enemy.setDefense(enemyDefenseCopy);
-        enemy.settSpeed(enemySpeedCopy);
+        enemy.setSpeed(enemySpeedCopy);
         enemy = null;
 
         isRunning = true;
