@@ -481,4 +481,12 @@ public class Consumable {
         
     }
 
+
+    //Method to reset charges
+    public void resetCharges(){
+
+        chargesLeft = maxCharges;
+        
+    }
+
 }
