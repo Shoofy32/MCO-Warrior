@@ -65,7 +65,7 @@ public class Driver {
         Enemy enemy4 = new Enemy("Isshin", "Samurai", 200, 35, 20, 40);
         Enemy enemy5 = new Enemy("Ornstein", "Knight", 300, 40, 35, 10);
         Enemy enemy6 = new Enemy("Hornet", "Knight", 250, 30, 10, 55);
-        Enemy enemy7 = new Enemy("Radiance", "Diety", 999, 70, 30, 25);
+        Enemy enemy7 = new Enemy("Radiance", "Deity", 999, 70, 30, 25);
 
         //Create Environment instances
         Environment environment1 = new Environment("Arena", false);
