@@ -49,6 +49,7 @@ public class Driver {
         Weapon weapon7 = new Weapon("Brass Knuckles", "Fists", 20, 1);
         Weapon weapon6 = new Weapon("Pure Nail", "Rapier", 25, 5);
 
+
         //Create Armor instances
         Armor armor1 = new Armor("Leather Armor", "Light", 20, 5);
         Armor armor2 = new Armor("Chainmail Armor", "Medium", 30, 15);
@@ -57,6 +58,7 @@ public class Driver {
         Armor armor5 = new Armor("Frost Iron Armor", "Heavy", 50, 30);
         Armor armor6 = new Armor("Baldur Shell", "Heavy", 60, 40);
         Armor armor7 = new Armor("Sprintmaster Armor", "Light", 10, 5);
+
         
         //Create Enemy instances
         Enemy enemy1 = new Enemy("Bandit", "Thief", 150, 20, 20, 40);
@@ -66,6 +68,7 @@ public class Driver {
         Enemy enemy5 = new Enemy("Ornstein", "Knight", 300, 40, 35, 10);
         Enemy enemy6 = new Enemy("Hornet", "Knight", 250, 30, 10, 55);
         Enemy enemy7 = new Enemy("Radiance", "Deity", 999, 70, 30, 25);
+
 
         //Create Environment instances
         Environment environment1 = new Environment("Arena", false);
@@ -101,6 +104,7 @@ public class Driver {
         event.getSelectionController().addWeapon(weapon6);
         event.getSelectionController().addWeapon(weapon7);
 
+
         //Store Armor instances to Armor ArrayList
         event.getSelectionController().addArmor(armor1);
         event.getSelectionController().addArmor(armor2);
@@ -109,6 +113,7 @@ public class Driver {
         event.getSelectionController().addArmor(armor5);
         event.getSelectionController().addArmor(armor6);
         event.getSelectionController().addArmor(armor7);
+
 
         //Store Enemy instances to Enemy ArrayList
         event.getSelectionController().addEnemy(enemy1);
@@ -119,19 +124,26 @@ public class Driver {
         event.getSelectionController().addEnemy(enemy6);
         event.getSelectionController().addEnemy(enemy7);
 
+
         //Store Environment instances to Environment ArrayList
         event.getSelectionController().addEnvironment(environment1);
         event.getSelectionController().addEnvironment(environment2);
         event.getSelectionController().addEnvironment(environment3);
         event.getSelectionController().addEnvironment(environment4);
         event.getSelectionController().addEnvironment(environment5);
+
         event.getSelectionController().addEnvironment(environment6);
         event.getSelectionController().addEnvironment(environment7);
+
 
         //Store Consumable instances to Consumable ArrayList
         event.getSelectionController().addConsumable(consumable1);
         event.getSelectionController().addConsumable(consumable2);
         event.getSelectionController().addConsumable(consumable3);
+
+
+                choiceInput = event.playerChoice(input);
+                choiceInput = Character.toUpperCase(choiceInput); //Converts input to uppercase to accept lowercase inputs like "q" and "a"
 
 
 
