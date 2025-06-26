@@ -1,3 +1,13 @@
+/**
+ * Class file for the player class, the user's controllable fighter in the battle
+ * <p>
+ *     The player is a fighter whose equipment the user can customize
+ * </p>
+ * <p>
+ *     The player is capable of attacking, defending, charging, and using a consumable if available
+ * </p>
+ * @author Stefan_Martin
+ */
 public class Player {
     
     //String attributes
@@ -24,6 +34,11 @@ public class Player {
 
     
     //Constructor
+
+    /**
+     * Constructor for the player object
+     * @param name a unique name the player will be identified with
+     */
     public Player(String name){
 
        this.name = name;
@@ -32,6 +47,11 @@ public class Player {
 
 
     //Setters
+
+    /**
+     * Updates the player's health value
+     * @param hitPoints new health value
+     */
     public void setHitPoints(int hitPoints){
         
         this.hitPoints = hitPoints;
@@ -44,6 +64,10 @@ public class Player {
 
     }
 
+    /**
+     * Updates the player's atk value
+     * @param attack new atk value
+     */
     public void setAttack(int attack){
 
         //Checks whether attack provided is greater or equal than 0
@@ -54,6 +78,10 @@ public class Player {
 
     }
 
+    /**
+     * Updates the player's spd value
+     * @param speed new spd value
+     */
     public void setSpeed(int speed){
 
         if(speed >= 0)
@@ -63,6 +91,10 @@ public class Player {
 
     }
 
+    /**
+     * Updates the player's def value
+     * @param defense new def value
+     */
     public void setDefense(int defense){
 
         //Checks whether defense provided is greater or equal than 0
@@ -73,6 +105,10 @@ public class Player {
         
     }
 
+    /**
+     * Updates the player's current consumable usage
+     * @param hasConsumeTemp new state of consumable usage (true or false)
+     */
     public void setHasConsumeTemp(boolean hasConsumeTemp){
 
         this.hasConsumeTemp = hasConsumeTemp;
@@ -81,66 +117,111 @@ public class Player {
 
 
     //Getters
+
+    /**
+     * Getter method to retrieve the player's name
+     * @return the player's name
+     */
     public String getName(){
 
         return name;
 
     }
 
+    /**
+     * Getter method to retrieve the player's current HP value
+     * @return the player's current HP
+     */
     public int getHitPoints(){
         
         return hitPoints;
 
     }
 
+    /**
+     * Getter method to retrieve the player's current atk value
+     * @return the player's current atk
+     */
     public int getAttack(){
 
         return attack;
 
     }
 
+    /**
+     * Getter method to retrieve the player's current spd value
+     * @return the player's current spd
+     */
     public int getSpeed(){
 
         return speed;
 
     }
 
+    /**
+     * Getter method to retrieve the player's current def value
+     * @return the player's current def
+     */
     public int getDefense(){
 
         return defense;
         
     }
 
+    /**
+     * Getter method to retrieve the player's currently equipped armor object
+     * @return the player's current armor
+     */
     public Armor getArmor(){
 
         return armor;
 
     }
 
+    /**
+     * Getter method to retrieve the player's currently equipped weapon object
+     * @return the player's current weapon
+     */
     public Weapon getWeapon(){
 
         return weapon;
 
     }
 
+    /**
+     * Getter method to retrieve the player's currently equipped consumable object
+     * @return the player's current consumable
+     */
     public Consumable getConsumable(){
 
         return consumable;
 
     }
 
+    /**
+     * Getter method to determine if the player is currently charging their attack
+     * @return player's current state of charging (true or false)
+     */
     public boolean getIsCharging(){
 
         return isCharging;
 
     }
 
+    /**
+     * Getter method to determine if the player is currently defending
+     * @return player's current state of defending (true or false)
+     */
     public boolean getIsDefending(){
 
         return isDefending;
 
     }
 
+    /**
+     * Getter method to determine if the player is capable of using another consumable
+     * @return player's current state of consumable use (true or false)
+     */
     public boolean getHasConsumeTemp(){
 
         return hasConsumeTemp;
@@ -149,6 +230,11 @@ public class Player {
 
 
     //Methods for Equipping Gear
+
+    /**
+     * Equips the chosen armor object
+     * @param armor armor to be equipped
+     */
     public void equipArmor(Armor armor){
 
         //If condition to check whether the parameter object it not null
@@ -163,7 +249,10 @@ public class Player {
 
     }
 
-
+    /**
+     * Equips the chosen weapon object
+     * @param weapon weapon to be equipped
+     */
     public void equipWeapon(Weapon weapon){
 
         //If condition to check whether the parameter object it not null
@@ -178,7 +267,10 @@ public class Player {
 
     }
 
-
+    /**
+     * Equips the chosen consumable object
+     * @param consumable consumable to be equipped
+     */
     public void equipConsumable(Consumable consumable){
 
         //If condition to check whether the parameter object it not null
@@ -187,7 +279,9 @@ public class Player {
 
     }
 
-
+    /**
+     * Unequips the currently equipped armor
+     */
     public void unequipArmor(){
 
         defense = 1;
@@ -196,7 +290,9 @@ public class Player {
 
     }
 
-
+    /**
+     * Unequips the currently equipped weapon
+     */
     public void unequipWeapon(){
 
         attack = 1;
@@ -205,7 +301,9 @@ public class Player {
 
     }
 
-
+    /**
+     * Unequips the currently equipped consumable
+     */
     public void unequipConsumable(){
 
         consumable = null;
@@ -215,12 +313,12 @@ public class Player {
 
     //Turn-based Methods
 
-    /* -Think Method-
-     * Description: Method for the Player to choose what to do in their turn. Their choice will call the corresponding method
-     * and end their turn.
-     * @param input - Scanner instance that will be used to gather input.
-     * Precondition: Currently Players Turn
-     * Return Value: String of the players choice that will be used by CLIViewer for display
+    /**
+     * Method for the player to choose what they wish to do during their turn, the player can choose to do only
+     * one action per turn
+     * @param choice The user's input to determine the player's action
+     * @param target The enemy object the player is currently fighting
+     * @return the given action the player will perform in the turn
      */
     public String think(char choice, Enemy target){
 
@@ -251,7 +349,9 @@ public class Player {
                     playerChoice = "Charge";
                     charge(); //C - Charge Player
 
-                }  
+                }
+                 
+                break;
                 
             case 'U':
 
@@ -270,12 +370,9 @@ public class Player {
     }
 
 
-    /* -Attack Method-
-     * Description: Method to attack the enemy target and deal an amount of damage depending on the attack stat of the player and 
-     * the enemies defense. If charging was done last turn, then damage dealt will be triple.
-     * @param target - Enemy instance that the player will target to deal damage to.
-     * Precondition: Currently Players Turn
-     * Return Value: None
+    /**
+     * Method to attack the enemy object, attacking is affected by player atk, enemy def, and the player's charging state
+     * @param target the enemy object to be attacked.
      */
     public void attack(Enemy target){
 
@@ -284,7 +381,7 @@ public class Player {
         //If condition to check whether the Player was charging at the time of their attack
         if(isCharging){
 
-            //Ternary Operator to calculate damage wether damage was dealt or not while charging (Triple damage)
+            //Ternary Operator to calculate damage whether damage was dealt or not while charging (Triple damage)
             damage = (attack * 3 - target.getDefense() > 0) ? attack * 3 - target.getDefense() : 0;
             target.setHitPoints(target.getHitPoints() - damage); //Updates the targets hitpoints after taking damage
 
@@ -294,7 +391,7 @@ public class Player {
         }
         else{
 
-            //Ternary Operator to calculate damage wether damage was dealt or not
+            //Ternary Operator to calculate damage whether damage was dealt or not
             damage = (attack - target.getDefense() > 0) ? attack - target.getDefense() : 0;
             target.setHitPoints(target.getHitPoints() - damage); //Updates the targets hitpoints after taking damage
 
@@ -305,11 +402,9 @@ public class Player {
     }
 
 
-    /* -Defend Method-
-     * Description: Method to defend the player by making isDefending true. Making it prioritize 
-     * their remove and halving any damage dealt to them.
-     * Precondition: Currently Players Turn
-     * Return Value: None
+    /**
+     * Method for allowing the player to defend, defending takes priority regardless of the player's spd and will
+     * halve all damage dealt to the player in that turn. Set's the player's defending state to true
      */
     public void defend(){
 
@@ -320,7 +415,9 @@ public class Player {
 
     }
 
-
+    /**
+     * Method for setting the player's defending state to false
+     */
     public void stopDefending(){
 
         //If condition checks whether Player was defending
@@ -331,11 +428,9 @@ public class Player {
 
     }
 
-    /* -Charge Method-
-     * Description: Method for the player to charge and skip their damage. In the next turn, if they deal damage, it will deal
-     * triple the original amount.
-     * Precondition: Currently Players Turn and is not currently charging (isCharging is false).
-     * Return Value: None
+    /**
+     * Method for allowing the player to charge, charging triples the damage of the player's atk, this is
+     * done before enemy def is taken into account
      */
     public void charge(){
 
@@ -343,7 +438,9 @@ public class Player {
 
     }
 
-
+    /**
+     * Method for setting the player's charging state to false
+     */
     public void stopCharging(){
 
         //If condition checks whether Player was charging
@@ -356,6 +453,12 @@ public class Player {
 
 
     //Method allows display to get the last attack's amount
+    /**
+     * Method for displaying the last attack's value
+     * @param display the CLI Viewer class
+     * @see CLIViewer
+     * @return the value of the latest attack
+     */
     public int obtainLastAttackDealt(CLIViewer display){
 
         //If condition to check whether display is an instance of CLIViewer
@@ -368,6 +471,11 @@ public class Player {
 
 
     //Method uses the consumable equipped and gets corresponding effects for both Player and Enemy
+
+    /**
+     * Method that uses the currently equipped consumable can either affect the enemy, player, or both
+     * @param target Enemy object to be affected by the consumable
+     */
     public void consume(Enemy target){
 
         //Checks if there are any charges left

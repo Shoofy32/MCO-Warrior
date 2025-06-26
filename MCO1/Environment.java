@@ -1,3 +1,16 @@
+/**
+ * Class file for the Environment class.
+ * <p>
+ *     The environment is the area/location wherein a battle takes place.
+ * </p>
+ * <p>
+ *     Environments impart unique stat effects onto both the player and enemy giving either one an advantage in battle.
+ * </p>
+ * <p>
+ *     This class also contains a static attribute to keep track of the total Environment objects generated.
+ * </p>
+ * @author Stefan_Martin
+ */
 public class Environment {
     
     //Private Attributes
@@ -20,7 +33,13 @@ public class Environment {
 
     //Constructors
 
-    //Constructor with no effets
+    //Constructor with no effects
+
+    /**
+     * Constructor for environments that have no special effect i.e. the Arena
+     * @param name unique name of the environment
+     * @param hasEffect boolean to determine whether an environment will provide a unique effect or not
+     */
     public Environment(String name, boolean hasEffect){
 
         this.name = name;
@@ -29,7 +48,17 @@ public class Environment {
 
     }
 
-    //Constructor with effets
+    //Constructor with effects
+
+    /**
+     * Constructor for environments that have a special effect, environments only affect 1 stat of the enemy and 1 stat of the player
+     * @param name unique name of the environment
+     * @param hasEffect boolean to determine whether an environment will provide a unique effect or not
+     * @param playerStatEffect the value to be applied to the chosen stat of the player
+     * @param pStatToEffect the player stat to be affected
+     * @param enemyStatEffect the value to be applied to the chosen stat of the enemy
+     * @param eStatToEffect the enemy stat to be affected
+     */
     public Environment(String name, boolean hasEffect, int playerStatEffect, String pStatToEffect, 
                        int enemyStatEffect, String eStatToEffect){
 
@@ -48,55 +77,92 @@ public class Environment {
 
 
     //Getters
+
+    /**
+     * Getter method for the environment's name
+     * @return the unique name of the environment
+     */
     public String getName(){
 
         return name;
 
     }
 
+    /**
+     * Getter method to determine whether the environment provides a unique effect
+     * @return boolean indicating if the environment has an effect
+     */
     public boolean getHasEffect(){
 
         return hasEffect;
 
     }
 
+    /**
+     * Getter method to get the value of the player's stat effect
+     * @return the value the player stat is affected by
+     */
     public int getPlayerStatEffect(){
 
         return playerStatEffect;
 
     }
 
+    /**
+     * Getter method to get the specific player stat to be affected
+     * @return the chosen player stat
+     */
     public String getPlayerStatToEffect(){
 
         return playerStatToEffect;
 
     }
 
+    /**
+     * Getter method for the description of the player effect
+     * @return brief sentence describing player effect of the environment
+     */
     public String getPlayerEffectDescription(){
 
         return playerEffectDescription;
 
     }
 
+    /**
+     * Getter method to get the value of the enemy's stat effect
+     * @return the value the enemy stat is affected by
+     */
     public int getEnemyStatEffect(){
 
         return enemyStatEffect;
 
     }
 
+    /**
+     * Getter method to get the specific enemy stat to be affected
+     * @return the chosen enemy stat
+     */
     public String getEnemyStatToEffect(){
 
         return enemyStatToEffect;
         
     }
 
+    /**
+     * Getter method for the description of the enemy effect
+     * @return brief sentence describing enemy effect of the environment
+     */
     public String getEnemyEffectDescription(){            
 
         return enemyEffectDescription;
 
     }
 
-    //Returns total amount of Environment instances 
+    //Returns total amount of Environment instances
+    /**
+     * Static method to get the total environment objects instantiated
+     * @return total environment objects constructed
+     */
     public static int getTotalEnvironments(){
 
         return totalEnvironments;
@@ -107,6 +173,10 @@ public class Environment {
     //Environment effect Methods
 
     //Creates the description for playerEffectDescription
+
+    /**
+     * Generates a brief describing how the environment will affect the player during the battle
+     */
     public void createPlayerEnvironmentDescription(){
 
         playerEffectDescription = "Player"; 
@@ -151,6 +221,9 @@ public class Environment {
 
 
     //Creates the description for enemyEffectDescription
+    /**
+     * Generates a brief describing how the environment will affect the enemy during the battle
+     */
     public void createEnemyEnvironmentDescription(){
 
        enemyEffectDescription = "Enemy"; 
@@ -203,7 +276,12 @@ public class Environment {
 
 
     //Affects the Player's stat depending on values
-    public void effectPlayer(Player player){
+
+    /**
+     * Affects the chosen player stat
+     * @param player the player object whose stats will be affected
+     */
+    public void affectPlayer(Player player){
 
         //Switch statement determines which stat to effect depending on playerStatToEffect
         switch(playerStatToEffect){
@@ -234,7 +312,12 @@ public class Environment {
     
 
     //Affects the Enemy's stat depending on values
-    public void effectEnemy(Enemy enemy){
+
+    /**
+     * Affects the chosen enemy stat
+     * @param enemy the enemy object whose stats will be affected
+     */
+    public void affectEnemy(Enemy enemy){
 
         //Switch statement determines which stat to effect depending on enemyStatToEffect
         switch(enemyStatToEffect){

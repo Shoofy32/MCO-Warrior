@@ -1,5 +1,19 @@
 import java.util.Scanner;
 
+/**
+ * Class file that controls the events currently running in the program.
+ * <p>
+ *     This class manages the currently running events/processes in the program.
+ * </p>
+ * <p>
+ *     These events include the selections the user will to customize their battle.
+ * </p>
+ * @see SelectionController
+ * <p>
+ *     This class also handles the input from the user either while in the Main Menu or while in a battle.
+ * </p>
+ * @author Stefan_Martin
+ */
 public class EventController {
     
     //Main Attributes
@@ -19,6 +33,10 @@ public class EventController {
     private int enemySpeedCopy; //Stores a copy of enemy speed chosen for reset purposes
 
     //Constructor
+
+    /**
+     * Constructor for the EventController Class
+     */
     public EventController(){
 
         display = new CLIViewer();
@@ -28,18 +46,33 @@ public class EventController {
 
     
     //Getters
+
+    /**
+     * Getter method to return the selection controller
+     * @return the selection controller class
+     * @see SelectionController
+     */
     public SelectionController getSelectionController(){
 
         return selection;
 
     }
 
+    /**
+     * Getter method to return the CLIViewer
+     * @return the CLIViewer class
+     * @see CLIViewer
+     */
     public CLIViewer getDisplay(){
 
         return display;
 
     }
 
+    /**
+     * Getter method to determine if the game is still running
+     * @return the boolean of the game running, when this returns false the game has ended
+     */
     public boolean getIsRunning(){
 
         return isRunning;
@@ -48,6 +81,12 @@ public class EventController {
 
 
     //EventController Methods
+
+    /**
+     * Method to manage the input coming in from the Main Menu
+     * @param input The user's input
+     * @return The user's choice to be used later on
+     */
     public char mainMenu(Scanner input){
 
         char menuInput='Z';
@@ -60,7 +99,7 @@ public class EventController {
 
             System.out.printf("Input: ");
             try{
-                menuInput = Character.toUpperCase(menuInput); //Gets Player for main menu
+                menuInput = input.nextLine().toUpperCase().charAt(0); //Gets Player for main menu
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.printf("\nCannot enter an empty character\n");
             }
@@ -105,7 +144,7 @@ public class EventController {
     }
 
 
-    //Method for Player to select Weapon, Armor, Enemy, and Environment
+    //Method for Player to select Weapon, Armor, Enemy, Consumable, and Environment
     private void selectChoices(Scanner input){
 
         //Weapon and Armor attributes that store selected choice
@@ -139,9 +178,14 @@ public class EventController {
 
     //Method to control the Turn System of the game
     //Parameter is the choice of the player during the game (Whether to attack, defend, charge, or consume)
-    void turnSystem(char choice){
 
-        String playerTurnChoice; //Gets the choice of the Player that gets returned from the Player think method
+    /**
+     * Method to control actual running battle
+     * @param choice The user's choice of a given action they want to do in one turn
+     */
+    public void turnSystem(char choice){
+
+        String playerTurnChoice = null; //Gets the choice of the Player that gets returned from the Player think method
 
         //Checks if the player has previously consumed a potion that provides temporary effects.
         if(player.getHasConsumeTemp())
@@ -155,16 +199,28 @@ public class EventController {
             
             playerTurnChoice = player.think(choice, enemy); //Player goes first
             checkWinner(); //Check for win condition
-            enemyTurn(); //Enemy goes next
-            checkWinner(); //Check for win condition
+
+            //Checks if game is still running to prevent unecessary Enemy turns
+            if(isRunning){
+
+                enemyTurn(); //Enemy goes next
+                checkWinner(); //Check for win condition
+
+            }
 
         }
         else if(enemy.getSpeed() > player.getSpeed()){ //Checks if enemy is faster
 
             enemyTurn(); //Enemy goes first
             checkWinner(); //Check for win condition
-            playerTurnChoice = player.think(choice, enemy); //Player goes next
-            checkWinner(); //Check for win condition
+
+            //Checks if game is still running to prevent unecessary Player turns
+            if(isRunning){
+
+                playerTurnChoice = player.think(choice, enemy); //Player goes next
+                checkWinner(); //Check for win condition
+
+            }
 
         }
         else{ //Both have the same speed
@@ -189,6 +245,12 @@ public class EventController {
 
     
     //Method for Player's turn and their choice during this turn.
+
+    /**
+     * Method for validating user input for their actions in the game, this includes error and exception handling
+     * @param input The user's input
+     * @return the user's chosen action
+     */
     public char playerChoice(Scanner input){
 
         char choiceInput = 'Z'; //Sets default choiceInput to newline
@@ -211,18 +273,21 @@ public class EventController {
 
                 System.out.printf("\nERROR: Please provide a valid input.\n");   
                 choiceInput = 'Z'; //Returns to deafault value
+                display.displayGameBar();
 
             }
             else if(choiceInput == 'C' && player.getIsCharging()){ //Checks if player picked charging even if player already charged
 
                 System.out.printf("\nERROR: You can't charge again at the moment!\n");  
                 choiceInput = 'Z'; //Returns to deafult value
+                display.displayGameBar();
 
             } 
             else if(choiceInput == 'U' && player.getConsumable() == null){ //Checks if player tries to use a nonexistient consumable
 
                 System.out.printf("\nERROR: No consumable equipped!\n");  
                 choiceInput = 'Z'; //Returns to deafult value
+                display.displayGameBar();
 
             }
             else if(choiceInput == 'U' && player.getConsumable() != null && player.getConsumable().getChargesLeft() == 0){
@@ -230,6 +295,7 @@ public class EventController {
 
                 System.out.printf("\nERROR: No charges left!\n");  
                 choiceInput = 'Z'; //Returns to deafult value
+                display.displayGameBar();
 
             }
             
@@ -253,8 +319,8 @@ public class EventController {
     //Method that uses environment effects to update Player and Enemy stats
     private void environmentEffect(){
 
-        environment.effectPlayer(player); //Affect Player stats
-        environment.effectEnemy(enemy); //Affect Enemy stats
+        environment.affectPlayer(player); //Affect Player stats
+        environment.affectEnemy(enemy); //Affect Enemy stats
 
     }
 
@@ -282,6 +348,12 @@ public class EventController {
 
 
     //Method for Player choice after game has ended
+
+    /**
+     * Method that allows the user to retry the battle or quit the program
+     * @param input The user's input
+     * @return The user's chosen action
+     */
     public char retry(Scanner input){
 
         char choiceInput = 'Z'; //Sets default choiceInput to Z
@@ -293,7 +365,7 @@ public class EventController {
             System.out.printf("Input (Char): ");
 
             try {
-                choiceInput = Character.toUpperCase(choiceInput); //Gets character input
+                choiceInput = input.nextLine().toUpperCase().charAt(0); //Gets character input
             }
             catch (StringIndexOutOfBoundsException e) {
                 System.out.printf("\nCannot enter an empty character\n");
@@ -333,7 +405,11 @@ public class EventController {
         //Removes any existing equipment and resets character to default sats
         player.unequipArmor();
         player.unequipWeapon();
-        player.getConsumable().resetCharges();
+        
+        //Checks if Consumable exist before resetting charges
+        if(player.getConsumable() != null)
+            player.getConsumable().resetCharges();
+
         player.unequipConsumable();
         player.setHitPoints(100);
         player.setSpeed(50);

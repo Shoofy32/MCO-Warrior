@@ -1,3 +1,13 @@
+/**
+ * Class file that handles rudimentary displaying of information in the command line.
+ * <p>
+ *     This class handles purely display related tasks.
+ * </p>
+ * <p>
+ *     Setter methods are used to store objects whose data is to be displayed.
+ * </p>
+ * @author Martin
+ */
 public class CLIViewer {
 
 
@@ -11,18 +21,29 @@ public class CLIViewer {
 
 
     //Setters
+
+    /**
+     * Setter for storing a Player object to access its information
+     * @param player Player object whose relevant info will be retrieved and displayed
+     */
     public void setPlayer(Player player){
 
         this.player = player;
 
     }
-
+    /**
+     * Setter for storing an Enemy object to access its information
+     * @param enemy Enemy object whose relevant info will be retrieved and displayed
+     */
     public void setEnemy(Enemy enemy){
 
         this.enemy = enemy;
 
     }
-
+    /**
+     * Setter for storing an Environment object to access its information
+     * @param environment Environment object whose relevant info will be retrieved and displayed
+     */
     public void setEnvironment(Environment environment){
 
         this.environment = environment;
@@ -33,6 +54,10 @@ public class CLIViewer {
     //Display Methods
 
     //Display main menu
+
+    /**
+     * Method for displaying the Main Menu of the game
+     */
     public void displayMainMenu(){
 
         
@@ -55,7 +80,13 @@ public class CLIViewer {
     }
 
 
-    //Display selections display 
+    //Display selections display
+
+    /**
+     * Method for displaying the relevant selection of objects
+     * @param type object type to be displayed (Weapon, Armor, Enemy, Consumable, Environment)
+     * @param selection object which holds the ArrayList containing all the object data to be displayed
+     */
     public void displaySelection(String type, SelectionController selection){
 
         int listSize; //Gets size of the ArrayList
@@ -223,6 +254,10 @@ public class CLIViewer {
 
 
     //Display player choices
+
+    /**
+     * Method for displaying possible player actions in a given turn
+     */
     public void displayChoices(){
 
         System.out.printf("==============================================================================\n");                                                                   
@@ -235,11 +270,15 @@ public class CLIViewer {
 
     
     //Dispaly game stats
+
+    /**
+     * Method for displaying current relevant combat data
+     */
     public void displayGameBar(){
 
         System.out.printf("\n\n==============================================================================\n");
         System.out.printf("|   %-15s  |           IN PROGRESS            |   %-15s  |\n", player.getName(), enemy.getName());                                    
-        System.out.printf("|   HitPoints: %-3d   |       ----Environment----        |   HitPoints: %4d  |\n", player.getHitPoints(), enemy.getHitPoints());
+        System.out.printf("|   HitPoints: %-3d   |       ----Environment----        |   HitPoints: %-4d  |\n", player.getHitPoints(), enemy.getHitPoints());
         System.out.printf("|      Attack: %-3d   |           %-20s   |      Attack: %-3d   |\n", player.getAttack(), environment.getName(), enemy.getAttack());
         System.out.printf("|     Defense: %-3d   |                                  |     Defense: %-3d   |\n", player.getDefense(), enemy.getDefense());
         System.out.printf("|       Speed: %-3d   |                                  |       Speed: %-3d   |\n", player.getSpeed(), enemy.getSpeed());
@@ -261,7 +300,9 @@ public class CLIViewer {
         else if(player.getArmor() == null && player.getHasConsumeTemp()) //Display content if no armor but temporary consumable is used
             System.out.printf("|   Temp Effects:   %-2d           |    Armor:      None                     |\n", 
                               player.getConsumable().getAffectingTurns() - player.getConsumable().getTurnCounter()); 
-        else //Display if neither apply
+        else if(player.getArmor() != null && !player.getHasConsumeTemp()) //Display content if player has armor but no temporary consumable
+            System.out.printf("|                                  |    Armor:      %-20s     |\n", player.getArmor().getName());         
+        else //Display if neither exist
             System.out.printf("|                                  |    Armor:      None                     |\n"); 
 
 
@@ -321,6 +362,7 @@ public class CLIViewer {
                 System.out.printf("%s Prepares to Charge!\n", player.getName());      
                 System.out.printf("%s Next Attack Turn Will Deal Triple Damage!\n", player.getName()); 
                 isCharging = true;  
+                break;
 
             case "Consume":
 
@@ -449,6 +491,11 @@ public class CLIViewer {
 
 
     //Display the total turn result of both Player, Enemy, and Environment
+
+    /**
+     * Method for displaying the outcome of a given turn
+     * @param playerChoice variable that is passed on to private display methods
+     */
     public void displayTurnResult(String playerChoice){
 
         System.out.printf("\n\n==============================================================================\n");
@@ -483,6 +530,11 @@ public class CLIViewer {
 
 
     //Display ending screens
+
+    /**
+     * Method for displaying the result of a given battle
+     * @param winner Indicates who is the victor of the match, this can either be the player, enemy, or a tie
+     */
     public void displayWinner(String winner){
 
         //Switch statement checks for String winner and display ending screen depending on result.
@@ -532,6 +584,10 @@ public class CLIViewer {
 
 
     //Display ending choices for Player
+
+    /**
+     * Method for displaying the ending prompt giving the player the option to quit or retry a new battle
+     */
     public void displayEndMainMenu(){
 
         System.out.printf("\n\n=======================================================================\n");                                                                   
@@ -541,5 +597,6 @@ public class CLIViewer {
         System.out.printf("=======================================================================\n"); 
 
     }
+
 
 }

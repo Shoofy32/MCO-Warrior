@@ -1,3 +1,14 @@
+/**
+ * Class file for the Armor class, this class will be updated later on for MCO2.
+ * <p>
+ *     This class contains mainly getter methods as most attributes are declared upon construction.
+ * </p>
+ * <p>
+ *     This class also contains a static attribute that keeps count of the total Armor objects generated.
+ * </p>
+ * @author Stefan_Martin
+ */
+
 public class Armor {
 
     //Private Attributes
@@ -10,10 +21,16 @@ public class Armor {
     private int defense; //Amount of defense the weapon can protect against
     private int speedPenalty; //Speed decrease when using the weapon
 
-    //Static Attriburtes
+    //Static Attributes
     private static int totalArmor  = 0; //Stores the amount of Armor instances
 
-    
+    /**
+     * Constructor for the Armor class
+     * @param name The armor's unique name, assumes all names passed are valid
+     * @param type Indicates the armor's type, assumes all types passed are valid
+     * @param defense The armor's def value, assumes any value as valid
+     * @param speedPenalty The armor's speed penalty, assumes any value as valid
+     */
     //Method Constructor
     public Armor(String name, String type, int defense, int speedPenalty){
 
@@ -27,30 +44,51 @@ public class Armor {
 
 
     //Getters
+
+    /**
+     * Getter method for the armor name
+     * @return the name of the armor object
+     */
     public String getName(){
 
         return name;
 
     }
 
+    /**
+     * Getter method for the armor type
+     * @return the type of the armor object
+     */
     public String getType(){
 
         return type;
 
     }
 
+    /**
+     * Getter method for the armor's def value
+     * @return the def value of the armor object
+     */
     public int getDefense(){
 
         return defense;
 
     }
 
+    /**
+     * Getter method for the armor's speed penalty
+     * @return speed penalty of the armorobject
+     */
     public int getSpeedPenalty(){
 
         return speedPenalty;
 
     }
 
+    /**
+     * Static getter method for total armor count
+     * @return Current total number of armor objects constructed
+     */
     //Returns total amount of Armor instances 
     public static int getTotalArmor(){
 

@@ -1,3 +1,16 @@
+/**
+ * Class file for the Consumable class.
+ * <p>
+ *     Consumables are highly customizable equipment that can affect either the player, the enemy, or both.
+ * </p>
+ * <p>
+ *     They are capable of serving as player/enemy buffs and player/enemy debuffs.
+ * </p>
+ * <p>
+ *     This class also contains a static attribute to keep track of the total Consumable objects generated.
+ * </p>
+ * @author Stefan_Martin
+ */
 public class Consumable {
     
     //Private General Attributes
@@ -29,12 +42,24 @@ public class Consumable {
     //Constructors
 
     //Constructor for stat changes for Player or Enemy only
-    public Consumable(String name, String type, int charges, boolean affectsPlayer, boolean affectsEnemy, String[] statsToEffect, 
+
+    /**
+     * Constructor for consumables that affect either the player or enemy
+     * @param name unique name of the consumable
+     * @param type unique type of the consumable, assumed all types are valid
+     * @param maxCharges amount of times the consumable can be used
+     * @param affectsPlayer determines whether the consumable will affect the player
+     * @param affectsEnemy determines whether the consumable will affect the enemy
+     * @param statsToEffect array of stats to be affected, 1 to 1 with the int array
+     * @param statValuesToEffect array of values that will affect the corresponding stats, 1 to 1 with the String array
+     * @param affectingTurns amount of turns the consumable remains active
+     */
+    public Consumable(String name, String type, int maxCharges, boolean affectsPlayer, boolean affectsEnemy, String[] statsToEffect,
                       int[] statValuesToEffect, int affectingTurns){
 
         this.name = name;
         this.type = type;
-        this.maxCharges = charges;
+        this.maxCharges = maxCharges;
         chargesLeft = this.maxCharges;
         this.affectsPlayer = affectsPlayer;
         this.affectsEnemy = affectsEnemy;
@@ -80,12 +105,24 @@ public class Consumable {
     }
 
     //Constructor for stat changes for both Player and Enemy
-    public Consumable(String name, String type, int charges, String[] statsToAffectPlayer, int[] statValuesToAffectPlayer,
+
+    /**
+     * Constructor for consumables that affect either the player or enemy
+     * @param name unique name of the consumable
+     * @param type unique type of the consumable, assumed all types are valid
+     * @param maxCharges amount of times the consumable can be used
+     * @param statsToAffectPlayer array of player stats to be affected, 1 to 1 with the statValuesToAffectPlayer array
+     * @param statValuesToAffectPlayer array of values that will affect the corresponding player stats
+     * @param statsToAffectEnemy array of enemy stats to be affected, 1 to 1 with the statValuesToAffectEnemy array
+     * @param statValuesToAffectEnemy array of values that will affect the corresponding enemy stats
+     * @param affectingTurns amount of turns the consumable remains active
+     */
+    public Consumable(String name, String type, int maxCharges, String[] statsToAffectPlayer, int[] statValuesToAffectPlayer,
                       String[] statsToAffectEnemy, int[] statValuesToAffectEnemy, int affectingTurns){
 
         this.name = name;
         this.type = type;
-        this.maxCharges = charges;
+        this.maxCharges = maxCharges;
         chargesLeft = this.maxCharges;
         this.statsToAffectPlayer = statsToAffectPlayer;
         this.statValuesToAffectPlayer = statValuesToAffectPlayer;
@@ -115,71 +152,121 @@ public class Consumable {
     
 
     //Getters
+
+    /**
+     * Getter method to retrieve the consumable's unique name
+     * @return consumable's name
+     */
     public String getName(){
 
         return name;
 
     }
 
+    /**
+     * Getter method to retrieve the consumable's type
+     * @return consumable's type
+     */
     public String getType(){
 
         return type;
 
     }
 
+    /**
+     * Getter method to retrieve the consumable's max charges
+     * @return consumable's max charges
+     */
     public int getMaxCharges(){
 
         return maxCharges;
 
-    }    
+    }
 
+    /**
+     * Getter method to retrieve the consumable's current charges
+     * @return consumable's current charges
+     */
     public int getChargesLeft(){
 
         return chargesLeft;
 
     }
 
+    /**
+     * Getter method to retrieve the consumable's effect on the player
+     * @return brief description the consumable's effect on the player
+     */
     public String getPlayerConsumableDescription(){
 
         return playerConsumableDescription;
 
     }
 
+    /**
+     * Getter method to retrieve the consumable's effect on the enemy
+     * @return brief description the consumable's effect on the enemy
+     */
     public String getEnemyConsumableDescription(){
 
         return enemyConsumableDescription;
 
     }
+
+    /**
+     * Getter method to determine if the consumable affects the player
+     * @return consumable's ability to affect the player (true or false)
+     */
     public boolean getAffectsPlayer(){
 
         return affectsPlayer;
 
     }
 
+    /**
+     * Getter method to determine if the consumable affects the enemy
+     * @return consumable's ability to affect the enemy (true or false)
+     */
     public boolean getAffectsEnemy(){
 
         return affectsEnemy;
 
     }
 
+    /**
+     * Getter method to determine if the consumable's effects are temporary
+     * @return consumable's permanence (true or false)
+     */
     public boolean getIsTemporary(){
 
         return isTemporary;
 
     }
 
+    /**
+     * Getter method to determine if how many turns the consumable will remain active
+     * @return the total amount of turns the consumable's effects will remain actve
+     */
     public int getAffectingTurns(){
 
         return affectingTurns;
 
     }
 
+    /**
+     * Getter method to retrieve how many turns have elapsed since the consumable was first used
+     * @return amount of turns consumable has remained active
+     */
     public int getTurnCounter(){
 
         return turnCounter;
 
     }
 
+    /**
+     * Static getter method for the total enemy objects constructed
+     * @return the current amount of enemy objects constructed
+     */
     public static int getTotalConsumables(){
 
         return totalConsumables;
@@ -190,6 +277,10 @@ public class Consumable {
     //Consumable Methods
 
     //Creates the description for playerConsumableDescription
+
+    /**
+     * Method to generate a brief description detailing the consumable's effect on the player
+     */
     private void createPlayerConsumableDescription(){
 
         int size = statsToAffectPlayer.length; //Gets length of Player array
@@ -231,11 +322,11 @@ public class Consumable {
             }
 
             //Checks the current index and will update the description based on it.
-            if(i == size - 1 && size > 1)
+            if(i + 1 == size - 1 && size > 1)
                 playerConsumableDescription += " and"; //When index is size - 1
-            else if(size > 1)
-                enemyConsumableDescription += ","; //When index is below size - 1
-        
+            else if (i + 1 != size)
+                playerConsumableDescription += ","; //When index is below size - 1
+
         }
 
         playerConsumableDescription += "."; //Ends description
@@ -244,6 +335,9 @@ public class Consumable {
 
 
     //Creates the description for enemyConsumableDescription
+    /**
+     * Method to generate a brief description detailing the consumable's effect on the enemy
+     */
     private void createEnemyConsumableDescription(){
 
         int size = statsToAffectEnemy.length; //Gets length of Enemy array
@@ -285,9 +379,9 @@ public class Consumable {
             }
 
             //Checks the current index and will update the description based on it.
-            if(i == size - 1 && size > 1)
+            if(i + 1 == size - 1 && size > 1)
                 enemyConsumableDescription += " and"; //When index is size - 1
-            else if(size > 1)
+            else if (i + 1 != size)
                 enemyConsumableDescription += ","; //When index is below size - 1
         
         }
@@ -299,6 +393,10 @@ public class Consumable {
 
 
     //Method decrements the number of charges
+
+    /**
+     * Method that decrements the current amount of charges of the consumable
+     */
     public void useCharges(){
 
         //Checks if there are any charges left
@@ -311,6 +409,11 @@ public class Consumable {
 
 
     //Method updates Player stats based on statsToAffectPlayer and its values
+
+    /**
+     * Method that applies the stat effects of the consumable to the player
+     * @param player player object whose stats are to be updated/effected
+     */
     public void affectPlayer(Player player){
 
         int size = statsToAffectPlayer.length; //Gets size of Player Array
@@ -348,6 +451,10 @@ public class Consumable {
 
 
     //Method updates Enemy stats based on statsToAffectEnemy and its values
+    /**
+     * Method that applies the stat effects of the consumable to the enemy
+     * @param enemy enemy object whose stats are to be updated/effected
+     */
     public void affectEnemy(Enemy enemy){
 
         int size = statsToAffectEnemy.length; //Gets size of Enemy array
@@ -385,6 +492,13 @@ public class Consumable {
 
 
     //Method increments turnCounter and calls restoreStats method once it is equal to affectingTurns
+
+    /**
+     * Method to keep track of the amount of turns the consumable has remained active, once it reaches the same
+     * value as affectingTurns, it restores the stat effects
+     * @param player player object whose stats are to be restored
+     * @param enemy player object whose stats are to be restored
+     */
     public void countAffectingTurns(Player player, Enemy enemy){
 
         //Checks if the instance is a consumable
@@ -483,6 +597,10 @@ public class Consumable {
 
 
     //Method to reset charges
+
+    /**
+     * Method for resetting the charges of the consumable
+     */
     public void resetCharges(){
 
         chargesLeft = maxCharges;
