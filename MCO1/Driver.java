@@ -4,14 +4,14 @@ public class Driver {
     
     public static void main(String[] args){
 
-        EventController event = new EventController();
+        EventController event = new EventController(); //Creates the event controller (Does most functions of the game)
         Scanner input = new Scanner(System.in);
 
-        char choiceInput = '\u0000';
+        char choiceInput = '\u0000'; //Sets choiceInput to null
         
-        createAndStoreInstances(event);
+        createAndStoreInstances(event); //Method to call to create object instances and store them for the game
     
-        choiceInput = event.mainMenu(input);
+        choiceInput = event.mainMenu(input); //Starts the main menu
 
         //Do-While loop that checks if the Player wishes to quit or not
         do{
@@ -19,16 +19,17 @@ public class Driver {
             //While loop controls the game as long isRunning is true
             while(event.getIsRunning()){
 
-                event.getDisplay().displayGameBar();
+                event.getDisplay().displayGameBar(); //Displays Game Stats
 
-                choiceInput = event.playerChoice(input);
+                choiceInput = event.playerChoice(input); //Asks for Player choice for their turn
 
-                event.turnSystem(choiceInput);
+                event.turnSystem(choiceInput); //Controls the turn system and the results
 
             }
 
+            //Checks if player didn't choose Q (Quit Game)
             if(choiceInput != 'Q')
-                choiceInput = event.retry(input);
+                choiceInput = event.retry(input); //Asks user if they wish to retry or quit
 
         }while(choiceInput != 'Q');
 
@@ -67,7 +68,7 @@ public class Driver {
         Enemy enemy4 = new Enemy("Isshin", "Samurai", 200, 35, 20, 40);
         Enemy enemy5 = new Enemy("Ornstein", "Knight", 300, 40, 35, 10);
         Enemy enemy6 = new Enemy("Hornet", "Knight", 250, 30, 10, 55);
-        Enemy enemy7 = new Enemy("Radiance", "Deity", 999, 70, 30, 25);
+        Enemy enemy7 = new Enemy("Radiance", "Deity", 700, 70, 30, 25);
 
 
         //Create Environment instances
@@ -80,8 +81,8 @@ public class Driver {
         Environment environment7 = new Environment("Black Egg Temple", true, -1, "Attack", 5, "HitPoints");
 
         //Bonus - Create Consumable instances
-        String[] playerEffects1 = {"HitPoints"}; 
-        int[] playerValues1 = {35};   
+        String[] playerEffects1 = {"HitPoints"}; //Each Consumable requires an array of Strings corresponding to stats to affect
+        int[] playerValues1 = {35}; //Each Consumable requires an array of ints corresponding to the values that will affect the stats
         Consumable consumable1 = new Consumable("Healing Potion", "Healing", 2, true, false, playerEffects1, playerValues1, 0);
 
         String[] playerEffects2 = {"Attack", "Defense"}; 

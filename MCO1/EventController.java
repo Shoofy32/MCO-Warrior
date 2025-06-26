@@ -191,7 +191,7 @@ public class EventController {
      */
     public void turnSystem(char choice){
 
-        String playerTurnChoice; //Gets the choice of the Player that gets returned from the Player think method
+        String playerTurnChoice = null; //Gets the choice of the Player that gets returned from the Player think method
 
         //Checks if the player has previously consumed a potion that provides temporary effects.
         if(player.getHasConsumeTemp())
@@ -205,16 +205,28 @@ public class EventController {
             
             playerTurnChoice = player.think(choice, enemy); //Player goes first
             checkWinner(); //Check for win condition
-            enemyTurn(); //Enemy goes next
-            checkWinner(); //Check for win condition
+
+            //Checks if game is still running to prevent unecessary Enemy turns
+            if(isRunning){
+
+                enemyTurn(); //Enemy goes next
+                checkWinner(); //Check for win condition
+
+            }
 
         }
         else if(enemy.getSpeed() > player.getSpeed()){ //Checks if enemy is faster
 
             enemyTurn(); //Enemy goes first
             checkWinner(); //Check for win condition
-            playerTurnChoice = player.think(choice, enemy); //Player goes next
-            checkWinner(); //Check for win condition
+
+            //Checks if game is still running to prevent unecessary Player turns
+            if(isRunning){
+
+                playerTurnChoice = player.think(choice, enemy); //Player goes next
+                checkWinner(); //Check for win condition
+
+            }
 
         }
         else{ //Both have the same speed
@@ -267,18 +279,21 @@ public class EventController {
 
                 System.out.printf("\nERROR: Please provide a valid input.\n");   
                 choiceInput = 'Z'; //Returns to deafault value
+                display.displayGameBar();
 
             }
             else if(choiceInput == 'C' && player.getIsCharging()){ //Checks if player picked charging even if player already charged
 
                 System.out.printf("\nERROR: You can't charge again at the moment!\n");  
                 choiceInput = 'Z'; //Returns to deafult value
+                display.displayGameBar();
 
             } 
             else if(choiceInput == 'U' && player.getConsumable() == null){ //Checks if player tries to use a nonexistient consumable
 
                 System.out.printf("\nERROR: No consumable equipped!\n");  
                 choiceInput = 'Z'; //Returns to deafult value
+                display.displayGameBar();
 
             }
             else if(choiceInput == 'U' && player.getConsumable() != null && player.getConsumable().getChargesLeft() == 0){
@@ -286,6 +301,7 @@ public class EventController {
 
                 System.out.printf("\nERROR: No charges left!\n");  
                 choiceInput = 'Z'; //Returns to deafult value
+                display.displayGameBar();
 
             }
             
@@ -395,7 +411,11 @@ public class EventController {
         //Removes any existing equipment and resets character to default sats
         player.unequipArmor();
         player.unequipWeapon();
-        player.getConsumable().resetCharges();
+        
+        //Checks if Consumable exist before resetting charges
+        if(player.getConsumable() != null)
+            player.getConsumable().resetCharges();
+
         player.unequipConsumable();
         player.setHitPoints(100);
         player.setSpeed(50);

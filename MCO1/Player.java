@@ -251,7 +251,9 @@ public class Player {
                     playerChoice = "Charge";
                     charge(); //C - Charge Player
 
-                }  
+                }
+                 
+                break;
                 
             case 'U':
 

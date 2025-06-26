@@ -107,11 +107,10 @@ public class SelectionController {
         String weaponSelect; //String for player input
         boolean hasWeapon = false; //Checks whether Player has selected a weapon or not
 
+        display.displaySelection("Weapon", this); //Display Weapon choices
 
         //Do-While loop in case Player has made invalid selection
         do{
-
-            display.displaySelection("Weapon", this); //Display Weapon choices
 
             System.out.printf("Select Weapon [Name/Number]: "); //Asks for name or number input
             weaponSelect = input.nextLine();
@@ -136,8 +135,13 @@ public class SelectionController {
             }
 
             //Error to display if Player input is not within the ArrayList
-            if(!hasWeapon && !weaponSelect.equals("No Weapon") && !weaponSelect.equals("0"))
+            if(!hasWeapon && !weaponSelect.equals("No Weapon") && !weaponSelect.equals("0")){
+
+                display.displaySelection("Weapon", this); //Display Weapon choices
                 System.out.printf("\nPlease select a weapon among the choices!\n");
+
+            }
+
 
         }while(!hasWeapon && !weaponSelect.equals("No Weapon") && !weaponSelect.equals("0"));
 
@@ -152,11 +156,10 @@ public class SelectionController {
         String armorSelect; //String for player input
         boolean hasArmor = false; //Checks whether Player has selected a armor or not
 
+        display.displaySelection("Armor", this); //Display Armor choices
 
         //Do-While loop in case Player has made invalid selection
         do{
-
-            display.displaySelection("Armor", this); //Display Armor choices
 
             System.out.printf("Select Armor [Name/Number]: "); //Asks for name or number input
             armorSelect = input.nextLine();
@@ -179,9 +182,16 @@ public class SelectionController {
                 }
 
             }
+
             //Error to display if Player input is not within the ArrayList
-            if(!hasArmor && !armorSelect.equals("No Armor") && !armorSelect.equals("0"))
+            if(!hasArmor && !armorSelect.equals("No Armor") && !armorSelect.equals("0")){
+
+                display.displaySelection("Armor", this); //Display Armor choices
                 System.out.printf("\nPlease select a armor among the choices!\n");
+
+
+            }
+
 
         }while(!hasArmor && !armorSelect.equals("No Armor") && !armorSelect.equals("0"));
         
@@ -201,11 +211,10 @@ public class SelectionController {
         String enemySelect; //String for player input
         boolean selectedEnemy = false; //Checks whether Player has selected a enemy or not
 
+        display.displaySelection("Enemy", this); //Display Enemy choices
 
         //While loop in case Player has made invalid selection
         while(!selectedEnemy){
-
-            display.displaySelection("Enemy", this); //Display Enemy choices
 
             System.out.printf("Select Enemy [Name/Number]: "); //Asks for name or number input
             enemySelect = input.nextLine();
@@ -225,6 +234,7 @@ public class SelectionController {
             }
 
             //Error to display if Player input is not within the ArrayList
+            display.displaySelection("Enemy", this); //Display Enemy choices
             System.out.printf("\nPlease select a enemy among the choices!\n");
 
         }     
@@ -240,11 +250,10 @@ public class SelectionController {
         String environmentSelect; //String for player input
         boolean selectedEnvironment = false; //Checks whether Player has selected a environment or not
 
+        display.displaySelection("Environment", this); //Display Environment choices
 
         //While loop in case Player has made invalid selection
         while(!selectedEnvironment){
-
-            display.displaySelection("Environment", this); //Display Environment choices
 
             System.out.printf("Select Environment [Name/Number]: "); //Asks for name or number input
                 environmentSelect = input.nextLine();
@@ -263,6 +272,7 @@ public class SelectionController {
             }
 
             //Error to display if Player input is not within the ArrayList
+            display.displaySelection("Environment", this); //Display Environment choices
             System.out.printf("\nPlease select a environment among the choices!\n");
 
         }     
@@ -277,11 +287,10 @@ public class SelectionController {
         String consumableSelect; //String for player input
         boolean selectedConsumable = false; //Checks whether Player has selected a consumable or not
 
+        display.displaySelection("Consumable", this); //Display Consumable choices
 
         //Do-while loop in case Player has made invalid selection
         do{
-
-            display.displaySelection("Consumable", this); //Display Consumable choices
 
             System.out.printf("Select Consumable [Name/Number]: "); //Asks for name or number input
                 consumableSelect = input.nextLine();
@@ -305,9 +314,14 @@ public class SelectionController {
             }
 
             //Error to display if Player input is not within the ArrayList
-            System.out.printf("\nPlease select a consumable among the choices!\n");
+            if(!selectedConsumable && !consumableSelect.equals("No Armor") && !consumableSelect.equals("0")){
 
-        }while(!selectedConsumable && !consumableSelect.equals("No Armor") && !consumableSelect.equals("0"));
+                display.displaySelection("Consumable", this); //Display Consumable choices
+                System.out.printf("\nPlease select a consumable among the choices!\n");
+
+            }
+
+        }while(!selectedConsumable && !consumableSelect.equals("No Consumable") && !consumableSelect.equals("0"));
         
         
         return null; //Return null here to satisfy Java compiler code path
