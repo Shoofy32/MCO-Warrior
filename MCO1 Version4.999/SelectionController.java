@@ -325,14 +325,14 @@ public class SelectionController {
             System.out.printf("Select Environment [Name/Number]: "); //Asks for name or number input
                 environmentSelect = input.nextLine();
 
-            //For loop to go through the Enemy instances in the ArrayList to get the enemy the player chose
+            //For loop to go through the Environment instances in the ArrayList to get the enemy the player chose
             for(int i  = 0; i < listSize && !selectedEnvironment; i++){
 
-                //If conditon checks if the Enemy object in that index has the same name or number as the Player input
+                //If conditon checks if the Environment object in that index has the same name or number as the Player input
                 if(getEnvironments().get(i).getName().equals(environmentSelect)|| String.valueOf(i+1).equals(environmentSelect)){
 
                     selectedEnvironment = true; 
-                    return getEnvironments().get(i); //Returns the selected enemy
+                    return getEnvironments().get(i); //Returns the selected environment
 
                 }
 
@@ -369,14 +369,14 @@ public class SelectionController {
             //Checks whether the player picked an object or not. If not, then player equips nothing
             if(!consumableSelect.equals("No Consumable") && !consumableSelect.equals("0")){
 
-                //For loop to go through the Enemy instances in the ArrayList to get the enemy the player chose
+                //For loop to go through the Consumable instances in the ArrayList to get the enemy the player chose
                 for(int i  = 0; i < listSize && !selectedConsumable; i++){
 
-                    //If conditon checks if the Enemy object in that index has the same name or number as the Player input
-                    if(getEnvironments().get(i).getName().equals(consumableSelect)|| String.valueOf(i+1).equals(consumableSelect)){
+                    //If conditon checks if the Consumable object in that index has the same name or number as the Player input
+                    if(getConsumables().get(i).getName().equals(consumableSelect)|| String.valueOf(i+1).equals(consumableSelect)){
 
                         selectedConsumable = true; 
-                        return getConsumables().get(i); //Returns the selected enemy
+                        return getConsumables().get(i); //Returns the selected consumable
 
                     }
 
