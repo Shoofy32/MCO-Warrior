@@ -101,7 +101,7 @@ public class Player {
         if(defense >= 0)
             this.defense = defense;
         else
-            this.speed = 0; //Forces it to be 0 to avoid any negative values  
+            this.defense = 0; //Forces it to be 0 to avoid any negative values  
         
     }
 
