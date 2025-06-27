@@ -255,47 +255,53 @@ public class EventController {
 
         char choiceInput = 'Z'; //Sets default choiceInput to newline
 
+        display.displayChoices(); //Display player choices for their turn
+
         //Do-while to check for invalid input
         do{
 
-            display.displayChoices(); //Display player choices for their turn
     
             System.out.printf("Input: ");
           
             try{
                 choiceInput = input.nextLine().toUpperCase().charAt(0); //Gets character input
             } catch (StringIndexOutOfBoundsException e) {
+                
+                System.out.printf("\n\n\n\n"); 
+                display.displayGameBar();
                 System.out.printf("\nCannot enter an empty character\n");
+                display.displayChoices(); //Display player choices for their turn
+
             }
 
             //Checks for invalid input
             if(choiceInput != 'A' && choiceInput != 'D' && choiceInput != 'C' && choiceInput != 'I' && choiceInput != 'U'){
 
+                System.out.printf("\n\n\n\n"); 
+                display.displayGameBar();                
                 System.out.printf("\nERROR: Please provide a valid input.\n");   
+                display.displayChoices(); //Display player choices for their turn
                 choiceInput = 'Z'; //Returns to deafault value
-                display.displayGameBar();
 
             }
-            else if(choiceInput == 'C' && player.getIsCharging()){ //Checks if player picked charging even if player already charged
-
-                System.out.printf("\nERROR: You can't charge again at the moment!\n");  
-                choiceInput = 'Z'; //Returns to deafult value
-                display.displayGameBar();
-
-            } 
             else if(choiceInput == 'U' && player.getConsumable() == null){ //Checks if player tries to use a nonexistient consumable
 
-                System.out.printf("\nERROR: No consumable equipped!\n");  
-                choiceInput = 'Z'; //Returns to deafult value
+                System.out.printf("\n\n\n\n"); 
                 display.displayGameBar();
+                System.out.printf("\nERROR: No consumable equipped!\n");
+                display.displayChoices(); //Display player choices for their turn  
+                choiceInput = 'Z'; //Returns to deafult value
+
 
             }
             else if(choiceInput == 'U' && player.getConsumable() != null && player.getConsumable().getChargesLeft() == 0){
                 //Checks if player tries to use a consumable that is out of charges.
 
-                System.out.printf("\nERROR: No charges left!\n");  
-                choiceInput = 'Z'; //Returns to deafult value
+                System.out.printf("\n\n\n\n"); 
                 display.displayGameBar();
+                System.out.printf("\nERROR: No charges left!\n");  
+                display.displayChoices(); //Display player choices for their turn
+                choiceInput = 'Z'; //Returns to deafult value
 
             }
             
@@ -403,10 +409,16 @@ public class EventController {
         environment = null;
 
         //Removes any existing equipment and resets character to default sats
-        player.unequipArmor();
-        player.unequipWeapon();
+
+        //Checks if Armor exists before resetting charges
+        if(player.getArmor() != null)
+            player.unequipArmor();
+
+        //Checks if Weapon exists before resetting charges
+        if(player.getWeapon() != null)
+            player.unequipWeapon();
         
-        //Checks if Consumable exist before resetting charges
+        //Checks if Consumable exists before resetting charges
         if(player.getConsumable() != null)
             player.getConsumable().resetCharges();
 

@@ -328,60 +328,60 @@ public class CLIViewer {
         System.out.printf("|                              PLAYER'S RESULT                               |\n");
         System.out.printf("------------------------------------------------------------------------------\n");
 
-        //Switch statement that will display depending on String playerChoice
-        switch(playerChoice){
+        if(playerChoice.equals("Attack")){
 
-            case "Attack":
-                
-                //If condition to check if Player was charging or not. And display corresponding results.
-                if(isCharging){
+            //If condition to check if Player was charging or not. And display corresponding results.
+            if(isCharging){
 
-                    System.out.printf("%s Charge Attacks %s!\n", player.getName(), enemy.getName());      
-                    System.out.printf("%s Dealt %d Damage! (Triple Damage!)\n", player.getName(),  player.obtainLastAttackDealt(this));
-                    isCharging = false;
-
-                }
-                else{
-
-                    System.out.printf("%s Attacks %s!\n", player.getName(), enemy.getName());      
-                    System.out.printf("%s Dealt %d Damage!\n", player.getName(),  player.obtainLastAttackDealt(this));
-
-                } 
-
-                break;
-
-            case "Defend":
-
-                System.out.printf("%s Defends Against %s!\n", player.getName(), enemy.getName());      
-                System.out.printf("Next Attack Against %s is Halved!\n", player.getName()); 
+                System.out.printf("%s Charge Attacks %s!\n", player.getName(), enemy.getName());      
+                System.out.printf("%s Dealt %d Damage! (Triple Damage!)\n", player.getName(),  player.obtainLastAttackDealt(this));
                 isCharging = false;
-                break;
 
-            case "Charge":
+            }
+            else{
 
-                System.out.printf("%s Prepares to Charge!\n", player.getName());      
-                System.out.printf("%s Next Attack Turn Will Deal Triple Damage!\n", player.getName()); 
-                isCharging = true;  
-                break;
+                System.out.printf("%s Attacks %s!\n", player.getName(), enemy.getName());      
+                System.out.printf("%s Dealt %d Damage!\n", player.getName(),  player.obtainLastAttackDealt(this));
 
-            case "Consume":
+            } 
 
-                System.out.printf("%s Consumes %s!\n", player.getName(), player.getConsumable().getName());  
+        }
+        else if(playerChoice.equals("Defend")){
 
-                if(player.getConsumable().getIsTemporary())    
-                    System.out.printf("%s Provides a Temporary Effect for %d Turns!\n", player.getConsumable().getName(), 
-                                      player.getConsumable().getAffectingTurns() - player.getConsumable().getTurnCounter()); 
-                else
-                     System.out.printf("%s Provides a Premanent Effect!\n", player.getConsumable().getName());
+            System.out.printf("%s Defends Against %s!\n", player.getName(), enemy.getName());      
+            System.out.printf("Next Attack Against %s is Halved!\n", player.getName()); 
+            isCharging = false;
                 
-                if(player.getConsumable().getAffectsPlayer())
-                    System.out.printf(" %s\n", player.getConsumable().getPlayerConsumableDescription());  
+        }
+        else if(playerChoice.equals("Charge")){
 
-                if(player.getConsumable().getAffectsEnemy())
-                    System.out.printf("%s\n", player.getConsumable().getEnemyConsumableDescription());                
+            if(isCharging)
+                System.out.printf("%s Charges Again????\n", player.getName());  
+            else        
+                System.out.printf("%s Prepares to Charge!\n", player.getName());    
+
+            System.out.printf("%s Next Attack Turn Will Deal Triple Damage!\n", player.getName()); 
+            isCharging = true;  
+
+        }
+        else if(playerChoice.equals("Consume")){
+
+            System.out.printf("%s Consumes %s!\n", player.getName(), player.getConsumable().getName());  
+
+            if(player.getConsumable().getIsTemporary())    
+                System.out.printf("%s Provides a Temporary Effect for %d Turns!\n", player.getConsumable().getName(), 
+                                    player.getConsumable().getAffectingTurns() - player.getConsumable().getTurnCounter()); 
+            else
+                System.out.printf("%s Provides a Premanent Effect!\n", player.getConsumable().getName());
+            
+            if(player.getConsumable().getAffectsPlayer())
+                System.out.printf(" %s\n", player.getConsumable().getPlayerConsumableDescription());  
+
+            if(player.getConsumable().getAffectsEnemy())
+                System.out.printf("%s\n", player.getConsumable().getEnemyConsumableDescription());                
 
 
-                isCharging = false;           
+            isCharging = false; 
 
         }
 
@@ -421,38 +421,39 @@ public class CLIViewer {
 
 
         //Switch statement that will display depending on String playerChoice
-        switch(playerChoice){
 
-            case "Attack":
-                
-                //If condition to check if Player was charing or not. And display corresponding results.
-                if(isCharging){
+        if(playerChoice.equals("Attack")){
 
-                    System.out.printf("%s Charge Attacks and %s Attacks!\n", player.getName(), enemy.getName());      
-                    System.out.printf("%s Dealt %d Damage! (Triple Damage!)\n", player.getName(),  player.obtainLastAttackDealt(this));
-                    System.out.printf("%s Dealt %d Damage!\n", enemy.getName(), enemy.obtainLastAttackDealt(this));
-                    isCharging = false;
+            if(isCharging){
 
-                }
-                else{
-
-                    System.out.printf("%s and %s Attacks!\n", player.getName(), enemy.getName());      
-                    System.out.printf("%s Dealt %d Damage!\n", player.getName(),  player.obtainLastAttackDealt(this));
-                    System.out.printf("%s Dealt %d Damage!\n", enemy.getName(), enemy.obtainLastAttackDealt(this));
-
-                } 
-
-                break;
-
-            case "Charge":
-
-                System.out.printf("%s Prepares to Charge and %s Attacks!\n", player.getName());      
-                System.out.printf("%s Next Attack Turn Will Deal Triple Damage!\n", player.getName()); 
+                System.out.printf("%s Charge Attacks and %s Attacks!\n", player.getName(), enemy.getName());      
+                System.out.printf("%s Dealt %d Damage! (Triple Damage!)\n", player.getName(),  player.obtainLastAttackDealt(this));
                 System.out.printf("%s Dealt %d Damage!\n", enemy.getName(), enemy.obtainLastAttackDealt(this));
-                isCharging = true;  
+                isCharging = false;
+
+            }
+            else{
+
+                System.out.printf("%s and %s Attacks!\n", player.getName(), enemy.getName());      
+                System.out.printf("%s Dealt %d Damage!\n", player.getName(),  player.obtainLastAttackDealt(this));
+                System.out.printf("%s Dealt %d Damage!\n", enemy.getName(), enemy.obtainLastAttackDealt(this));
+
+            }
 
         }
+        else if(playerChoice.equals("Charge")){
 
+            if(isCharging)
+                System.out.printf("%s Charges Again????\n", player.getName());  
+            else        
+                System.out.printf("%s Prepares to Charge and %s Attacks!\n", player.getName());
+
+            System.out.printf("%s Next Attack Turn Will Deal Triple Damage!\n", player.getName()); 
+            System.out.printf("%s Dealt %d Damage!\n", enemy.getName(), enemy.obtainLastAttackDealt(this));
+            isCharging = true;  
+
+        }
+            
     }
 
 
