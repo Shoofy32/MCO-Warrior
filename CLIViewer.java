@@ -357,11 +357,14 @@ public class CLIViewer {
                 isCharging = false;
                 break;
 
-            case "Charge":
-
-                System.out.printf("%s Prepares to Charge!\n", player.getName());      
-                System.out.printf("%s Next Attack Turn Will Deal Triple Damage!\n", player.getName()); 
-                isCharging = true;  
+             case "Charge":
+                if(!isCharging) {
+                    System.out.printf("%s Prepares to Charge!\n", player.getName());
+                    System.out.printf("%s Next Attack Turn Will Deal Triple Damage!\n", player.getName());
+                    isCharging = true;
+                }
+                else
+                    System.out.printf("Charging your attack further does nothing!\n");
                 break;
 
             case "Consume":
