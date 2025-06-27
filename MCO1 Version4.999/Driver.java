@@ -75,7 +75,7 @@ public class Driver {
         Environment environment1 = new Environment("Arena", false);
         Environment environment2 = new Environment("Swamp", true, -1, "HitPoints", 1, "Attack");
         Environment environment3 = new Environment("Colosseum", true, 1, "Attack", -1, "Defense");
-        Environment environment4 = new Environment("Painted Ariamis", true, -2, "Speed", -1, "Speed");
+        Environment environment4 = new Environment("Castle Cainhurst", true, -2, "Speed", -1, "Speed");
         Environment environment5 = new Environment("Blight Town", true, -1, "Defense", -3, "HitPoints");
         Environment environment6 = new Environment("Fungal Wastes", true, -10, "HitPoints", -10, "HitPoints");
         Environment environment7 = new Environment("Black Egg Temple", true, -1, "Attack", 5, "HitPoints");

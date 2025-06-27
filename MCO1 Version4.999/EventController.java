@@ -97,7 +97,7 @@ public class EventController {
 
             display.displayMainMenu(); //Display main menu
 
-            System.out.printf("Input: ");
+            System.out.printf("Input (Char): ");
             try{
                 menuInput = input.nextLine().toUpperCase().charAt(0); //Gets Player for main menu
             } catch (StringIndexOutOfBoundsException e) {
@@ -135,7 +135,7 @@ public class EventController {
         else{
 
             isRunning = false;
-            System.out.printf("Thank you for playing! :)\n"); //Prints out thank you message
+            System.out.printf("\n\nTHANKS FOR PLAYING! :)\n"); //Prints out thank you message
 
         }
 
@@ -341,11 +341,11 @@ public class EventController {
             display.displayGameBar(); //Diplays final values of the game one last time
 
             //If condition checks who reached 0 hitpoints
-            if(player.getHitPoints() >= 0 && enemy.getHitPoints() <= 0)
+            if(player.getHitPoints() > 0 && enemy.getHitPoints() <= 0)
                 display.displayWinner("Player"); //Display win
-            else if(player.getHitPoints() <= 0 && enemy.getHitPoints() >= 0)
+            else if(player.getHitPoints() <= 0 && enemy.getHitPoints() > 0)
                 display.displayWinner("Enemy"); //Display loss
-            else
+            else if(player.getHitPoints() <= 0 && enemy.getHitPoints() <= 0)
                 display.displayWinner("Tie"); //Display tie
 
         }
@@ -396,7 +396,7 @@ public class EventController {
 
         }
         else
-            System.out.printf("Thank you for playing! :)\n"); //Prints out thank you message
+            System.out.printf("\n\nTHANKS FOR PLAYING! :)\n"); //Prints out thank you message
 
         return choiceInput;
 

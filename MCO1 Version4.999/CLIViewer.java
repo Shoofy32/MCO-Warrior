@@ -328,6 +328,7 @@ public class CLIViewer {
         System.out.printf("|                              PLAYER'S RESULT                               |\n");
         System.out.printf("------------------------------------------------------------------------------\n");
 
+        //If conditions to check playerChoice and display corresponding result depdning on String value
         if(playerChoice.equals("Attack")){
 
             //If condition to check if Player was charging or not. And display corresponding results.
@@ -355,6 +356,7 @@ public class CLIViewer {
         }
         else if(playerChoice.equals("Charge")){
 
+            //Checks if player is Charging or not to display a unique dialogue
             if(isCharging)
                 System.out.printf("%s Charges Again????\n", player.getName());  
             else        
@@ -368,15 +370,18 @@ public class CLIViewer {
 
             System.out.printf("%s Consumes %s!\n", player.getName(), player.getConsumable().getName());  
 
+            //If conditions to check to check if the Consumable that the player has is temporary or not.
             if(player.getConsumable().getIsTemporary())    
                 System.out.printf("%s Provides a Temporary Effect for %d Turns!\n", player.getConsumable().getName(), 
                                     player.getConsumable().getAffectingTurns() - player.getConsumable().getTurnCounter()); 
             else
                 System.out.printf("%s Provides a Premanent Effect!\n", player.getConsumable().getName());
             
+            //If condition checks if the Consumable affects the Player and gets the Player description if so
             if(player.getConsumable().getAffectsPlayer())
                 System.out.printf(" %s\n", player.getConsumable().getPlayerConsumableDescription());  
 
+            //If condition checks if the Consumable affects the Enemy and gets the Enemy description if so
             if(player.getConsumable().getAffectsEnemy())
                 System.out.printf("%s\n", player.getConsumable().getEnemyConsumableDescription());                
 
@@ -420,8 +425,7 @@ public class CLIViewer {
         System.out.printf("------------------------------------------------------------------------------\n");
 
 
-        //Switch statement that will display depending on String playerChoice
-
+        //If statements that will display depending on String playerChoice
         if(playerChoice.equals("Attack")){
 
             if(isCharging){
@@ -443,8 +447,9 @@ public class CLIViewer {
         }
         else if(playerChoice.equals("Charge")){
 
+            //Checks if player is charging or not to display unique dialogue
             if(isCharging)
-                System.out.printf("%s Charges Again????\n", player.getName());  
+                System.out.printf("%s Charges Again???? and %s Attacks!\n", player.getName(), enemy.getName());  
             else        
                 System.out.printf("%s Prepares to Charge and %s Attacks!\n", player.getName(), enemy.getName());
 
