@@ -446,7 +446,7 @@ public class CLIViewer {
             if(isCharging)
                 System.out.printf("%s Charges Again????\n", player.getName());  
             else        
-                System.out.printf("%s Prepares to Charge and %s Attacks!\n", player.getName());
+                System.out.printf("%s Prepares to Charge and %s Attacks!\n", player.getName(), enemy.getName());
 
             System.out.printf("%s Next Attack Turn Will Deal Triple Damage!\n", player.getName()); 
             System.out.printf("%s Dealt %d Damage!\n", enemy.getName(), enemy.obtainLastAttackDealt(this));
