@@ -56,10 +56,8 @@ public class Player {
         
         this.hitPoints = hitPoints;
 
-        //Checks if hitPoints has gone over the limit or has turned into negative values
-        if(this.hitPoints > 100) 
-            this.hitPoints = 100; //Forces it to be 100 
-        else if(this.hitPoints < 0)
+        //Checks if hitPoints has turned into negative values
+        if(this.hitPoints < 0)
             this.hitPoints = 0; //Forces it to be 0 to avoid any negative values   
 
     }
