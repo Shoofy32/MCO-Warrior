@@ -197,8 +197,12 @@ public class Environment {
         switch(playerStatToEffect){
 
             case "HitPoints":
-                
-                playerEffectDescription += " damage every turn.";
+
+                //Checks specifically for HitPoints whether statEffect is positive or negative and updates description
+                if(playerStatEffect < 0)
+                    playerEffectDescription += "damage every turn";
+                else if (playerStatEffect > 0)
+                    playerEffectDescription += "health every turn";
                 break;
 
             case "Attack":
