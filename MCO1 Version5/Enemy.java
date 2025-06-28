@@ -201,7 +201,7 @@ public class Enemy {
         if(target.getIsDefending()){
 
             //Ternary Operator to calculate damage whether damage was dealt or not with defending target (Half Damage)
-            damage = ((attack - target.getDefense()) / 2 > 0) ? ((attack - target.getDefense()) / 2) : 0;
+            damage = (((attack / 2) - target.getDefense()) > 0) ? (((attack / 2) - target.getDefense()) ) : 0;
             target.setHitPoints(target.getHitPoints() - damage); //Updates the targets hitpoints after taking damag
             target.stopDefending(); 
 
