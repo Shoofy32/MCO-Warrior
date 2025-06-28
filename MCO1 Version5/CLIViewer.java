@@ -17,7 +17,7 @@ public class CLIViewer {
     private Environment environment; //Stores Environment for getting information for display
 
     //Logic Attributes
-    boolean isCharging = false; //Checks whether Player is charging or not
+    private boolean isCharging = false; //Checks whether Player is charging or not
 
 
     //Setters

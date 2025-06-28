@@ -369,7 +369,7 @@ public class Player {
      * Method to attack the enemy object, attacking is affected by player atk, enemy def, and the player's charging state
      * @param target the enemy object to be attacked.
      */
-    public void attack(Enemy target){
+    private void attack(Enemy target){
 
         int damage; //Stores the amount of damage dont to the enemy
 
@@ -401,7 +401,7 @@ public class Player {
      * Method for allowing the player to defend, defending takes priority regardless of the player's spd and will
      * halve all damage dealt to the player in that turn. Set's the player's defending state to true
      */
-    public void defend(){
+    private void defend(){
 
         isDefending = true;
 
@@ -427,7 +427,7 @@ public class Player {
      * Method for allowing the player to charge, charging triples the damage of the player's atk, this is
      * done before enemy def is taken into account
      */
-    public void charge(){
+    private void charge(){
 
         isCharging = true;
 
@@ -471,7 +471,7 @@ public class Player {
      * Method that uses the currently equipped consumable can either affect the enemy, player, or both
      * @param target Enemy object to be affected by the consumable
      */
-    public void consume(Enemy target){
+    private void consume(Enemy target){
 
         //Checks if there are any charges left
         if(consumable.getChargesLeft() > 0){

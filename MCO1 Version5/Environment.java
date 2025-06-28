@@ -55,19 +55,19 @@ public class Environment {
      * @param name unique name of the environment
      * @param hasEffect boolean to determine whether an environment will provide a unique effect or not
      * @param playerStatEffect the value to be applied to the chosen stat of the player
-     * @param pStatToEffect the player stat to be affected
+     * @param playerStatToEffect the player stat to be affected
      * @param enemyStatEffect the value to be applied to the chosen stat of the enemy
-     * @param eStatToEffect the enemy stat to be affected
+     * @param enemyStatToEffect the enemy stat to be affected
      */
-    public Environment(String name, boolean hasEffect, int playerStatEffect, String pStatToEffect, 
-                       int enemyStatEffect, String eStatToEffect){
+    public Environment(String name, boolean hasEffect, int playerStatEffect, String playerStatToEffect, 
+                       int enemyStatEffect, String enemyStatToEffect){
 
         this.name = name;
         this.hasEffect = hasEffect;
         this.playerStatEffect = playerStatEffect;
-        this.playerStatToEffect = pStatToEffect;
+        this.playerStatToEffect = playerStatToEffect;
         this.enemyStatEffect = enemyStatEffect;
-        this.enemyStatToEffect = eStatToEffect;
+        this.enemyStatToEffect = enemyStatToEffect;
         totalEnvironments++; //Increment counter
 
         createEnemyEnvironmentDescription(); //Creates a description for enemyEffectDescription
@@ -200,9 +200,9 @@ public class Environment {
 
                 //Checks specifically for HitPoints whether statEffect is positive or negative and updates description
                 if(playerStatEffect < 0)
-                    playerEffectDescription += "damage every turn";
+                    playerEffectDescription += " damage every turn";
                 else if (playerStatEffect > 0)
-                    playerEffectDescription += "health every turn";
+                    playerEffectDescription += " health every turn";
                 break;
 
             case "Attack":

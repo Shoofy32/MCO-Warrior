@@ -99,7 +99,7 @@ public class EventController {
 
             System.out.printf("Input (Char): ");
             try{
-                menuInput = input.nextLine().toUpperCase().charAt(0); //Gets Player for main menu
+                menuInput = input.nextLine().toUpperCase().charAt(0); //Gets player input for main menu by getting the character in the index 0
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.printf("\nCannot enter an empty character\n");
             }
