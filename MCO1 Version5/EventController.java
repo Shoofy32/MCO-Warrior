@@ -191,6 +191,9 @@ public class EventController {
         if(player.getHasConsumeTemp())
             player.getConsumable().countAffectingTurns(player, enemy); //Calls counter and restores stats once timer ends
 
+        if(choice == 'C')
+            player.setChargeBase(player.getAttack());
+
         //Checks if the environment chosen has any effects or not
         if(environment.getHasEffect())
             environmentEffect(); //Call method to update Player and Enemy stats depending on effect
@@ -198,7 +201,7 @@ public class EventController {
         /* If conditions to check the turn system of the game (Determines who goes first)
          * Turn is determined by the checkWinner() method. (If theres a checkWin() method before their turn, then their turn was second)
          */
-        if(enemy.getSpeed() < player.getSpeed() || player.getIsDefending() || choice == 'U'){ //Checks if player is faster, defending, or consumed
+        if(enemy.getSpeed() < player.getSpeed() || choice == 'D' || choice == 'U'){ //Checks if player is faster, defending, or consumed
             
             playerTurnChoice = player.think(choice, enemy); //Player goes first
             checkWinner(); //Check for win condition
@@ -424,6 +427,8 @@ public class EventController {
         player.unequipConsumable();
         player.setHitPoints(100);
         player.setSpeed(50);
+        player.stopCharging();
+        player.stopDefending();
 
         //Resets the enemy to its original values
         enemy.setHitPoints(enemyHitPointsCopy); 

@@ -28,6 +28,7 @@ public class Player {
     private boolean isCharging = false; //Boolean check to see whether Player is charging
     private boolean isDefending = false; //Boolean check to see whether Player is defending
     private boolean hasConsumeTemp = false; //Boolean check to see whether Player used a consumable that is temporary
+    private int chargeBase; //Int to store attack value at time of charging to isolate it from environment effects
 
     //Attributes for display
     private int getLastAttackDone; //Stores the amount of damage that was last done
@@ -113,6 +114,9 @@ public class Player {
 
     }
 
+    public void setChargeBase(int attack) {
+        this.chargeBase = attack;
+    }
 
     //Getters
 
@@ -372,7 +376,7 @@ public class Player {
         if(isCharging){
 
             //Ternary Operator to calculate damage whether damage was dealt or not while charging (Triple damage)
-            damage = (attack * 3 - target.getDefense() > 0) ? attack * 3 - target.getDefense() : 0;
+            damage = (chargeBase * 3 - target.getDefense() > 0) ? chargeBase * 3 - target.getDefense() : 0;
             target.setHitPoints(target.getHitPoints() - damage); //Updates the targets hitpoints after taking damage
 
             stopCharging();
