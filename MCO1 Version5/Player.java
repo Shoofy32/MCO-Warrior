@@ -114,6 +114,10 @@ public class Player {
 
     }
 
+    /**
+     * Snapshots the player's current atk for charging to isolate it from any atk boosting effects in the turn
+     * @param attack the player's atk before any external factors are applied in the turn
+     */
     public void setChargeBase(int attack) {
         this.chargeBase = attack;
     }
