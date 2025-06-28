@@ -508,7 +508,8 @@ public class CLIViewer {
         System.out.printf("|                                TURN RESULT                                 |\n");
         System.out.printf("==============================================================================\n");
 
-
+        displayEnvironmentResult(); //Display effects of the environment
+        
         //If condition checks for who goes first(Same conditions for turnSystem)
         if(enemy.getSpeed() < player.getSpeed() || player.getIsDefending() || playerChoice.equals("Consume")){
             
@@ -527,8 +528,6 @@ public class CLIViewer {
             displayBothResult(playerChoice);
 
         }
-
-        displayEnvironmentResult(); //Display effects of the environment
 
         System.out.printf("==============================================================================\n\n\n");
 
