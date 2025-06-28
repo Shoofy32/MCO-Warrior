@@ -191,7 +191,10 @@ public class EventController {
         if(player.getHasConsumeTemp())
             player.getConsumable().countAffectingTurns(player, enemy); //Calls counter and restores stats once timer ends
 
-
+        //Checks if the environment chosen has any effects or not
+        if(environment.getHasEffect())
+            environmentEffect(); //Call method to update Player and Enemy stats depending on effect
+        
         /* If conditions to check the turn system of the game (Determines who goes first)
          * Turn is determined by the checkWinner() method. (If theres a checkWin() method before their turn, then their turn was second)
          */
@@ -232,10 +235,6 @@ public class EventController {
             checkWinner(); //Check for win condition
 
         }
-
-        //Checks if the environment chosen has any effects or not
-        if(environment.getHasEffect())
-            environmentEffect(); //Call method to update Player and Enemy stats depending on effect
 
         //Check whether the game is still running in order to display turn results
         if(isRunning)
