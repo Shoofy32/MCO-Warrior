@@ -248,7 +248,7 @@ public class Player {
 
             //Equip the armor and set new stats of the player
             this.armor = armor;
-            defense = armor.getDefense();
+            defense += armor.getDefense();
             speed -= armor.getSpeedPenalty();
 
         }
@@ -266,7 +266,7 @@ public class Player {
 
             //Equip the armor and set new stats of the player
             this.weapon = weapon;
-            attack = weapon.getAttack();
+            attack += weapon.getAttack();
             speed -= weapon.getSpeedPenalty();
 
         }
