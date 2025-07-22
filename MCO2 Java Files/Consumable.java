@@ -11,28 +11,28 @@
  * </p>
  * @author Stefan_Martin
  */
-public class Consumable {
+public abstract class Consumable {
     
     //Private General Attributes
     private String name = "None"; 
     private String type;
     private int maxCharges; //Stores the maximum charges or uses of the consumable
     private int chargesLeft; //Stores the current charges or uses left
-    private String playerConsumableDescription; //Stores the description of how the consumable affects the player
-    private String enemyConsumableDescription; //Stores the description of how the consumable affects the enemy
+    private String holderConsumableDescription; //Stores the description of how the consumable affects the player
+    private String targetConsumableDescription; //Stores the description of how the consumable affects the enemy
 
     //Private Logic Attributes
-    private boolean affectsPlayer; //Stores whether the consumable affects the player
-    private boolean affectsEnemy; //Stores whether the consumable affects the enemy
+    private boolean affectsHolder; //Stores whether the consumable affects the player
+    private boolean affectsTarget; //Stores whether the consumable affects the enemy
     private boolean isTemporary; //Stores whether the consumable provides a temporary effect (False is permanent)
     private int affectingTurns; //Stores how long the temporary effect will last (Storing 0 means permanent)
     private int turnCounter = 0; //Stores how long the current lifetime of the temporary effect (Increments each turn)
     
     //Private Stat Change Attributes
-    private String[] statsToAffectPlayer; //Stores the Player stats that will be affected
-    private int[] statValuesToAffectPlayer; //Stores the value of how the Player stats will be affected 
-    private String[] statsToAffectEnemy; //Stores the Enemy stats that will be affected
-    private int[] statValuesToAffectEnemy; //Stores the value of how the Enemy stats will be affected    
+    private String[] statsToAffectHolder; //Stores the Player stats that will be affected
+    private int[] statValuesToAffectHolder; //Stores the value of how the Player stats will be affected 
+    private String[] statsToAffectTarget; //Stores the Enemy stats that will be affected
+    private int[] statValuesToAffectTarget; //Stores the value of how the Enemy stats will be affected    
 
 
     //Private static attributes
@@ -54,27 +54,27 @@ public class Consumable {
      * @param statValuesToEffect array of values that will affect the corresponding stats, 1 to 1 with the String array
      * @param affectingTurns amount of turns the consumable remains active
      */
-    public Consumable(String name, String type, int maxCharges, boolean affectsPlayer, boolean affectsEnemy, String[] statsToEffect,
+    public Consumable(String name, String type, int maxCharges, boolean affectsHolder, boolean affectsTarget, String[] statsToEffect,
                       int[] statValuesToEffect, int affectingTurns){
 
         this.name = name;
         this.type = type;
         this.maxCharges = maxCharges;
         chargesLeft = this.maxCharges;
-        this.affectsPlayer = affectsPlayer;
-        this.affectsEnemy = affectsEnemy;
+        this.affectsHolder = affectsHolder;
+        this.affectsTarget = affectsTarget;
 
         //If conditions check whether this consumable either affects the player or enemy
-        if(affectsPlayer && !affectsEnemy){ //Checks if it affects player
+        if(affectsHolder && !affectsTarget){ //Checks if it affects player
             
-            statsToAffectPlayer = statsToEffect;
-            statValuesToAffectPlayer = statValuesToEffect;
+            statsToAffectHolder = statsToEffect;
+            statValuesToAffectHolder = statValuesToEffect;
 
         }
-        else if(!affectsPlayer && affectsEnemy){ //Checks if it affects enemy
+        else if(!affectsHolder && affectsTarget){ //Checks if it affects enemy
 
-            statsToAffectEnemy = statsToEffect;
-            statValuesToAffectEnemy = statValuesToEffect;
+            statsToAffectTarget = statsToEffect;
+            statValuesToAffectTarget = statValuesToEffect;
             
         }
 
@@ -87,16 +87,16 @@ public class Consumable {
         }
 
         //If conditions check if player or enemy array has stats to affect
-        if(statsToAffectPlayer.length > 0){ //Checks if player has stats to affect
+        if(statsToAffectHolder.length > 0){ //Checks if player has stats to affect
 
-            createPlayerConsumableDescription(); //Creates Player consumable effect description
-            enemyConsumableDescription = "None";
+            createHolderConsumableDescription(); //Creates Player consumable effect description
+            targetConsumableDescription = "None";
 
         }
-        else if(statsToAffectEnemy.length > 0){ //Checks if enemy has stats to affect
+        else if(statsToAffectTarget.length > 0){ //Checks if enemy has stats to affect
 
-            playerConsumableDescription = "None"; //Checks Enemy consumable effect description
-            createEnemyConsumableDescription();
+            holderConsumableDescription = "None"; //Checks Enemy consumable effect description
+            createTargetConsumableDescription();
 
         }
 
@@ -117,23 +117,23 @@ public class Consumable {
      * @param statValuesToAffectEnemy array of values that will affect the corresponding enemy stats
      * @param affectingTurns amount of turns the consumable remains active
      */
-    public Consumable(String name, String type, int maxCharges, String[] statsToAffectPlayer, int[] statValuesToAffectPlayer,
-                      String[] statsToAffectEnemy, int[] statValuesToAffectEnemy, int affectingTurns){
+    public Consumable(String name, String type, int maxCharges, String[] statsToAffectHolder, int[] statValuesToAffectHolder,
+                      String[] statsToAffectTarget, int[] statValuesToAffectTarget, int affectingTurns){
 
         this.name = name;
         this.type = type;
         this.maxCharges = maxCharges;
         chargesLeft = this.maxCharges;
-        this.statsToAffectPlayer = statsToAffectPlayer;
-        this.statValuesToAffectPlayer = statValuesToAffectPlayer;
-        this.statsToAffectEnemy = statsToAffectEnemy;
-        this.statValuesToAffectEnemy = statValuesToAffectEnemy;
+        this.statsToAffectHolder = statsToAffectHolder;
+        this.statValuesToAffectHolder = statValuesToAffectHolder;
+        this.statsToAffectTarget = statsToAffectTarget;
+        this.statValuesToAffectTarget = statValuesToAffectTarget;
 
         this.affectingTurns = affectingTurns;
         
         //Make both booleans true since this Constructor assumes that it affects both Player and Enemy
-        affectsPlayer = true;
-        affectsEnemy = true;
+        affectsHolder = true;
+        affectsTarget = true;
 
         //Checks if the affectingTurns is greater than 0 (Determines if the effect is temporary or permanent)
         if(affectingTurns > 0){
@@ -144,8 +144,8 @@ public class Consumable {
         }
 
         //Creates descriptions for both
-        createPlayerConsumableDescription();
-        createEnemyConsumableDescription();
+        createHolderConsumableDescription();
+        createTargetConsumableDescription();
         totalConsumables++; //Increments count
 
     }
@@ -199,7 +199,7 @@ public class Consumable {
      */
     public String getPlayerConsumableDescription(){
 
-        return playerConsumableDescription;
+        return holderConsumableDescription;
 
     }
 
@@ -209,7 +209,7 @@ public class Consumable {
      */
     public String getEnemyConsumableDescription(){
 
-        return enemyConsumableDescription;
+        return targetConsumableDescription;
 
     }
 
@@ -217,9 +217,9 @@ public class Consumable {
      * Getter method to determine if the consumable affects the player
      * @return consumable's ability to affect the player (true or false)
      */
-    public boolean getAffectsPlayer(){
+    public boolean getAffectsHolder(){
 
-        return affectsPlayer;
+        return affectsHolder;
 
     }
 
@@ -227,9 +227,9 @@ public class Consumable {
      * Getter method to determine if the consumable affects the enemy
      * @return consumable's ability to affect the enemy (true or false)
      */
-    public boolean getAffectsEnemy(){
+    public boolean getAffectsTarget(){
 
-        return affectsEnemy;
+        return affectsTarget;
 
     }
 
@@ -273,114 +273,157 @@ public class Consumable {
 
     }
 
+    /**
+     * Getter method to retrieve what stats will be affected for the player
+     * @return amount of turns consumable has remained active
+     */
+    public String[] getStatsToAffectHolder(){
+
+        return statsToAffectHolder;
+
+    }
+
+    /**
+     * Getter method to retrieve how many turns have elapsed since the consumable was first used
+     * @return amount of turns consumable has remained active
+     */
+    public int[] getStatValuesToAffectHolder(){
+
+        return statValuesToAffectHolder;
+
+    }
+
+    /**
+     * Getter method to retrieve how many turns have elapsed since the consumable was first used
+     * @return amount of turns consumable has remained active
+     */
+    public String[] getStatsToAffectTarget(){
+
+        return statsToAffectTarget;
+
+    }
+
+    /**
+     * Getter method to retrieve how many turns have elapsed since the consumable was first used
+     * @return amount of turns consumable has remained active
+     */
+    public int[] getStatValuesToAffectTarget(){
+
+        return statValuesToAffectTarget;
+        
+    }
 
     //Consumable Methods
 
+
+    public abstract void useConsumable(Character holder, Character target);
+
+
     //Creates the description for playerConsumableDescription
-    private void createPlayerConsumableDescription(){
+    private void createHolderConsumableDescription(){
 
-        int size = statsToAffectPlayer.length; //Gets length of Player array
+        int size = statsToAffectHolder.length; //Gets length of Player array
 
-        playerConsumableDescription = "Player"; //Starts description with Player
+        holderConsumableDescription = "Holder"; //Starts description with Player
 
         //For loop will iterate through the array to check the Stats stored in each index
         for(int i = 0; i < size; i++){
 
             //Checks the value at the index and checks if its positive or negative 
-            if(statValuesToAffectPlayer[i] > 0)
-                playerConsumableDescription += " gains " + statValuesToAffectPlayer[i]; //Positive
+            if(statValuesToAffectHolder[i] > 0)
+                holderConsumableDescription += " gains " + statValuesToAffectHolder[i]; //Positive
             else
-                playerConsumableDescription += " loses " + -statValuesToAffectPlayer[i]; //Negative
+                holderConsumableDescription += " loses " + -statValuesToAffectHolder[i]; //Negative
 
             
             //Switch statement checks the Stat stored in each index and updates the description depending on Stat 
-            switch(statsToAffectPlayer[i]){
+            switch(statsToAffectHolder[i]){
 
                 case "HitPoints":
 
-                    playerConsumableDescription += " HitPoints"; //Adds HitPoints
+                    holderConsumableDescription += " HitPoints"; //Adds HitPoints
                     break;               
                     
                 case "Attack":
 
-                    playerConsumableDescription += " Attack"; //Adds Attack
+                    holderConsumableDescription += " Attack"; //Adds Attack
                     break;  
 
                 case "Defense":
 
-                    playerConsumableDescription += " Defense"; //Adds Defense
+                    holderConsumableDescription += " Defense"; //Adds Defense
                     break;  
 
                 case "Speed":
 
-                    playerConsumableDescription += " Speed"; //Adds Speed
+                    holderConsumableDescription += " Speed"; //Adds Speed
 
             }
 
             //Checks the current index and will update the description based on it.
             if(i + 1 == size - 1 && size > 1)
-                playerConsumableDescription += " and"; //When index is size - 1
+                holderConsumableDescription += " and"; //When index is size - 1
             else if (i + 1 != size)
-                playerConsumableDescription += ","; //When index is below size - 1
+                holderConsumableDescription += ","; //When index is below size - 1
 
         }
 
-        playerConsumableDescription += "."; //Ends description
+        holderConsumableDescription += "."; //Ends description
 
     }
 
 
     //Creates the description for enemyConsumableDescription
-    private void createEnemyConsumableDescription(){
+    private void createTargetConsumableDescription(){
 
-        int size = statsToAffectEnemy.length; //Gets length of Enemy array
+        int size = statsToAffectTarget.length; //Gets length of Target array
 
-        enemyConsumableDescription = "Enemy"; //Starts description with Enemy
+        targetConsumableDescription = "Target"; //Starts description with Target
 
         //For loop will iterate through the array to check the Stats stored in each index
         for(int i = 0; i < size; i++){
 
             //Checks the value at the index and checks if its positive or negative 
-            if(statValuesToAffectEnemy[i] > 0)
-                enemyConsumableDescription += " gains " + statValuesToAffectEnemy[i]; //Positive
+            if(statValuesToAffectTarget[i] > 0)
+                targetConsumableDescription += " gains " + statValuesToAffectTarget[i]; //Positive
             else
-                enemyConsumableDescription += " loses " + -statValuesToAffectEnemy[i]; //Negative
+                targetConsumableDescription += " loses " + -statValuesToAffectTarget[i]; //Negative
 
 
             //Switch statement checks the Stat stored in each index and updates the description depending on Stat 
-            switch(statsToAffectEnemy[i]){
+            switch(statsToAffectTarget[i]){
 
                 case "HitPoints":
 
-                    enemyConsumableDescription += " HitPoints"; //Adds HitPoints
+                    targetConsumableDescription += " HitPoints"; //Adds HitPoints
                     break;               
                     
                 case "Attack":
 
-                    enemyConsumableDescription += " Attack"; //Adds Attack
+                    targetConsumableDescription += " Attack"; //Adds Attack
                     break;   
 
                 case "Defense":
 
-                    enemyConsumableDescription += " Defense"; //Adds Defense
+                    targetConsumableDescription += " Defense"; //Adds Defense
                     break;  
 
                 case "Speed":
 
-                    enemyConsumableDescription += " Speed"; //Adds Speed
+                    targetConsumableDescription += " Speed"; //Adds Speed
 
             }
 
             //Checks the current index and will update the description based on it.
             if(i + 1 == size - 1 && size > 1)
-                enemyConsumableDescription += " and"; //When index is size - 1
+                targetConsumableDescription += " and"; //When index is size - 1
             else if (i + 1 != size)
-                enemyConsumableDescription += ","; //When index is below size - 1
+                targetConsumableDescription += ","; //When index is below size - 1
         
         }
 
         
-        enemyConsumableDescription += "."; //Ends description
+        targetConsumableDescription += "."; //Ends description
 
     }
 
@@ -401,87 +444,6 @@ public class Consumable {
     }
 
 
-    //Method updates Player stats based on statsToAffectPlayer and its values
-
-    /**
-     * Method that applies the stat effects of the consumable to the player
-     * @param player player object whose stats are to be updated/effected
-     */
-    public void affectPlayer(Player player){
-
-        int size = statsToAffectPlayer.length; //Gets size of Player Array
-
-        //For loop will iterate through the array to check the Stats stored in each index
-        for(int i = 0; i < size; i++){
-
-            //Switch statement checks the Stat stored in each index and updates the values of the corresponding Stat 
-            switch(statsToAffectPlayer[i]){
-
-                case "HitPoints":
-
-                    player.setHitPoints(player.getHitPoints() + statValuesToAffectPlayer[i]); //Affect HitPoints
-                    break; 
-
-                case "Attack":
-
-                    player.setAttack(player.getAttack() + statValuesToAffectPlayer[i]); //Affect Attack
-                    break; 
-
-                case "Defense":
-
-                    player.setDefense(player.getDefense() + statValuesToAffectPlayer[i]); //Affect Defense
-                    break; 
-
-                case "Speed":
-
-                    player.setSpeed(player.getSpeed() + statValuesToAffectPlayer[i]); //Affect Speed
-
-            }
-
-        }
-
-    }
-
-
-    //Method updates Enemy stats based on statsToAffectEnemy and its values
-    /**
-     * Method that applies the stat effects of the consumable to the enemy
-     * @param enemy enemy object whose stats are to be updated/effected
-     */
-    public void affectEnemy(Enemy enemy){
-
-        int size = statsToAffectEnemy.length; //Gets size of Enemy array
-
-        //For loop will iterate through the array to check the Stats stored in each index
-        for(int i = 0; i < size; i++){
-
-            //Switch statement checks the Stat stored in each index and updates the values of the corresponding Stat 
-            switch(statsToAffectEnemy[i]){
-
-                case "HitPoints":
-                    
-                    enemy.setHitPoints(enemy.getHitPoints() + statValuesToAffectEnemy[i]); //Affect HitPoints
-                    break;
-
-                case "Attack":
-
-                    enemy.setAttack(enemy.getAttack() + statValuesToAffectEnemy[i]); //Affect Attack
-                    break;
-
-                case "Defense":
-
-                    enemy.setDefense(enemy.getDefense() + statValuesToAffectEnemy[i]); //Affect Defense
-                    break;
-
-                case "Speed":
-
-                    enemy.setSpeed(enemy.getSpeed() + statValuesToAffectEnemy[i]); //Affect Speed
-
-            }
-
-        }
-
-    }
 
 
     //Method increments turnCounter and calls restoreStats method once it is equal to affectingTurns
@@ -492,7 +454,7 @@ public class Consumable {
      * @param player player object whose stats are to be restored
      * @param enemy player object whose stats are to be restored
      */
-    public void countAffectingTurns(Player player, Enemy enemy){
+    public void countAffectingTurns(Character holder, Character target){
 
         //Checks if the instance is a consumable
         if(isTemporary){
@@ -501,7 +463,7 @@ public class Consumable {
 
             //Checks if the turnCounter has reached the value of affectingTurns
             if(turnCounter == affectingTurns)
-                restoreStats(player, enemy); //Call method to restore Player and/or Enemy stats
+                restoreStats(holder, target); //Call method to restore Player and/or Enemy stats
 
         }
         else
@@ -511,39 +473,39 @@ public class Consumable {
 
 
     //Method restore the stats from temporary effects
-    private void restoreStats(Player player, Enemy enemy){
+    private void restoreStats(Character holder, Character target){
 
         int size = 0;
 
         //Checks if the consumable affects the Player
-        if(affectsPlayer)
-            size = statsToAffectPlayer.length;
+        if(affectsHolder)
+            size = statsToAffectTarget.length;
 
 
         //For loop with iterate through the array to restore Player's stats from temporary effects
-        for(int i = 0; i < size && affectsPlayer; i++){
+        for(int i = 0; i < size && affectsHolder; i++){
 
             //Switch statement checks the current stat stored in that index and finds the appropraite case to restore Player's stat
-            switch(statsToAffectPlayer[i]){
+            switch(statsToAffectHolder[i]){
 
                 case "HitPoints":
 
-                    player.setHitPoints(player.getHitPoints() - statValuesToAffectPlayer[i]); //Restore HitPoints
+                    holder.setHitPoints(holder.getHitPoints() - statValuesToAffectHolder[i]); //Restore HitPoints
                     break; 
 
                 case "Attack":
 
-                    player.setAttack(player.getAttack() - statValuesToAffectPlayer[i]); //Restore Attack
+                    holder.setAttack(holder.getAttack() - statValuesToAffectHolder[i]); //Restore Attack
                     break; 
 
                 case "Defense":
 
-                    player.setDefense(player.getDefense() - statValuesToAffectPlayer[i]); //Restore Defense
+                    holder.setDefense(holder.getDefense() - statValuesToAffectHolder[i]); //Restore Defense
                     break; 
 
                 case "Speed":
 
-                    player.setSpeed(player.getSpeed() - statValuesToAffectPlayer[i]); //Restore Speed
+                    holder.setSpeed(holder.getSpeed() - statValuesToAffectHolder[i]); //Restore Speed
 
             }
 
@@ -551,40 +513,40 @@ public class Consumable {
 
 
         //Checks if the consumable affects the Enemy
-        if(affectsEnemy)
-            size = statsToAffectEnemy.length;
+        if(affectsTarget)
+            size = statsToAffectTarget.length;
 
         //For loop with iterate through the array to restore Enemy's stats from temporary effects
-        for(int i = 0; i < size && affectsEnemy; i++){
+        for(int i = 0; i < size && affectsTarget; i++){
 
             //Switch statement checks the current stat stored in that index and finds the appropraite case to restore Enemy's stat
-            switch(statsToAffectEnemy[i]){
+            switch(statsToAffectTarget[i]){
 
                 case "HitPoints":
                     
-                    enemy.setHitPoints(enemy.getHitPoints() - statValuesToAffectEnemy[i]); //Restore HitPoints
+                    target.setHitPoints(target.getHitPoints() - statValuesToAffectTarget[i]); //Restore HitPoints
                     break;
 
                 case "Attack":
 
-                    enemy.setAttack(enemy.getAttack() - statValuesToAffectEnemy[i]); //Restore Attack
+                    target.setAttack(target.getAttack() - statValuesToAffectTarget[i]); //Restore Attack
                     break;
 
                 case "Defense":
 
-                    enemy.setDefense(enemy.getDefense() - statValuesToAffectEnemy[i]); //Restore Defense
+                    target.setDefense(target.getDefense() - statValuesToAffectTarget[i]); //Restore Defense
                     break;
 
                 case "Speed":
 
-                    enemy.setSpeed(enemy.getSpeed() - statValuesToAffectEnemy[i]); //Restore Speed
+                    target.setSpeed(target.getSpeed() - statValuesToAffectTarget[i]); //Restore Speed
 
             }
 
         }
 
         turnCounter = 0; //Resets counter
-        player.setHasConsumeTemp(false); //Sets players consumeTemp to false
+        holder.setHasConsumeTemp(false); //Sets players consumeTemp to false
         
     }
 
@@ -597,6 +559,7 @@ public class Consumable {
     public void resetCharges(){
 
         chargesLeft = maxCharges;
+        turnCounter = 0;
         
     }
 

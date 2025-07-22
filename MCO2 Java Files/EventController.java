@@ -19,7 +19,7 @@ public class EventController {
     //Main Attributes
     private Player player; //Stores player that will be used in the program
     private SelectionController selection; //Stores controller dealing with selection
-    private CLIViewer display; //Stores Class that will be doing display
+    private CLIViewer cliView; //Stores Class that will be doing display
     private Enemy enemy; //Stores enemy that will be used in the program
     private Environment environment; //Stores the environment that will be used in the program
 
@@ -37,10 +37,10 @@ public class EventController {
     /**
      * Constructor for the EventController Class
      */
-    public EventController(){
+    public EventController(CLIViewer cliView){
 
-        display = new CLIViewer();
-        selection = new SelectionController(display);
+        this.cliView = cliView;
+        selection = new SelectionController(cliView);
         
     }
 
@@ -65,17 +65,37 @@ public class EventController {
      */
     public CLIViewer getDisplay(){
 
-        return display;
+        return cliView;
 
     }
 
-    /**
-     * Getter method to determine if the game is still running
-     * @return the boolean of the game running, when this returns false the game has ended
-     */
-    public boolean getIsRunning(){
 
-        return isRunning;
+    public void start(Scanner input){
+
+        char choiceInput = '\u0000'; //Sets choiceInput to null
+        
+        choiceInput = mainMenu(input); //Starts the main menu
+
+        //Do-While loop that checks if the Player wishes to quit or not
+        do{
+
+            //While loop controls the game as long isRunning is true
+
+            while(isRunning){
+
+                cliView.displayGameBar(player, enemy, environment); //Displays Game Stats
+
+                playerChoice(input); //Asks for Player choice for their turn
+
+                turnSystem(); //Controls the turn system and the results
+
+            }
+
+            //Checks if player didn't choose Q (Quit Game)
+            if(choiceInput != 'Q')
+                choiceInput = retry(input); //Asks user if they wish to retry or quit
+
+        }while(choiceInput != 'Q');
 
     }
 
@@ -89,13 +109,13 @@ public class EventController {
      */
     public char mainMenu(Scanner input){
 
-        char menuInput='Z';
+        char menuInput = 'Z';
         String name;
 
         //Do-while loop for invalid input
         do{
 
-            display.displayMainMenu(); //Display main menu
+            cliView.displayMainMenu(); //Display main menu
 
             System.out.printf("Input (Char): ");
             try{
@@ -150,7 +170,7 @@ public class EventController {
         //Weapon and Armor attributes that store selected choice
         Weapon equipWeapon = selection.selectWeapon(input); 
         Armor equipArmor = selection.selectArmor(input);
-       Consumable equipConsumable = selection.selectConsumable(input);
+        Consumable equipConsumable = selection.selectConsumable(input);
 
         player.equipWeapon(equipWeapon); //Calls method for Player to equip chosen Weapon
 
@@ -168,11 +188,6 @@ public class EventController {
 
         environment = selection.selectEnvironment(input); //Updates environment attribute to chosen Environment
 
-        //Sets the Player and their choices to the controller for display later
-        display.setPlayer(player);
-        display.setEnvironment(environment);
-        display.setEnemy(enemy);
-
     }
 
 
@@ -183,33 +198,47 @@ public class EventController {
      * Method to control actual running battle
      * @param choice The user's choice of a given action they want to do in one turn
      */
-    public void turnSystem(char choice){
-
-        String playerTurnChoice = null; //Gets the choice of the Player that gets returned from the Player think method
+    public void turnSystem(){
 
         //Checks if the player has previously consumed a potion that provides temporary effects.
         if(player.getHasConsumeTemp())
             player.getConsumable().countAffectingTurns(player, enemy); //Calls counter and restores stats once timer ends
 
-        if(choice == 'C')
+        //Checks if the enemy has previously consumed a potion that provides temporary effects.
+        if(enemy.getHasConsumeTemp())
+            enemy.getConsumable().countAffectingTurns(enemy, player); //Calls counter and restores stats once timer ends
+
+        if(player.getTurnInputAction() == 'C')
             player.setChargeBase(player.getAttack());
+
+        enemy.setChargeBase(enemy.getAttack());
 
         //Checks if the environment chosen has any effects or not
         if(environment.getHasEffect())
             environmentEffect(); //Call method to update Player and Enemy stats depending on effect
         
+        //NEW
+        if(player.getWeapon() != null)
+            player.getWeapon().usePassiveAbility(player, enemy);
+
+        if(enemy.getWeapon() != null)
+            enemy.getWeapon().usePassiveAbility(enemy, player);
+
+
         /* If conditions to check the turn system of the game (Determines who goes first)
          * Turn is determined by the checkWinner() method. (If theres a checkWin() method before their turn, then their turn was second)
          */
-        if(enemy.getSpeed() < player.getSpeed() || choice == 'D' || choice == 'U'){ //Checks if player is faster, defending, or consumed
+        if((enemy.getSpeed() < player.getSpeed() || player.getTurnInputAction() == 'D' || player.getTurnInputAction() == 'U') && !enemy.getIsDefending()){ //Checks if player is faster, defending, or consumed
             
-            playerTurnChoice = player.think(choice, enemy); //Player goes first
+
+            player.think(enemy); //Player goes first
+
             checkWinner(); //Check for win condition
 
             //Checks if game is still running to prevent unecessary Enemy turns
             if(isRunning){
 
-                enemyTurn(); //Enemy goes next
+                enemy.think(player); //Enemy goes next
                 checkWinner(); //Check for win condition
 
             }
@@ -217,13 +246,13 @@ public class EventController {
         }
         else if(enemy.getSpeed() > player.getSpeed()){ //Checks if enemy is faster
 
-            enemyTurn(); //Enemy goes first
+            enemy.think(player); //Enemy goes first
             checkWinner(); //Check for win condition
 
             //Checks if game is still running to prevent unecessary Player turns
             if(isRunning){
 
-                playerTurnChoice = player.think(choice, enemy); //Player goes next
+                player.think(enemy); //Player goes next
                 checkWinner(); //Check for win condition
 
             }
@@ -232,20 +261,78 @@ public class EventController {
         else{ //Both have the same speed
 
             //Player and enemy go at the same time
-            playerTurnChoice = player.think(choice, enemy); 
-            enemyTurn();
+            player.think(enemy); 
+            enemy.think(player);
 
             checkWinner(); //Check for win condition
 
         }
 
         //Check whether the game is still running in order to display turn results
-        if(isRunning)
-            display.displayTurnResult(playerTurnChoice);
+        if(isRunning){
+
+            if(player.getWeapon() instanceof EnchantedWeapon){
+
+                ((EnchantedWeapon) player.getWeapon()).getWeaponSkill().checkSkillConditionCounter(player, enemy);
+
+                if(player.getTurnInputAction() != 'F' && ((EnchantedWeapon) player.getWeapon()).getWeaponSkill().getTurnsActive())
+                    ((EnchantedWeapon) player.getWeapon()).getWeaponSkill().createActiveSkillResultDescription(player, enemy);
+            }
+
+
+            if(enemy.getWeapon() instanceof EnchantedWeapon){
+
+                ((EnchantedWeapon) enemy.getWeapon()).getWeaponSkill().checkSkillConditionCounter(enemy, player);
+                
+                if(enemy.getTurnInputAction() != 'F' && ((EnchantedWeapon) enemy.getWeapon()).getWeaponSkill().getTurnsActive())
+                    ((EnchantedWeapon) enemy.getWeapon()).getWeaponSkill().createActiveSkillResultDescription(enemy, player);
+
+            }
+
+
+            
+            cliView.displayTurnResult(player, enemy, environment, player.getLastCharacterAction(), enemy.getLastCharacterAction());
+            postTurnEventChecks();
+  
+        }
 
     }
 
-    
+  
+    private void postTurnEventChecks(){
+
+        if(player.getIsDefending())
+            player.stopDefending();
+        
+        if(enemy.getIsDefending())
+            enemy.stopDefending();
+
+        if(player.getWeapon() != null){
+
+            player.getWeapon().getAbility().deactivateAbility(player);
+
+            if(player.getWeapon() instanceof EnchantedWeapon)
+                ((EnchantedWeapon) player.getWeapon()).getWeaponSkill().deactivateSkill(player, enemy);  
+
+        }
+
+        if(enemy.getWeapon() != null){
+
+            enemy.getWeapon().getAbility().deactivateAbility(enemy);
+
+            if(enemy.getWeapon() instanceof EnchantedWeapon)
+                ((EnchantedWeapon) enemy.getWeapon()).getWeaponSkill().deactivateSkill(enemy, player);   
+
+        }
+
+        if(isRunning)
+            enemy.updateTurnAction();
+        else
+            enemy.resetTurnAction();
+
+    }
+
+
     //Method for Player's turn and their choice during this turn.
 
     /**
@@ -253,11 +340,17 @@ public class EventController {
      * @param input The user's input
      * @return the user's chosen action
      */
-    public char playerChoice(Scanner input){
+    public void playerChoice(Scanner input){
 
         char choiceInput = 'Z'; //Sets default choiceInput to newline
 
-        display.displayChoices(); //Display player choices for their turn
+        //Display player choices for their turn depending if the weapon they used has a skill or not.
+        if(player.getWeapon() instanceof EnchantedWeapon)
+            cliView.displayChoices(((EnchantedWeapon) player.getWeapon()).getWeaponSkill().getHasMetConditions()); 
+        else
+            cliView.displayChoices();
+
+        
 
         //Do-while to check for invalid input
         do{
@@ -270,56 +363,78 @@ public class EventController {
             } catch (StringIndexOutOfBoundsException e) {
                 
                 System.out.printf("\n\n\n\n"); 
-                display.displayGameBar();
+                cliView.displayGameBar(player, enemy, environment);
                 System.out.printf("\nCannot enter an empty character\n");
-                display.displayChoices(); //Display player choices for their turn
+                cliView.displayChoices(); //Display player choices for their turn
 
             }
 
             //Checks for invalid input
-            if(choiceInput != 'A' && choiceInput != 'D' && choiceInput != 'C' && choiceInput != 'I' && choiceInput != 'U'){
+            if(choiceInput != 'A' && choiceInput != 'D' && choiceInput != 'C' && choiceInput != 'U' && choiceInput != 'F'){
 
                 System.out.printf("\n\n\n\n"); 
-                display.displayGameBar();                
-                System.out.printf("\nERROR: Please provide a valid input.\n");   
-                display.displayChoices(); //Display player choices for their turn
+                cliView.displayGameBar(player, enemy, environment);                
+                System.out.printf("\nERROR: Please provide a valid input.\n"); 
+
+                if(player.getWeapon() instanceof EnchantedWeapon)
+                    cliView.displayChoices(((EnchantedWeapon) player.getWeapon()).getWeaponSkill().getHasMetConditions()); 
+                else
+                    cliView.displayChoices();
+
                 choiceInput = 'Z'; //Returns to deafault value
 
             }
             else if(choiceInput == 'U' && player.getConsumable() == null){ //Checks if player tries to use a nonexistient consumable
 
                 System.out.printf("\n\n\n\n"); 
-                display.displayGameBar();
+                cliView.displayGameBar(player, enemy, environment);
                 System.out.printf("\nERROR: No consumable equipped!\n");
-                display.displayChoices(); //Display player choices for their turn  
-                choiceInput = 'Z'; //Returns to deafult value
 
+                if(player.getWeapon() instanceof EnchantedWeapon)
+                    cliView.displayChoices(((EnchantedWeapon) player.getWeapon()).getWeaponSkill().getHasMetConditions()); 
+                else
+                    cliView.displayChoices();
+
+                choiceInput = 'Z'; //Returns to deafult value
 
             }
             else if(choiceInput == 'U' && player.getConsumable() != null && player.getConsumable().getChargesLeft() == 0){
                 //Checks if player tries to use a consumable that is out of charges.
 
                 System.out.printf("\n\n\n\n"); 
-                display.displayGameBar();
+                cliView.displayGameBar(player, enemy, environment);
                 System.out.printf("\nERROR: No charges left!\n");  
-                display.displayChoices(); //Display player choices for their turn
+
+                if(player.getWeapon() instanceof EnchantedWeapon)
+                    cliView.displayChoices(((EnchantedWeapon) player.getWeapon()).getWeaponSkill().getHasMetConditions()); 
+                else
+                    cliView.displayChoices();
+
+                cliView.displayChoices(); //Display player choices for their turn
                 choiceInput = 'Z'; //Returns to deafult value
 
             }
+            else if(choiceInput == 'F' && (!(player.getWeapon() instanceof EnchantedWeapon) || !((EnchantedWeapon) player.getWeapon()).getWeaponSkill().getHasMetConditions())){
+
+                System.out.printf("\n\n\n\n"); 
+                cliView.displayGameBar(player, enemy, environment);
+                System.out.printf("\nERROR: Skill is not available!\n");  
+
+                if(player.getWeapon() instanceof EnchantedWeapon)
+                    cliView.displayChoices(((EnchantedWeapon) player.getWeapon()).getWeaponSkill().getHasMetConditions()); 
+                else
+                    cliView.displayChoices();
+
+                cliView.displayChoices(); //Display player choices for their turn
+                choiceInput = 'Z'; //Returns to deafult value
+
+            }
+
             
 
-        }while(choiceInput == 'Z');      
-    
-
-        return choiceInput;
-
-    }
-
-
-    //Method for Enemy's turn
-    private void enemyTurn(){
-
-        enemy.attack(player);
+        }while(choiceInput == 'Z');  
+        
+        player.setTurnInputAction(choiceInput);
 
     }
 
@@ -340,15 +455,15 @@ public class EventController {
         if(player.getHitPoints() <= 0 || enemy.getHitPoints() <= 0){
 
             isRunning = false; //Updates boolean value to false
-            display.displayGameBar(); //Diplays final values of the game one last time
+            cliView.displayGameBar(player, enemy, environment); //Diplays final values of the game one last time
 
             //If condition checks who reached 0 hitpoints
             if(player.getHitPoints() > 0 && enemy.getHitPoints() <= 0)
-                display.displayWinner("Player"); //Display win
+                cliView.displayWinner("Player"); //Display win
             else if(player.getHitPoints() <= 0 && enemy.getHitPoints() > 0)
-                display.displayWinner("Enemy"); //Display loss
+                cliView.displayWinner("Enemy"); //Display loss
             else if(player.getHitPoints() <= 0 && enemy.getHitPoints() <= 0)
-                display.displayWinner("Tie"); //Display tie
+                cliView.displayWinner("Tie"); //Display tie
 
         }
 
@@ -369,7 +484,7 @@ public class EventController {
         //Do-while to check for invalid input
         do{
 
-            display.displayEndMainMenu(); //Display ending main menu
+            cliView.displayEndMainMenu(); //Display ending main menu
             System.out.printf("Input (Char): ");
 
             try {
@@ -410,6 +525,10 @@ public class EventController {
 
         environment = null;
 
+
+
+        postTurnEventChecks();
+
         //Removes any existing equipment and resets character to default sats
 
         //Checks if Armor exists before resetting charges
@@ -419,22 +538,35 @@ public class EventController {
         //Checks if Weapon exists before resetting charges
         if(player.getWeapon() != null)
             player.unequipWeapon();
-        
+
         //Checks if Consumable exists before resetting charges
-        if(player.getConsumable() != null)
+        if(player.getConsumable() != null){
+
             player.getConsumable().resetCharges();
+            player.setHasConsumeTemp(false);
+
+        }
+
 
         player.unequipConsumable();
         player.setHitPoints(100);
         player.setSpeed(50);
         player.stopCharging();
         player.stopDefending();
+        enemy.stopDefending();
 
         //Resets the enemy to its original values
         enemy.setHitPoints(enemyHitPointsCopy); 
         enemy.setAttack(enemyAttackCopy);
         enemy.setDefense(enemyDefenseCopy);
         enemy.setSpeed(enemySpeedCopy);
+
+        if(enemy.getConsumable() != null){
+
+            enemy.getConsumable().resetCharges();
+            enemy.setHasConsumeTemp(false);
+            
+        }
         enemy = null;
 
         isRunning = true;

@@ -1,23 +1,14 @@
-/**
- * Class file for the player class, the user's controllable fighter in the battle
- * <p>
- *     The player is a fighter whose equipment the user can customize
- * </p>
- * <p>
- *     The player is capable of attacking, defending, charging, and using a consumable if available
- * </p>
- * @author Stefan_Martin
- */
-public class Player {
+public abstract class Character {
     
-    //String attributes
+        //String attributes
     private final String name; //Name of Player
 
     //Stat attributes
-    private int hitPoints = 100; //Health of the Player
-    private int attack = 1; //How much damage they will deal
-    private int defense = 1; //How much damage can be resisted
-    private int speed = 50; //How fast they will attack (Determines who goes first)
+    private int hitPoints; //Health of the Player
+    private int attack; //How much damage they will deal
+    private int defense; //How much damage can be resisted
+    private int speed; //How fast they will attack (Determines who goes first)
+    private int chargeMultiplier = 3; //Multiplier for attack when Character is charging
 
     //Weapon and Armor attributes
     private Armor armor = null; //Armor that the player can equip
@@ -28,9 +19,13 @@ public class Player {
     private boolean isCharging = false; //Boolean check to see whether Player is charging
     private boolean isDefending = false; //Boolean check to see whether Player is defending
     private boolean hasConsumeTemp = false; //Boolean check to see whether Player used a consumable that is temporary
+    private boolean isInvulnerable = false; //Boolean check to see whether Player is immune to damage
     private int chargeBase; //Int to store attack value at time of charging to isolate it from environment effects
-
-    //Attributes for display
+    private char turnInputAction; //Stores the input of the character
+    private String lastCharacterAction; //Stores a String equivalent of the latest action of the character
+    private int timesToAttack = 1; //Stores how many times the action attack with be performed
+    
+    //Attributes for display (CHANGE)
     private int getLastAttackDone; //Stores the amount of damage that was last done
 
     
@@ -40,9 +35,13 @@ public class Player {
      * Constructor for the player object
      * @param name a unique name the player will be identified with
      */
-    public Player(String name){
+    public Character(String name, int hitPoints, int attack, int defense, int speed){
 
        this.name = name;
+       this.hitPoints = hitPoints;
+       this.attack = attack;
+       this.defense = defense;
+       this.speed = speed;
 ;
     }
 
@@ -104,13 +103,37 @@ public class Player {
         
     }
 
+
+    public void setChargeMultipler(int multiplier){
+
+
+        //Checks whether defense provided is greater or equal than 0
+        if(chargeMultiplier >= 3)
+            chargeMultiplier = multiplier;
+        else
+            chargeMultiplier = 3; //Forces it to be 0 to avoid any negative values  
+
+
+    }
+
     /**
-     * Updates the player's current consumable usage
+     * Updates the player's current temporary consumable usage
      * @param hasConsumeTemp new state of consumable usage (true or false)
      */
     public void setHasConsumeTemp(boolean hasConsumeTemp){
 
         this.hasConsumeTemp = hasConsumeTemp;
+
+    }
+
+
+    /**
+     * Updates the state to determine if the player is immune to damage or not
+     * @param isInvulnerable new state of player immunity (true or false)
+     */
+    public void setIsInvulnerable(boolean isInvulnerable){
+        
+        this.isInvulnerable = isInvulnerable;
 
     }
 
@@ -121,6 +144,43 @@ public class Player {
     public void setChargeBase(int attack) {
         this.chargeBase = attack;
     }
+
+
+    /**
+     * Updates and stores a char equivalent of what the Character will do this turn
+     * @param turnAction the char of what the Character will do
+     */
+    public void setTurnInputAction(char turnInputAction){
+
+        this.turnInputAction = turnInputAction;
+
+    }
+
+
+    /**
+     * Updates and stores a String equivalent of what the Character's last action was
+     * @param turnAction the String of Character's last action
+     */
+    public void setLastCharacterAction(String lastCharacterAction){
+
+        this.lastCharacterAction = lastCharacterAction;
+
+    }
+
+
+    /**
+     * Updates and stores how many times the Character will perform the Attack action
+     * @param turnAction the number of times to attack
+     */
+    public void setTimesToAttack(int timesToAttack){
+
+        if(timesToAttack > 0)
+            this.timesToAttack = timesToAttack;
+        else
+            timesToAttack = 1;
+
+    }
+
 
     //Getters
 
@@ -175,6 +235,16 @@ public class Player {
     }
 
     /**
+     * Getter method to retrieve the character's current charge multiplier
+     * @return the character's current charge multiplier
+     */
+    public int getChargeMultiplier(){
+
+        return chargeMultiplier;
+
+    }
+
+    /**
      * Getter method to retrieve the player's currently equipped armor object
      * @return the player's current armor
      */
@@ -225,12 +295,54 @@ public class Player {
     }
 
     /**
-     * Getter method to determine if the player is capable of using another consumable
+     * Getter method to determine if the player has consumed a consumable with temporary effects
      * @return player's current state of consumable use (true or false)
      */
     public boolean getHasConsumeTemp(){
 
         return hasConsumeTemp;
+
+    }
+
+    /**
+     * Getter method to determine if the player is immune to damage or not
+     * @return player's current state invulnerability (true or false)
+     */
+    public boolean getIsInvulnerable(){
+        
+        return isInvulnerable;
+
+    }
+
+
+    /**
+     * Getter method to share the Character's input
+     * @return Character's current input this turn
+     */
+    public char getTurnInputAction(){
+
+        return turnInputAction;
+
+    }
+
+    /**
+     * Getter method to share the Character's last action done
+     * @return player's last action done
+     */
+    public String getLastCharacterAction(){
+
+        return lastCharacterAction;
+
+    }
+
+
+    /**
+     * Getter method to share the Character's times to attack
+     * @return player's times to attack.
+     */
+    public int getTimesToAttack(){
+
+        return timesToAttack;
 
     }
 
@@ -319,87 +431,47 @@ public class Player {
 
     //Turn-based Methods
 
-    /**
-     * Method for the player to choose what they wish to do during their turn, the player can choose to do only
-     * one action per turn
-     * @param choice The user's input to determine the player's action
-     * @param target The enemy object the player is currently fighting
-     * @return the given action the player will perform in the turn
-     */
-    public String think(char choice, Enemy target){
-
-        String playerChoice = null; //Set playerChoice to null at the start
-
-        //Switch statement that will call the corresponding method depending on user choice
-        switch(choice){
-
-            case 'A':
-
-                playerChoice = "Attack";
-                attack(target); //A - Attack Target 
-                break;
+    protected abstract void think(Character target);
 
 
-            case 'D': 
+    protected void attack(Character target){
 
-                playerChoice = "Defend";
-                defend(); //D - Defend against Target
-                break;
+        for(int i = 0; i < timesToAttack; i++){
 
+            int damage = 0; //Stores the amount of damage dont to the enemy
 
-            case 'C': 
+            if(!target.getIsInvulnerable()){
 
-                //If condition to check whether the player is charging 
-                playerChoice = "Charge";
-                if(!isCharging)
-                    charge(); //C - Charge Player 
-                     
-                break;
-                
-            case 'U':
+                //If condition to check whether the Character was charging at the time of their attack
+                if(isCharging)
+                    damage = chargeBase * chargeMultiplier;
+                else
+                    damage = attack;
 
-                //If condition to check whether the player is charging 
-                if(consumable.getChargesLeft() > 0){
+                if(target.getIsDefending()){
 
-                    playerChoice = "Consume";
-                    consume(target); //U - Charge Player 
+                    //Ternary Operator to calculate damage whether damage was dealt or not with target defending
+                    damage = (damage / 2 > 0) ? damage / 2 : 0; 
+                    target.stopDefending();
 
-                }    
+                }
+
+            }
+
+            //Ternary Operator to calculate damage whether damage was dealt or not with target defending
+            damage = (damage - target.getDefense() > 0) ? damage - target.getDefense() : 0; 
+            target.setHitPoints(target.getHitPoints() - damage); //Updates the targets hitpoints after taking damage
+            getLastAttackDone = damage; //Stores the damage that was done by the Character for display
+
 
         }
 
-        return playerChoice; //Return the choice of the player via String
-
-    }
-
-    private void attack(Enemy target){
-
-        int damage; //Stores the amount of damage dont to the enemy
-
-        //If condition to check whether the Player was charging at the time of their attack
-        if(isCharging){
-
-            //Ternary Operator to calculate damage whether damage was dealt or not while charging (Triple damage)
-            damage = (chargeBase * 3 - target.getDefense() > 0) ? chargeBase * 3 - target.getDefense() : 0;
-            target.setHitPoints(target.getHitPoints() - damage); //Updates the targets hitpoints after taking damage
-
+        if(isCharging)
             stopCharging();
-            getLastAttackDone = damage; //Stores the damage that was done by the Player for display
-
-        }
-        else{
-
-            //Ternary Operator to calculate damage whether damage was dealt or not
-            damage = (attack - target.getDefense() > 0) ? attack - target.getDefense() : 0;
-            target.setHitPoints(target.getHitPoints() - damage); //Updates the targets hitpoints after taking damage
-
-            getLastAttackDone = damage; //Stores the damage that was done by the Player for display
-
-        }
 
     }
 
-    private void defend(){
+    protected void defend(){
 
         isDefending = true;
 
@@ -417,11 +489,11 @@ public class Player {
         if(isDefending)
             isDefending = false;
         else
-            System.out.printf("\nERROR: Player is already not defending!\n"); //Error display if false
+            System.out.printf("\nERROR: %s is already not defending!\n", name); //Error display if false
 
     }
 
-    private void charge(){
+    protected void charge(){
 
         isCharging = true;
 
@@ -436,7 +508,7 @@ public class Player {
         if(isCharging)
             isCharging = false;
         else
-            System.out.printf("\nERROR: Player is already not charging!\n"); //Error display if false
+            System.out.printf("\nERROR: %s is already not charging!\n", name); //Error display if false
 
     }
 
@@ -444,34 +516,22 @@ public class Player {
     //Method allows display to get the last attack's amount
     /**
      * Method for displaying the last attack's value
-     * @param display the CLI Viewer class
-     * @see CLIViewer
      * @return the value of the latest attack
      */
-    public int obtainLastAttackDealt(CLIViewer display){
+    public int getLastAttackDealt(){
 
-        //If condition to check whether display is an instance of CLIViewer
-        if(display instanceof CLIViewer)
-            return getLastAttackDone;
-        else 
-            return 0;
+        return getLastAttackDone;
 
     }
 
 
     //Method uses the consumable equipped and gets corresponding effects for both Player and Enemy
-    private void consume(Enemy target){
+    protected void consume(Character target){
 
         //Checks if there are any charges left
         if(consumable.getChargesLeft() > 0){
 
-            //Checks if Consumable affects Player
-            if(consumable.getAffectsPlayer())
-                consumable.affectPlayer(this); //Calls method to affect Player stats
-            
-            //Checks if Consumable affects Enemy
-            if(consumable.getAffectsEnemy())
-                consumable.affectEnemy(target); //Calls method to affect Enemy stats
+            consumable.useConsumable(this, target);
 
             consumable.useCharges(); //Decrement charge
 
@@ -483,5 +543,12 @@ public class Player {
 
     }
 
+    protected void useSkill(Character target){
+
+        if(getWeapon() != null && getWeapon() instanceof EnchantedWeapon && 
+                   ((EnchantedWeapon) getWeapon()).getWeaponSkill().getHasMetConditions())
+            ((EnchantedWeapon) weapon).getWeaponSkill().activateSkill(this, target);
+
+    }
 
 }

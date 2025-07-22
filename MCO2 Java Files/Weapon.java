@@ -9,20 +9,17 @@
  * @author Stefan_Martin
  */
 
-public class Weapon {
+public abstract class Weapon{
     
     //Private Attributes
-
-    //String attributes
     private String name;
-    private String type;
-
-    //Stat attributes
+    protected String type;
     private int attack; //Amount of damage the weapon can deal
     private int speedPenalty; //Speed decrease when using the weapon
+    private Ability abilityType;
 
     //Static attributes
-    private static int totalWeapons = 0; //Stores the amount of Weapon instances
+    protected static int totalWeapons = 0; //Stores the amount of Weapon instances
 
     /**
      * Constructor for the Weapon class
@@ -32,16 +29,22 @@ public class Weapon {
      * @param speedPenalty The weapon's speed penalty, assumes any value as valid
      */
     //Method Constructor
-    public Weapon(String name, String type, int attack, int speedPenalty){
+    public Weapon(String name, int attack, int speedPenalty){
 
         this.name = name;
-        this.type = type;
         this.attack = attack;
         this.speedPenalty = speedPenalty;
+        
         totalWeapons++; //Increment counter
 
     }
 
+    //Setters
+    protected void setAbility(Ability abilityType){
+
+        this.abilityType = abilityType;
+
+    }
 
     //Getters
 
@@ -49,27 +52,18 @@ public class Weapon {
      * Getter method for the weapon name
      * @return the name of the weapon object
      */
-    public String getName(){
+    protected String getName(){
 
         return name;
 
     }
 
-    /**
-     * Getter method for the weapon type
-     * @return the type of the weapon object
-     */
-    public String getType(){
-
-        return type;
-
-    }
 
     /**
      * Getter method for the weapon's atk value
      * @return the atk value of the weapon object
      */
-    public int getAttack(){
+    protected int getAttack(){
 
         return attack;
 
@@ -79,9 +73,30 @@ public class Weapon {
      * Getter method for the weapon's speed penalty
      * @return speed penalty of the weapon object
      */
-    public int getSpeedPenalty(){
+    protected int getSpeedPenalty(){
 
         return speedPenalty;
+
+    }
+
+
+    /**
+     * Getter method for the weapon type
+     * @return the type of the weapon object
+     */
+    protected String getType(){
+
+        return type;
+
+    }
+
+    /**
+     * Getter method for the Ability type
+     * @return the Ability contained in the weapon object
+     */
+    protected Ability getAbility(){
+
+        return abilityType;
 
     }
 
@@ -90,9 +105,18 @@ public class Weapon {
      * @return current total number of weapon objects constructed
      */
     //Returns total amount of Weapon instances 
-    public static int getTotalWeapons(){
+    protected static int getTotalWeapons(){
 
         return totalWeapons;
         
     }
+
+
+
+    public void usePassiveAbility(Character character, Character target){
+
+        abilityType.activateAbility(character, target);
+        
+    }
+
 }
