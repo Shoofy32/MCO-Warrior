@@ -361,7 +361,7 @@ public class CLIViewer {
         if(playerPassiveActive)
             System.out.printf("%s %s\n", player.getName() , player.getWeapon().getAbility().getAbilityDisplayDescription());
 
-        if(player.getWeapon() != null && (player.getTurnInputAction() == 'F' || (player.getTurnInputAction() != 'F' && ((EnchantedWeapon) player.getWeapon()).getWeaponSkill().getTurnsActive())))
+        if(player.getWeapon() != null && player.getWeapon() instanceof EnchantedWeapon && (player.getTurnInputAction() == 'F' || (player.getTurnInputAction() != 'F' && ((EnchantedWeapon) player.getWeapon()).getWeaponSkill().getTurnsActive())))
             System.out.printf("%s\n", ((EnchantedWeapon) player.getWeapon()).getWeaponSkill().getActiveSkillResultDescription());
 
         //If conditions to check playerChoice and display corresponding result depdning on String value
