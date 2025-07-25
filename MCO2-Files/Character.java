@@ -31,6 +31,7 @@ public abstract class Character {
     private char turnInputAction; //Stores the input of the character
     private String lastCharacterAction; //Stores a String equivalent of the latest action of the character
     private int timesToAttack = 1; //Stores how many times the action attack with be performed
+    private int atkBoost=0; //Stores the boosted atk value given by weapon passives
     
     //Attributes for display (CHANGE)
     private int getLastAttackDone; //Stores the amount of damage that was last done
@@ -195,6 +196,16 @@ public abstract class Character {
 
     }
 
+    /**
+     * Updates and stores the value a character's attack will be boosted by due to weapon passives
+     * @param atkBoost additive value to atk
+     */
+
+    public void setAtkBoost(int atkBoost){
+
+        this.atkBoost=atkBoost;
+
+    }
 
     //Getters
 
@@ -466,9 +477,9 @@ public abstract class Character {
 
                 //If condition to check whether the Character was charging at the time of their attack
                 if(isCharging)
-                    damage = chargeBase * chargeMultiplier;
+                    damage = (chargeBase * chargeMultiplier) + atkBoost;
                 else
-                    damage = attack;
+                    damage = attack + atkBoost;
 
                 if(target.getIsDefending()){
 
