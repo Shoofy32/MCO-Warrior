@@ -36,7 +36,7 @@ public class Sword_Ability extends Ability{
         checkAbilityCondition(character);
 
         if(getHasMetConditions())
-            character.setAttack(character.getAttack() + 10);
+            character.setAtkBoost(10);
 
     }
 
@@ -49,7 +49,7 @@ public class Sword_Ability extends Ability{
         setHasMetConditions(false);
 
         if(character.getTurnInputAction() == 'A')
-            character.setAttack(character.getAttack() - 10);
+            character.setAtkBoost(0);
 
     }
 
