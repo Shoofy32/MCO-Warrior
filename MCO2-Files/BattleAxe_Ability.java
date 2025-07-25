@@ -45,7 +45,7 @@ public class BattleAxe_Ability extends Ability{
 
         if(getHasMetConditions()){
 
-            character.setAttack(character.getAttack() + 5);
+            character.setAtkBoost(5);
             character.setSpeed(character.getSpeed() + 5);
 
         }
@@ -62,7 +62,7 @@ public class BattleAxe_Ability extends Ability{
             
             setHasMetConditions(false);
             abilityIsActive = false;
-            character.setAttack(character.getAttack() - 5);
+            character.setAtkBoost(0);
             character.setSpeed(character.getSpeed() - 5);
 
         }
