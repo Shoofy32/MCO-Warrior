@@ -5,7 +5,7 @@
  */
 public class Dagger_Ability extends Ability{
     
-    int numOfDefend = 0;
+    private int numOfDefend = 0;
 
     /**
      * Constructor for the Dagger_Ability class
