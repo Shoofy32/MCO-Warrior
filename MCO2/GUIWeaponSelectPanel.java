@@ -9,7 +9,10 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 
-
+/**
+ * Class file for managing the weapon selection panel
+ * @author Martin
+ */
 public class GUIWeaponSelectPanel extends JPanel{
 
     private boolean firstUpdate = false;
@@ -30,8 +33,11 @@ public class GUIWeaponSelectPanel extends JPanel{
     //For use
     private Border padding = BorderFactory.createEmptyBorder(15, 15, 15, 15);
     private Font largeText = new Font("SansSerif", Font.BOLD , 40);    
-    private Font smallText = new Font("SansSerif", Font.BOLD , 25); 
+    private Font smallText = new Font("SansSerif", Font.BOLD , 25);
 
+    /**
+     * Constructor for the GUIWeaponSelectPanel class
+     */
     public GUIWeaponSelectPanel(){
 
         weaponStatsPanel = new JPanel();
@@ -54,21 +60,23 @@ public class GUIWeaponSelectPanel extends JPanel{
 
     }
 
-
-    public JPanel getWeaponSelectionPanel(){
-
-        return weaponSelection;
-
-    }
-
-
+    /**
+     * Getter to retrieve the weapon stats panel
+     * @return weapon stats panel
+     */
     public JPanel getWeaponStatsPanel(){
 
         return weaponStatsPanel;
 
     }
 
-
+    /**
+     * Initializes the weapon selection
+     * @param buttons Array of buttons
+     * @param buttonWrapper JPanel to wrap around buttons
+     * @param wrapper stores the stats panel
+     * @param mainPanel Panel to display selection
+     */
     public void initWeaponSelection(JButton[] buttons, JPanel buttonWrapper, JPanel wrapper, JPanel mainPanel){
 
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -77,18 +85,18 @@ public class GUIWeaponSelectPanel extends JPanel{
 
         JPanel weaponChoices = new JPanel();
         weaponChoices.setLayout(new BoxLayout(weaponChoices, BoxLayout.Y_AXIS));
-        weaponChoices.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10)); 
+        weaponChoices.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
 
         JLabel weaponSelectLabel = new JLabel("Weapon Selection");
         weaponSelectLabel.setFont(largeText);
 
         JPanel textWrapper = new JPanel();
         textWrapper.setLayout(new BoxLayout(textWrapper, BoxLayout.Y_AXIS));
-        textWrapper.setPreferredSize(new Dimension(450, 100));  
-        textWrapper.setMaximumSize(new Dimension(450, 100));   
-        textWrapper.setMinimumSize(new Dimension(450, 100)); 
+        textWrapper.setPreferredSize(new Dimension(450, 150));
+        textWrapper.setMaximumSize(new Dimension(450, 150));
+        textWrapper.setMinimumSize(new Dimension(450, 150));
         textWrapper.setAlignmentX(RIGHT_ALIGNMENT);
-        textWrapper.setAlignmentY(CENTER_ALIGNMENT);  
+        textWrapper.setAlignmentY(CENTER_ALIGNMENT);
         textWrapper.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 15));
         textWrapper.add(weaponSelectLabel);
 
@@ -124,7 +132,6 @@ public class GUIWeaponSelectPanel extends JPanel{
         mainPanel.add(weaponSelection, "weaponSelect");
     }
 
-
     private void createWeaponButtons(JPanel panel, JButton button){
 
         JPanel weaponPanel = new JPanel(new BorderLayout());
@@ -151,7 +158,6 @@ public class GUIWeaponSelectPanel extends JPanel{
 
     }
 
-
     private void createInfoSection(String typeOfInfo, JLabel info){
 
         JPanel typeWrapper = new JPanel(new BorderLayout());
@@ -172,7 +178,6 @@ public class GUIWeaponSelectPanel extends JPanel{
 
     }
 
-
     private void createInfoSection(String typeOfInfo, JTextArea info){
 
         JPanel typeWrapper = new JPanel();
@@ -186,9 +191,9 @@ public class GUIWeaponSelectPanel extends JPanel{
         info.setFocusable(false);
 
         if(typeOfInfo.equals("ABILITY"))
-            info.setForeground(Color.RED);
-        else if(typeOfInfo.equals("SKILL"))
             info.setForeground(Color.BLUE);
+        else if(typeOfInfo.equals("SKILL"))
+            info.setForeground(Color.RED);
 
         typeWrapper.add(info);
 
@@ -198,6 +203,16 @@ public class GUIWeaponSelectPanel extends JPanel{
 
     }
 
+    /**
+     * Displays a weapon's relevant data
+     * @param name name of the weapon
+     * @param type type of the weapon
+     * @param image image of the weapon
+     * @param damage atk value of the weapon
+     * @param speedPenalty speed penalty of the weapon
+     * @param ability ability of the weapon
+     * @param skill skill of the weapon if it has one
+     */
     public void updateView(String name, String type, ImageIcon image, int damage, int speedPenalty, String ability, String skill){
 
         weaponName.setText(name);

@@ -12,6 +12,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Class to display currently the currently selected armor, weapon, consumable, and enemy before a battle starts
+ */
 public class GUICurrentChoices extends JFrame{
     
     private boolean firstUpdate = false;
@@ -41,9 +44,11 @@ public class GUICurrentChoices extends JFrame{
 
     //For use
     private Font largeText = new Font("SansSerif", Font.BOLD , 40);    
-    private Font smallText = new Font("SansSerif", Font.BOLD , 25); 
+    private Font smallText = new Font("SansSerif", Font.BOLD , 25);
 
-
+    /**
+     * Constructor for the GUICurrentChoices class
+     */
     public GUICurrentChoices(){
 
         topPanel = new JPanel();
@@ -70,6 +75,13 @@ public class GUICurrentChoices extends JFrame{
 
     }
 
+    /**
+     * Initializes the "Start" and "Back" buttons
+     * "Start" button will proceed with the battle using the currently selected options
+     * "Back" button will redo the selection process starting back to weapon selection
+     * @param buttonWrapper button wrappers for "Start" and "Back"
+     * @param mainPanel panel to display on
+     */
     public void initSelectedChoices(JPanel buttonWrapper, JPanel mainPanel){
 
         playerImage = new JLabel();
@@ -105,7 +117,11 @@ public class GUICurrentChoices extends JFrame{
 
     }
 
-
+    /**
+     * Displays the selected weapon, armor, consumable, environment, and enemy
+     * @param names Array of names of the selected options
+     * @param images Array of images of the selected options
+     */
     public void updateView(String[] names, ImageIcon[] images){
 
         Image scaledImage;

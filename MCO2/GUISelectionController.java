@@ -4,6 +4,14 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
+/**
+ * Class file for the GUISelectionController class
+ * <p>
+ *     This class serves a similar purpose to the SelectionController but this time providing visuals for selection
+ * </p>
+ * @see SelectionController
+ * @author Martin
+ */
 public class GUISelectionController implements ActionListener{
     
     //Viwer and controllers
@@ -34,7 +42,8 @@ public class GUISelectionController implements ActionListener{
    //Constructor
 
     /**
-     * Constructor method for the SelectionController
+     * Constructor method for the GUISelectionController
+     * @param event GUIEventcontroller object to manage this event
      */
     public GUISelectionController(GUIEventController event){
         
@@ -55,6 +64,11 @@ public class GUISelectionController implements ActionListener{
 
     //Setters
 
+    /**
+     * Sets the GUIViewer to handle this class' display
+     * @param guiView GUIViewer class
+     * @see GUIViewer
+     */
     public void setGUIView(GUIViewer guiView){
 
         this.guiView = guiView;
@@ -116,66 +130,27 @@ public class GUISelectionController implements ActionListener{
 
     }
 
-    
-    public Weapon getSelectedWeapon(){
-
-        return selectedWeapon;
-
-    }
-
-
-    public Armor getSelectedArmor(){
-
-        return selectedArmor;
-
-    }
-
-
-    public Enemy getSelectedEnemy(){
-
-        return selectedEnemy;
-
-    }
-
-
-    public Environment getSelectedEnvironment(){
-
-        return selectedEnvironment;
-
-    }
-
-
-    public Consumable getSelectedConsumable(){
-
-        return selectedConsumable;
-
-    }
-
-
     //Controller methods
 
     //Methods to add selections to ArrayList
     private void initilizeSelections(){
 
         //Create Weapon instances
-        Dagger dagger = new Dagger("Common Dagger", 20, 0, new ImageIcon("Assets/Weapons/Weapon_Temp.png"));
-        Sword sword = new Sword("Common Sword", 30, 10, new ImageIcon("Assets/Weapons/Weapon_Temp.png"));
-        BattleAxe battleAxe = new BattleAxe("Common Axe", 40, 20, new ImageIcon("Assets/Weapons/Weapon_Temp.png"));
-        EnchantedWeapon busterSword = new EnchantedWeapon("Buster Sword", "Greatsword", 30, 20, new ImageIcon("Assets/Weapons/Weapon_Temp.png"), "OmniSlash");
-        EnchantedWeapon katana = new EnchantedWeapon("Frayed Blade", "Katana", 35, 10, new ImageIcon("Assets/Weapons/Weapon_Temp.png"), "Parry");
-        EnchantedWeapon brassKnuckles = new EnchantedWeapon("Brass Knuckles", "Fists", 20, 1, new ImageIcon("Assets/Weapons/Weapon_Temp.png"), "AdrenalineRush");
-        EnchantedWeapon pureNail = new EnchantedWeapon("Pure Nail", "Sword", 35, 5, new ImageIcon("Assets/Weapons/Weapon_Temp.png"), "DreamSlash");
+        Dagger dagger = new Dagger("Common Dagger", 20, 0, new ImageIcon("Assets/Weapons/Dagger_Weapon.png"));
+        Sword sword = new Sword("Common Sword", 30, 10, new ImageIcon("Assets/Weapons/Sword_Weapon.png"));
+        BattleAxe battleAxe = new BattleAxe("Common Axe", 40, 20, new ImageIcon("Assets/Weapons/BattleAxe_Weapon.png"));
+        EnchantedWeapon busterSword = new EnchantedWeapon("Buster Sword", "Greatsword", 30, 20, new ImageIcon("Assets/Weapons/BusterSword_Weapon.png"), "OmniSlash");
+        EnchantedWeapon katana = new EnchantedWeapon("Frayed Blade", "Katana", 35, 10, new ImageIcon("Assets/Weapons/FrayedBlade_Weapon.png"), "Parry");
+        EnchantedWeapon brassKnuckles = new EnchantedWeapon("Brass Knuckles", "Fists", 20, 1, new ImageIcon("Assets/Weapons/BrassKnucles_Weapon.png"), "AdrenalineRush");
+        EnchantedWeapon pureNail = new EnchantedWeapon("Pure Nail", "Sword", 35, 5, new ImageIcon("Assets/Weapons/PureNail_Weapon.png"), "DreamSlash");
 
 
         //Create Armor instances
-        Armor armor1 = new Armor("Leather Armor", "Light", new ImageIcon("Assets/Armor/Armor_Temp.png"), 20, 5);
-        Armor armor2 = new Armor("Chainmail Armor", "Medium", new ImageIcon("Assets/Armor/Armor_Temp.png"), 30, 15);
-        Armor armor3 = new Armor("Iron Armor", "Heavy", new ImageIcon("Assets/Armor/Armor_Temp.png"), 40, 25);
-        Armor armor4 = new Armor("Rusted Steel Armor", "Medium", new ImageIcon("Assets/Armor/Armor_Temp.png"), 35, 10);
-        Armor armor5 = new Armor("Frost Iron Armor", "Heavy", new ImageIcon("Assets/Armor/Armor_Temp.png"), 50, 30);
-        Armor armor6 = new Armor("Baldur Shell", "Heavy", new ImageIcon("Assets/Armor/Armor_Temp.png"), 60, 40);
-        Armor armor7 = new Armor("Sprintmaster Armor", "Light", new ImageIcon("Assets/Armor/Armor_Temp.png"), 10, 5);
-
+        Armor armor1 = new Armor("Leather Armor", "Light", new ImageIcon("Assets/Armor/Leather_Armor.png"), 20, 5);
+        Armor armor2 = new Armor("Chainmail Armor", "Medium", new ImageIcon("Assets/Armor/Chaimail_Armor.png"), 30, 15);
+        Armor armor3 = new Armor("Iron Armor", "Heavy", new ImageIcon("Assets/Armor/Iron_Armor.png"), 40, 25);
+        Armor armor4 = new Armor("Rusted Steel Armor", "Medium", new ImageIcon("Assets/Armor/RustedSteel_Armor.png"), 35, 10);
+        Armor armor5 = new Armor("Frost Iron Armor", "Heavy", new ImageIcon("Assets/Armor/FrostIron_armor.png"), 50, 30);
         
         //Create Enemy instances
         Thief bandit = new Thief("Bandit", "Thief", new ImageIcon("Assets/Enemy/Enemy_Temp.png"), 150, 20, 20, 40);
@@ -226,8 +201,6 @@ public class GUISelectionController implements ActionListener{
         armors.add(armor3);
         armors.add(armor4);
         armors.add(armor5);
-        armors.add(armor6);
-        armors.add(armor7);
 
         //Store Enemy instances to Enemy ArrayList
         enemies.add(bandit);
@@ -258,7 +231,9 @@ public class GUISelectionController implements ActionListener{
     }
 
 
-    //Creates the selection buttons to be used in selection the choices.
+    /**
+     * Creates the selection buttons to be used in selection the choices.
+     */
     public void createSelectionButtons(){
 
         //Create buttons for selecting None
@@ -293,7 +268,9 @@ public class GUISelectionController implements ActionListener{
     }
 
 
-    //Starts the player selection.
+    /**
+     * Starts the player selection.
+     */
     public void startSelection(){
 
         guiView.initSelection("Weapon");
@@ -306,7 +283,11 @@ public class GUISelectionController implements ActionListener{
     }
 
 
-    //Updates the view of the clicked button depending on the type and index stored in the parameters
+    /**
+     * Updates the view of the clicked button depending on the type and index stored in the parameters
+     * @param type type of selection to be displayed
+     * @param index index of the object in their respective array
+     */
     public void updateSelectionView(String type, int index){
 
         //Switch statement that checks the type stored in the String
@@ -316,7 +297,7 @@ public class GUISelectionController implements ActionListener{
                 Weapon weaponTemp = weapons.get(index);
                 String skillName;
     
-                //Checks if the weapon in the index is an enchanted weapon and gets the descirption
+                //Checks if the weapon in the index is an enchanted weapon and gets the description
                 if(weaponTemp instanceof EnchantedWeapon)
                     skillName = ((EnchantedWeapon) weaponTemp).getWeaponSkill().getskillDescription();
                 else
@@ -375,7 +356,9 @@ public class GUISelectionController implements ActionListener{
     }
 
 
-    //Updates the panel where all of the choices of the player will be shown
+    /**
+     * Updates the panel where all the choices of the player will be shown
+     */
     public void updateCurrentSelection(){
 
         //Each String and ImageIcon attribute here check if the corresponding weapon, armor, or consumable exists via ternary operator.
@@ -398,8 +381,10 @@ public class GUISelectionController implements ActionListener{
     }
 
 
-    //Method for button input
-    @Override
+    /**
+     * Method for button input
+     * @param e the event to be processed
+     */
     public void actionPerformed(ActionEvent e) {
 
         String command = e.getActionCommand();

@@ -1,6 +1,12 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Class file for the GUIGameController class
+ * <p>
+ *     This class manages and controls the flow of the battle itself
+ * </p>
+ */
 public class GUIGameController implements ActionListener{
     
     private GUIViewer guiView; //Stores the GUIViewer object
@@ -23,20 +29,31 @@ public class GUIGameController implements ActionListener{
 
     //Getters
 
+    /**
+     * Sets the GUIViewer to handle this class' display
+     * @param guiView GUIViewer class
+     * @see GUIViewer
+     */
     public void setGUIView(GUIViewer guiView){
 
         this.guiView = guiView;
 
     }
 
-
+    /**
+     * Sets the player instance to be used in the battle
+     * @param player player object to fight
+     */
     public void setPlayer(Player player){
 
         this.player = player;
 
     }
 
-
+    /**
+     * Sets the enemy object to fight the player
+     * @param enemy user's chosen enemy
+     */
     public void setEnemy(Enemy enemy){
 
         this.enemy = enemy;
@@ -48,7 +65,10 @@ public class GUIGameController implements ActionListener{
         
     }
 
-    
+    /**
+     * Sets the environment the battle will take place in
+     * @param environment user's chosen environment
+     */
     public void setEnvironment(Environment environment){
 
         this.environment = environment;
@@ -188,7 +208,7 @@ public class GUIGameController implements ActionListener{
 
     }
 
-  
+
     //Checks and updates logic after a turn has been done
     private void postTurnEventChecks(){
 
@@ -272,7 +292,9 @@ public class GUIGameController implements ActionListener{
 
     //Method for Player choice after game has ended
 
-    //Method to reset values if the Player wishes to play again
+    /**
+     * Method to reset values if the Player wishes to play again
+     */
     public void resetValues(){
 
         environment = null;
@@ -336,8 +358,10 @@ public class GUIGameController implements ActionListener{
     }
 
 
-    //Method for button input
-    @Override
+    /**
+     * Method for button input
+     * @param e the event to be processed
+     */
     public void actionPerformed(ActionEvent e) {
 
         String command = e.getActionCommand(); //Get String equivalent of the action command

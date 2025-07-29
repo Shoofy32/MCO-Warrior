@@ -18,6 +18,13 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+/**
+ * Class file for the GUIGamePanel
+ *<p>
+ *     The Game Panel displays all the relevant information of the ongoing battle keeping track of stat changes to both the player and enemy
+ *</p>
+ * @author Martin
+ */
 public class GUIGamePanel extends JFrame{
     
     private JPanel displayPanel;
@@ -57,8 +64,11 @@ public class GUIGamePanel extends JFrame{
     //For use
     private Font largeText = new Font("SansSerif", Font.BOLD , 40);    
     private Font smallText = new Font("SansSerif", Font.BOLD , 25); 
-    private Font turnHistoryText = new Font("SansSerif", Font.PLAIN , 20); 
-    
+    private Font turnHistoryText = new Font("SansSerif", Font.PLAIN , 20);
+
+    /**
+     * Constructor for the GUIGamePanel class
+     */
     public GUIGamePanel(){
 
         playerImage = new JLabel();
@@ -119,14 +129,27 @@ public class GUIGamePanel extends JFrame{
         
     }
 
-
+    /**
+     * Getter to retrieve the information panel
+     * @return information panel
+     */
     public JPanel getInformationPanel(){
 
         return informationPanel;
 
     }
 
-
+    /**
+     * Initializes the game panel
+     * @param uiImages Array of ui assets
+     * @param buttons Array of buttons
+     * @param equipmentImages Array of equipment image assets
+     * @param equipmentNames Array of corresponding equipment names
+     * @param mainPanel main panel to display the Game Panel on
+     * @param playerStats Array containing a list of the player's stat values
+     * @param enemyStats Array containing a list of the enemy's stat values
+     * @param statImages Array of stat image assets
+     */
     public void initGamePanel(ImageIcon[] uiImages, JButton[] buttons, ImageIcon[] equipmentImages, String[] equipmentNames, JPanel mainPanel, int[] playerStats,
              int[] enemyStats, ImageIcon[] statImages){
 
@@ -557,7 +580,11 @@ public class GUIGamePanel extends JFrame{
 
     }
 
-
+    /**
+     * Updates the stat display of both the player and enemy
+     * @param playerStats Array containing a list of the player's current stat values
+     * @param enemyStats Array containing a list of the enemy's current stat values
+     */
     public void updateView(int[] playerStats, int[] enemyStats){
 
         int playerHealth = playerStats[0];
@@ -591,7 +618,10 @@ public class GUIGamePanel extends JFrame{
         enemySpeedLabel.setText("" + enemySpeed);
     }
 
-
+    /**
+     * Updates the turnHistory with the most recent actions performed in the battle
+     * @param turnHistoryList list of actions performed in the most recent turn
+     */
     public void updateTurnHistory(ArrayList<String> turnHistoryList){
 
         String turnHistoryLine;

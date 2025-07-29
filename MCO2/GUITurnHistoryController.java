@@ -1,5 +1,12 @@
 import java.util.ArrayList;
 
+/**
+ * Class file for controlling and updating the turn history in a battle
+ * <p>
+ *     Turn history is a list of all actions performed in a battle, this history is contained within the current battle and is not saved anywhere
+ * </p>
+ * @author Martin
+ */
 public class GUITurnHistoryController {
 
     private ArrayList<String> currentTurnHistory;
@@ -9,9 +16,13 @@ public class GUITurnHistoryController {
     private boolean playerIsCharging = false; //Checks whether Player is charging or not
     private boolean enemyIsCharging = false; //Checks whether Enemy is charging or not
     private boolean playerPassiveActive = false; 
-    private boolean enemyPassiveActive = false; 
+    private boolean enemyPassiveActive = false;
 
-    
+    /**
+     * Constructor for the GUIEventController class
+     * @param event GUI Event Controller to manage this class
+     * @see GUIEventController
+     */
     public GUITurnHistoryController(GUIEventController event){
 
         currentTurnHistory = new ArrayList<>();
@@ -20,7 +31,11 @@ public class GUITurnHistoryController {
     }
 
 
-    //Updates the turn history of the gamePanel by calling turnResult and using that result to update the view
+    /**
+     * Updates the turn history of the gamePanel by calling turnResult and using that result to update the view
+     * @param gamePanel Game Panel object
+     * @see GUIGamePanel
+     */
     public void updateTurnHistory(GUIGamePanel gamePanel){
 
         turnResult();

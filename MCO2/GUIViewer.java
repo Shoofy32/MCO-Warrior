@@ -9,6 +9,17 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 
+/**
+ * Class file for the GUIViewer class, this class serves a similar purpose to CLIViewer.
+ * <p>
+ *     Much like CLIViewer, this class is responsible for displaying information about the running program.
+ * </p>
+ * <p>
+ *     This information is displayed using visuals and graphics as opposed to purely text based displays on the command line.
+ * </p>
+ * @see CLIViewer
+ * @author Martin
+ */
 public class GUIViewer extends JFrame{
 
     //Components for Main Menu
@@ -69,10 +80,19 @@ public class GUIViewer extends JFrame{
     //For use
     private Border padding = BorderFactory.createEmptyBorder(15, 15, 15, 15);
     private Font largeText = new Font("SansSerif", Font.BOLD , 50);    
-    private Font smallText = new Font("SansSerif", Font.BOLD , 20); 
+    private Font smallText = new Font("SansSerif", Font.BOLD , 20);
 
-
-    public GUIViewer(GUISelectionController selection,  GUIEventController event, GUIGameController gameSystem, GUITurnHistoryController turnHistory,   
+    /**
+     * Constructor for the GUIViewer class
+     * @param gameSystem object responsible for managing a battle
+     * @param turnHistory object responsible for keeping track of actions in a battle
+     * @param numWeapons number of weapon objects to be displayed
+     * @param numArmors number of armor objects to be displayed
+     * @param numConsumables number of consumable objects to be displayed
+     * @param numEnemies number of enemy objects to be displayed
+     * @param numEnvironments number of environment objects to be displayed
+     */
+    public GUIViewer(GUIGameController gameSystem, GUITurnHistoryController turnHistory,
             int numWeapons, int numArmors, int numConsumables, int numEnemies, int numEnvironments){
 
         super("Warrior"); //Title
@@ -100,6 +120,10 @@ public class GUIViewer extends JFrame{
 
     //Setters
 
+    /**
+     * Sets the action listener for the buttons
+     * @param listener ActionListener object to interact with the buttons
+     */
     public void setActionListener (ActionListener listener){
 
         startButton.addActionListener(listener);
@@ -110,7 +134,12 @@ public class GUIViewer extends JFrame{
 
     }
 
-
+    /**
+     * Sets the command a button will perform when clicked
+     * @param listener ActionListener object to interact with the button
+     * @param button button to receive action
+     * @param command command to be executed when button is clicked
+     */
     public void setActionCommand(ActionListener listener, JButton button, String command){
 
         button.addActionListener(listener);
@@ -118,8 +147,14 @@ public class GUIViewer extends JFrame{
 
     }
 
-
-    //Creates the selection buttons and sets their action command and action listener
+    /**
+     * Method that creates the selection buttons and sets their action command and action listener
+     * @param listener ActionListener object to interact with the button
+     * @param index index of button, these buttons are stored in an ArrayList so we need their indexes to access them
+     * @param type type of button to be created, assume all types are valid
+     * @param name name of the button
+     * @param image image of the button
+     */
     public void setSelectionActionListener(ActionListener listener, int index, String type, String name, ImageIcon image){
 
         //Scale the image stored ImageIcon
@@ -166,101 +201,63 @@ public class GUIViewer extends JFrame{
         }
         
     }
-    
 
+    /**
+     * Sets the text to be displayed when a game has ended (Win, Loss, Tie)
+     * @param text text to be displaye when a game has ended
+     */
     public void setGameOverLabel(String text){
  
         gameOverLabel.setText(text);
         
     }
 
-
-    public void setBackButton(JButton backButton){
-
-        this.backButton = backButton;
-
-    }
-
-
-    public void setSelectButton(JButton selectButton){
-
-        this.selectButton = selectButton;
-
-    }
-
-
     //Getters
 
+    /**
+     * Getter method to retrieve the Back Button
+     * @return back button
+     */
     public JButton getBackButton(){
 
         return backButton;
 
     }
 
-
+    /**
+     * Getter method to retrieve the Select Button
+     * @return select button
+     */
     public JButton getSelectButton(){
 
         return selectButton;
 
     }
 
-
-    public JButton getAttackButton(){
-
-        return attackButton;
-
-    }
-
-
-    public JButton getDefendButton(){
-
-        return defendButton;
-
-    }
-
-
-    public JButton getChargeButton(){
-
-        return chargeButton;
-
-    }
-
-
-    public JButton getConsumeButton(){
-
-        return consumeButton;
-
-    }
-
-
-    public JButton getSkillButton(){
-
-        return skillButton;
-
-    }
-
-
-    public JButton getInformationButton(){
-
-        return informationButton;
-
-    }
-
-
+    /**
+     * Getter method to retrieve the inputted name for the player
+     * @return the inputted player name
+     */
     public String getNameInput(){
 
         return tfName.getText();
 
     }
 
-
+    /**
+     * Getter to retrieve the current panel that is being displayed
+     * @return name of the currently displayed panel
+     */
     public String getCurrentPanel(){
 
         return currentPanel;
 
     }
 
-
+    /**
+     * Getter to retrieve the game panel object
+     * @return game panel object
+     */
     public GUIGamePanel getGamePanel(){
 
         return gamePanel;
@@ -359,7 +356,6 @@ public class GUIViewer extends JFrame{
 
     }
 
-
     //Initialzes the enter name panel
     private void initName(){
 
@@ -392,7 +388,6 @@ public class GUIViewer extends JFrame{
         mainPanel.add(enterNamePanel, "name");
 
     }
-
 
     //Initialzes the game over panel
     private void initGameOver(){
@@ -534,7 +529,15 @@ public class GUIViewer extends JFrame{
     }
 
 
-    //Initializes the game panel 
+    /**
+     * Initializes the game panel
+     * @param UIimages Array of UI image assets
+     * @param equipmentImages Array of equipment image assets
+     * @param equipmentNames Array of correspond equipment names
+     * @param playerStats Array of the player object's stats
+     * @param enemyStats Array of the enemy object's stats
+     * @param statImages Array of stat image assets
+     */
     public void initGame(ImageIcon[] UIimages, ImageIcon[] equipmentImages, String[] equipmentNames, int[] playerStats,
              int[] enemyStats, ImageIcon[] statImages){
 
@@ -557,8 +560,17 @@ public class GUIViewer extends JFrame{
 
     }
 
-    
-    //Updates view of the weapon selection panel
+
+    /**
+     * Updates view of the weapon selection panel
+     * @param name name of the weapon object
+     * @param type type of the weapon object
+     * @param image image of the weapon object
+     * @param damage atk of the weapon object
+     * @param speedPenalty weapon object's speed penalty
+     * @param ability weapon object's corresponding ability
+     * @param skill weapon object's skill if it possesses any
+     */
     public void updateWeaponSelectPanel(String name, String type, ImageIcon image, int damage, int speedPenalty, String ability, String skill){
 
         weaponSelectPanel.updateView(name, type, image, damage, speedPenalty, ability, skill);
@@ -566,7 +578,14 @@ public class GUIViewer extends JFrame{
     }
 
 
-    //Updates view of the armor selection panel
+    /**
+     * Updates view of the armor selection panel
+     * @param name name of the armor object
+     * @param type type of the armor object
+     * @param image image of the armor object
+     * @param defense def value of the armor object
+     * @param speedPenalty armor object's speed penalty
+     */
     public void updateArmorSelectPanel(String name, String type, ImageIcon image, int defense, int speedPenalty){
 
         armorSelectPanel.updateView(name, type, image, defense, speedPenalty);
@@ -574,7 +593,15 @@ public class GUIViewer extends JFrame{
     }
 
 
-    //Updates view of the consumable selection panel
+    /**
+     * Updates view of the consumable selection panel
+     * @param name name of the consumable object
+     * @param type type of the consumable object
+     * @param image image of the consumable object
+     * @param maxCharge initial charges of the consumable object
+     * @param holderDescription text describing consumable's effect on the holder
+     * @param targetDescription text describing consumable's effect on the target
+     */
     public void updateConsumableSelectPanel(String name, String type, ImageIcon image, int maxCharge, String holderDescription, String targetDescription){
 
         consumableSelectPanel.updateView(name, type, image, maxCharge, holderDescription, targetDescription);
@@ -582,7 +609,18 @@ public class GUIViewer extends JFrame{
     }
 
 
-    //Updates view of the enemy selection panel
+    /**
+     * Updates view of the enemy selection panel
+     * @param name name of the enemy object
+     * @param type type of the enemy object
+     * @param image image of the enemy object
+     * @param hitPoints Base HP value of the enemy object
+     * @param attack base atk value of the enemy object
+     * @param defense base def value of the enemy object
+     * @param speed base spd value of the enemy object
+     * @param weaponName equipped weapon of the enemy object if they have one
+     * @param consumableName equipped consumable of the enemy object if they have one
+     */
     public void updateEnemySelectPanel(String name, String type, ImageIcon image, int hitPoints, 
             int attack, int defense, int speed, String weaponName, String consumableName){
 
@@ -591,7 +629,13 @@ public class GUIViewer extends JFrame{
     }
 
 
-    //Updates view of the environment selection panel
+    /**
+     * Updates view of the environment selection panel
+     * @param name name of the environment object
+     * @param image image of the environment object
+     * @param playerDescription environment's effects on the player object
+     * @param enemyDescription environment's effects on the enemy object
+     */
     public void updateEnvironmentSelectPanel(String name, ImageIcon image, String playerDescription, String enemyDescription){
 
         environmentSelectPanel.updateView(name, image, playerDescription, enemyDescription);
@@ -599,7 +643,11 @@ public class GUIViewer extends JFrame{
     }
 
 
-    //Updates view of the weapon selection panel
+    /**
+     * Updates view of the weapon selection panel
+     * @param name array of weapon names
+     * @param images array of weapon images
+     */
     public void updateCurrentSelection(String[] name, ImageIcon[] images){
 
         currentChoices.updateView(name, images);
@@ -607,7 +655,11 @@ public class GUIViewer extends JFrame{
     }
 
 
-    //Updates view and the stats of both player and enemy in the game panel
+    /**
+     * Updates view and the stats of both player and enemy in the game panel
+     * @param playerStats array of player object's current stats
+     * @param enemyStats array of enemy object's current stats
+     */
     public void updateGamePanel(int[] playerStats, int[] enemyStats){
 
         gamePanel.updateView(playerStats, enemyStats);
@@ -615,16 +667,19 @@ public class GUIViewer extends JFrame{
     }
 
 
-    //Updates the turn history in the game panel
+    /**
+     * Updates the turn history in the game panel
+     */
     public void updateTurnHistory(){
 
         turnHistory.updateTurnHistory(gamePanel);
 
     }
 
-
-
-    //Shows the corresponding panel in the mainPanel depending on parameter
+    /**
+     * Shows the corresponding panel in the mainPanel depending on parameter
+     * @param panelType type of the panel to be displayed
+     */
     public void showPanel(String panelType){
 
         //Switch statement that will show the panel and store the name of that panel in an attribute for future logic
@@ -694,7 +749,10 @@ public class GUIViewer extends JFrame{
     }
 
 
-    //Shows error and warning messages for any wrong inputs and choices
+    /**
+     * Shows error and warning messages for any wrong inputs and choices
+     * @param errorType type of error encountered
+     */
     public void showErrorMessage(String errorType){
 
         //Switch statement that will activate the corresponde JOptionPane which will show a ERROR_MESSAGE
@@ -747,7 +805,9 @@ public class GUIViewer extends JFrame{
     }
 
 
-    //Clears the text stored in tfName
+    /**
+     * Clears the text stored in tfName
+     */
     public void clearInput(){
 
         tfName.setText("");

@@ -9,7 +9,10 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 
-
+/**
+ * Class file for managing the consumable selection panel
+ * @author Martin
+ */
 public class GUIConsumableSelectPanel extends JPanel{
 
     private boolean firstUpdate = false;
@@ -29,8 +32,11 @@ public class GUIConsumableSelectPanel extends JPanel{
     //For use
     private Border padding = BorderFactory.createEmptyBorder(15, 15, 15, 15);
     private Font largeText = new Font("SansSerif", Font.BOLD , 40);    
-    private Font smallText = new Font("SansSerif", Font.BOLD , 25); 
+    private Font smallText = new Font("SansSerif", Font.BOLD , 25);
 
+    /**
+     * Constructor for the GUIConsumableSelectPanel class
+     */
     public GUIConsumableSelectPanel(){
 
         consumableStatsPanel = new JPanel();
@@ -52,21 +58,23 @@ public class GUIConsumableSelectPanel extends JPanel{
 
     }
 
-
-    public JPanel getConsumableSelectionPanel(){
-
-        return consumableSelection;
-
-    }
-
-
+    /**
+     * Getter to retrieve the consumable stats panel
+     * @return consumable stats panel
+     */
     public JPanel getConsumableStatsPanel(){
 
         return consumableStatsPanel;
 
     }
 
-
+    /**
+     * Initializes the consumable selection
+     * @param buttons Array of buttons
+     * @param buttonWrapper JPanel to wrap around buttons
+     * @param wrapper stores the stats panel
+     * @param mainPanel Panel to display selection
+     */
     public void initConsumableSelection(JButton[] buttons, JPanel buttonWrapper, JPanel wrapper, JPanel mainPanel){
 
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -122,7 +130,6 @@ public class GUIConsumableSelectPanel extends JPanel{
         mainPanel.add(consumableSelection, "consumableSelect");
     }
 
-
     private void createConsumableButtons(JPanel panel, JButton button){
 
         JPanel consumablePanel = new JPanel(new BorderLayout());
@@ -149,7 +156,6 @@ public class GUIConsumableSelectPanel extends JPanel{
 
     }
 
-
     private void createInfoSection(String typeOfInfo, JLabel info){
 
         JPanel typeWrapper = new JPanel(new BorderLayout());
@@ -169,7 +175,6 @@ public class GUIConsumableSelectPanel extends JPanel{
      
 
     }
-
 
     private void createInfoSection(String typeOfInfo, JTextArea info){
 
@@ -194,6 +199,15 @@ public class GUIConsumableSelectPanel extends JPanel{
 
     }
 
+    /**
+     * Displays a consumable's relevant data
+     * @param name name of the consumable
+     * @param type type of the consumable
+     * @param image image of the consumable
+     * @param maxCharge charges of the consumable
+     * @param holderDescription description of consumable's effects on the holder
+     * @param targetDescription description of consumable's effects on the target
+     */
     public void updateView(String name, String type, ImageIcon image, int maxCharge, String holderDescription, String targetDescription){
 
         consumableName.setText(name);

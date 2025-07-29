@@ -4,6 +4,17 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 ;
 
+/**
+ * Class file for the GUIEventController class
+ * <p>
+ *     This class serves a similar purpose to the EventController class, handling all the running events/processes of the program.
+ * </p>
+ * <p>
+ *     Unlike Eventcontroller, this class makes use of images and graphics.
+ * </p>
+ * @see EventController
+ * @author Martin
+ */
 public class GUIEventController implements ActionListener{
     
     //Main Attributes
@@ -26,7 +37,7 @@ public class GUIEventController implements ActionListener{
         selection = new GUISelectionController(this);
         gameSystem = new GUIGameController();
         turnHistory = new GUITurnHistoryController(this);
-        guiView = new GUIViewer(selection, this, gameSystem, turnHistory, selection.getWeapons().size(), selection.getArmors().size(), selection.getConsumables().size(), 
+        guiView = new GUIViewer(gameSystem, turnHistory, selection.getWeapons().size(), selection.getArmors().size(), selection.getConsumables().size(),
                     selection.getEnemies().size(), selection.getEnvironments().size());
 
         //Condition to check if guiView exists.
@@ -46,12 +57,20 @@ public class GUIEventController implements ActionListener{
 
     //Setters
 
+    /**
+     * Sets the enemy object for the player to battle
+     * @param enemy user's chosen enemy
+     */
     public void setEnemy(Enemy enemy){
 
         this.enemy = enemy;
 
     }
 
+    /**
+     * Sets the environment where the battle will take place
+     * @param environment user's chosen environment
+     */
     public void setEnvironment(Environment environment){
 
         this.environment = environment;
@@ -61,6 +80,10 @@ public class GUIEventController implements ActionListener{
 
     //Getters
 
+    /**
+     * Getter to retrieve the player object
+     * @return player object
+     */
     public Player getPlayer(){
 
         //Checks if player exists
@@ -71,7 +94,10 @@ public class GUIEventController implements ActionListener{
 
     }
 
-
+    /**
+     * Getter to retrieve the enemy object
+     * @return enemy object
+     */
     public Enemy getEnemy(){
 
         if(enemy != null)
@@ -81,7 +107,10 @@ public class GUIEventController implements ActionListener{
 
     }
 
-
+    /**
+     * Getter to retrieve the environment object
+     * @return current environment
+     */
     public Environment getEnvironment(){
 
         ////Checks if environment exists
@@ -95,7 +124,9 @@ public class GUIEventController implements ActionListener{
 
     //Controller methods
 
-    //Starts the actual game after selection is performed
+    /**
+     * Starts the actual game after selection is performed
+     */
     public void startGame(){
 
         //Gives the corresponding selection choices to game system controller
@@ -108,7 +139,9 @@ public class GUIEventController implements ActionListener{
 
     }
 
-    //Creates the game panel by getting different values
+    /**
+     * Creates the game panel by getting different values
+     */
     public void initGameSystem(){
 
         //Arrays that store the information for game display
@@ -225,8 +258,10 @@ public class GUIEventController implements ActionListener{
     }
 
 
-    //Method for button input
-    @Override
+    /**
+     * Method for button input
+     * @param e the event to be processed
+     */
     public void actionPerformed(ActionEvent e) {
 
         String command = e.getActionCommand(); //Get String equivalent of the action command

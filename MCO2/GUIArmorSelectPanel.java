@@ -10,7 +10,7 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 
 /**
- * Class file for the gui for armor selection
+ * Class file for managing the armor selection panel
  * @author Martin
  */
 public class GUIArmorSelectPanel extends JFrame{
@@ -31,8 +31,11 @@ public class GUIArmorSelectPanel extends JFrame{
     //For use
     private Border padding = BorderFactory.createEmptyBorder(15, 15, 15, 15);
     private Font largeText = new Font("SansSerif", Font.BOLD , 40);    
-    private Font smallText = new Font("SansSerif", Font.BOLD , 25); 
+    private Font smallText = new Font("SansSerif", Font.BOLD , 25);
 
+    /**
+     * Constructor for the GUIArmorSelectPanel class
+     */
     public GUIArmorSelectPanel(){
 
         armorStatsPanel = new JPanel();
@@ -53,14 +56,23 @@ public class GUIArmorSelectPanel extends JFrame{
 
     }
 
-
+    /**
+     * Getter to retrieve the armor stats panel
+     * @return armor stats panel
+     */
     public JPanel getArmorStatsPanel(){
 
         return armorStatsPanel;
 
     }
 
-
+    /**
+     * Initializes the armor selection
+     * @param buttons Array of buttons
+     * @param buttonWrapper JPanel to wrap around buttons
+     * @param wrapper stores the stats panel
+     * @param mainPanel Panel to display selection
+     */
     public void initArmorSelection(JButton[] buttons, JPanel buttonWrapper, JPanel wrapper, JPanel mainPanel){
 
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -164,7 +176,14 @@ public class GUIArmorSelectPanel extends JFrame{
 
     }
 
-
+    /**
+     * Displays an armor's relevant data
+     * @param name name of the armor
+     * @param type type of the armor
+     * @param image image of the armor
+     * @param defense def value of the armor
+     * @param speedPenalty speed penalty of the armor
+     */
     public void updateView(String name, String type, ImageIcon image, int defense, int speedPenalty){
 
         weaponName.setText(name);

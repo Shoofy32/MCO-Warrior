@@ -42,6 +42,7 @@ public class Environment {
      * Constructor for environments that have no special effect i.e. the Arena
      * @param name unique name of the environment
      * @param hasEffect boolean to determine whether an environment will provide a unique effect or not
+     * @param image image of the environment
      */
     public Environment(String name, boolean hasEffect, ImageIcon image){
 
@@ -94,6 +95,10 @@ public class Environment {
 
     }
 
+    /**
+     * Getter method for the environment's image
+     * @return image of the environment
+     */
     public ImageIcon getImage(){
 
         return image;

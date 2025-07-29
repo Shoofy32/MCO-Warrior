@@ -9,6 +9,10 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 
+/**
+ * Class file for managing the enemy selection panel
+ * @author Martin
+ */
 public class GUIEnemySelectPanel extends JFrame{
 
     private boolean firstUpdate = false;
@@ -31,8 +35,11 @@ public class GUIEnemySelectPanel extends JFrame{
     //For use
     private Border padding = BorderFactory.createEmptyBorder(15, 15, 15, 15);
     private Font largeText = new Font("SansSerif", Font.BOLD , 40);    
-    private Font smallText = new Font("SansSerif", Font.BOLD , 20); 
+    private Font smallText = new Font("SansSerif", Font.BOLD , 20);
 
+    /**
+     * Constructor for the GUIEnemySelectPanel class
+     */
     public GUIEnemySelectPanel(){
 
         enemyStatsPanel = new JPanel();
@@ -57,14 +64,23 @@ public class GUIEnemySelectPanel extends JFrame{
 
     }
 
-
+    /**
+     * Getter to retrieve the enemy stats panel
+     * @return enemy stats panel
+     */
     public JPanel getEnemyStatsPanel(){
 
         return enemyStatsPanel;
 
     }
 
-
+    /**
+     * Initializes the consumable selection
+     * @param buttons Array of buttons
+     * @param buttonWrapper JPanel to wrap around buttons
+     * @param wrapper stores the stats panel
+     * @param mainPanel Panel to display selection
+     */
     public void initEnemySelection(JButton[] buttons, JPanel buttonWrapper, JPanel wrapper, JPanel mainPanel){
 
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -170,7 +186,18 @@ public class GUIEnemySelectPanel extends JFrame{
         
     }
 
-
+    /**
+     * Displays an enemy's relevant data
+     * @param name name of the enemy
+     * @param type type of the enemy
+     * @param image image of the enemy
+     * @param hitPoints base HP of the enemy
+     * @param attack base atk of the enemy
+     * @param defense base def of the enemy
+     * @param speed base spd of the enemy
+     * @param weapon equipped weapon of the enemy if it has one
+     * @param consumable equipped consumable of the enemy if it has one
+     */
     public void updateView(String name, String type, ImageIcon image, int hitPoints, int attack, int defense, int speed, 
             String weapon, String consumable){
 

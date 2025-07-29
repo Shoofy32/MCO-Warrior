@@ -9,6 +9,10 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 
+/**
+ * Class file for managing the environment selection panel
+ * @author Martin
+ */
 public class GUIEnvironmentSelectPanel extends JFrame{
 
     private boolean firstUpdate = false;
@@ -25,8 +29,11 @@ public class GUIEnvironmentSelectPanel extends JFrame{
     //For use
     private Border padding = BorderFactory.createEmptyBorder(15, 15, 15, 15);
     private Font largeText = new Font("SansSerif", Font.BOLD , 40);    
-    private Font smallText = new Font("SansSerif", Font.BOLD , 25); 
+    private Font smallText = new Font("SansSerif", Font.BOLD , 25);
 
+    /**
+     * Constructor for the GUIEnvironmentSelectPanel class
+     */
     public GUIEnvironmentSelectPanel(){
 
         environmentStatsPanel = new JPanel();
@@ -46,14 +53,23 @@ public class GUIEnvironmentSelectPanel extends JFrame{
 
     }
 
-
+    /**
+     * Getter to retrieve the environment stats panel
+     * @return environment stats panel
+     */
     public JPanel getEnvironmentStatsPanel(){
 
         return environmentStatsPanel;
 
     }
 
-
+    /**
+     * Initializes the consumable selection
+     * @param buttons Array of buttons
+     * @param buttonWrapper JPanel to wrap around buttons
+     * @param wrapper stores the stats panel
+     * @param mainPanel Panel to display selection
+     */
     public void initEnvironmentSelection(JButton[] buttons, JPanel buttonWrapper, JPanel wrapper, JPanel mainPanel){
 
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -157,7 +173,13 @@ public class GUIEnvironmentSelectPanel extends JFrame{
 
     }
 
-
+    /**
+     * Displays an environment's relevant data
+     * @param name name of the environment
+     * @param image image of the environment
+     * @param playerDescription environment's effect on the player
+     * @param enemyDescription environment's effect on the enemy
+     */
     public void updateView(String name, ImageIcon image, String playerDescription, String enemyDescription){
 
         environmentName.setText(name);
