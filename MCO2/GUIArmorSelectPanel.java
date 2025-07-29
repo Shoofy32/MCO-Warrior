@@ -9,6 +9,10 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 
+/**
+ * Class file for the gui for armor selection
+ * @author Martin
+ */
 public class GUIArmorSelectPanel extends JFrame{
 
     private boolean firstUpdate = false;
@@ -170,7 +174,7 @@ public class GUIArmorSelectPanel extends JFrame{
 
         weaponAttack.setText("" + defense);
         weaponSpeedPenalty.setText("" + -speedPenalty);
-;
+
         armorStatsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
 
         if(!firstUpdate){

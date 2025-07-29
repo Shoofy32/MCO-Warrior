@@ -1,9 +1,17 @@
+/**
+ * Class file for the Fists_Ability class, this is a subclass of the abstract Ability class
+ * @see Ability
+ * @author Martin
+ */
 public class Fists_Ability extends Ability{
 
     int numOfAttack = 0;
     int counter = 0;
     int enemyHealth;
 
+    /**
+     * Constructor for the Fists_Ability class
+     */
     public Fists_Ability(){
 
         super("5 stacking attack for each consecutive attack (Resets if non-attack action).", 
@@ -11,10 +19,13 @@ public class Fists_Ability extends Ability{
 
     }
 
+    /**
+     * Concrete implementation of the abstract method <i>checkAbilityCondition</i>
+     * @param entity entity object that has equipped the Fists
+     */
+    public void checkAbilityCondition(Entity entity){
 
-    public void checkAbilityCondition(Character character){
-
-        if(character.getTurnInputAction() == 'A'){
+        if(entity.getTurnInputAction() == 'A'){
 
             numOfAttack++;
             counter++;
@@ -29,27 +40,36 @@ public class Fists_Ability extends Ability{
         else{
 
             setHasMetConditions(false);        
-            character.setAttack(character.getAttack() - (5 * counter));
+            entity.setAttack(entity.getAttack() - (5 * counter));
             counter = 0;   
 
         }
 
     }
 
-    public void activateAbility(Character character, Character target){
+    /**
+     * Concrete implementation of the abstract method <i>activateAbility</i>
+     * @param entity entity object that has equipped the Fists
+     * @param target entity object that is the target for the Fists' ability
+     */
+    public void activateAbility(Entity entity, Entity target){
 
         enemyHealth = target.getHitPoints();
 
-        checkAbilityCondition(character);
+        checkAbilityCondition(entity);
         
         if(getHasMetConditions())
-            character.setAttack(character.getAttack() + 5);
+            entity.setAttack(entity.getAttack() + 5);
 
     }
 
-    public void deactivateAbility(Character character){
+    /**
+     * Concrete implementation of abstract method <i>deactivateAbility</i>
+     * @param entity entity object that has equipped the Fists
+     */
+    public void deactivateAbility(Entity entity){
 
-        if(character.getHitPoints() == 0 || enemyHealth == 0){
+        if(entity.getHitPoints() == 0 || enemyHealth == 0){
 
             counter = 0;
             setHasMetConditions(false);

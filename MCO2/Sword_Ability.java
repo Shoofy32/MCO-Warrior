@@ -1,5 +1,13 @@
+/**
+ * Class file for Sword_Ability, this is a subclass of the abstract Ability class
+ * @see Ability
+ * @author Stefan_Martin
+ */
 public class Sword_Ability extends Ability{
-    
+
+    /**
+     * Constructor for the Sword_Ability class
+     */
     public Sword_Ability(){
 
         super("When attacking, gain an additional +10 attack.", 
@@ -7,29 +15,41 @@ public class Sword_Ability extends Ability{
 
     }
 
+    /**
+     * Concrete implementation of the abstract method <i>checkAbilityCondition</i>
+     * @param entity entity object that has equipped the Sword
+     */
+    public void checkAbilityCondition(Entity entity){
 
-    public void checkAbilityCondition(Character character){
-
-        if(character.getTurnInputAction() == 'A')
+        if(entity.getTurnInputAction() == 'A')
             setHasMetConditions(true);
 
     }
 
-    public void activateAbility(Character character, Character target){
+    /**
+     * Concrete implementation of the abstract method <i>activateAbility</i>
+     * @param entity entity object that has equipped the Sword
+     * @param target entity object that is the target for the Sword's ability
+     */
+    public void activateAbility(Entity entity, Entity target){
 
-        checkAbilityCondition(character);
+        checkAbilityCondition(entity);
 
         if(getHasMetConditions())
-            character.setAttack(character.getAttack() + 10);
+            entity.setAttack(entity.getAttack() + 10);
 
     }
 
-    public void deactivateAbility(Character character){
+    /**
+     * Concrete implementation of abstract method <i>deactivateAbility</i>
+     * @param entity entity object that has equipped the Sword
+     */
+    public void deactivateAbility(Entity entity){
 
         setHasMetConditions(false);
 
-        if(character.getTurnInputAction() == 'A')
-            character.setAttack(character.getAttack() - 10);
+        if(entity.getTurnInputAction() == 'A')
+            entity.setAttack(entity.getAttack() - 10);
 
     }
 

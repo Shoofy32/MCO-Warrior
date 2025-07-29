@@ -1,7 +1,7 @@
 import javax.swing.ImageIcon;
 
 /**
- * Class file for the Armor class, this class will be updated later on for MCO2.
+ * Class file for the Armor class.
  * <p>
  *     This class contains mainly getter methods as most attributes are declared upon construction.
  * </p>
@@ -31,6 +31,7 @@ public class Armor {
      * Constructor for the Armor class
      * @param name The armor's unique name, assumes all names passed are valid
      * @param type Indicates the armor's type, assumes all types passed are valid
+     * @param image Image of the armor
      * @param defense The armor's def value, assumes any value as valid
      * @param speedPenalty The armor's speed penalty, assumes any value as valid
      */
@@ -70,7 +71,10 @@ public class Armor {
 
     }
 
-
+    /**
+     * Getter to return the armor's image
+     * @return image file of the armor
+     */
     public ImageIcon getImage(){
 
         return image;

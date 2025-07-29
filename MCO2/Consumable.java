@@ -1,7 +1,7 @@
 import javax.swing.ImageIcon;
 
 /**
- * Class file for the Consumable class.
+ * Class file for the abstract Consumable class.
  * <p>
  *     Consumables are highly customizable equipment that can affect either the player, the enemy, or both.
  * </p>
@@ -51,9 +51,10 @@ public abstract class Consumable {
      * Constructor for consumables that affect either the player or enemy
      * @param name unique name of the consumable
      * @param type unique type of the consumable, assumed all types are valid
+     * @param image image of the consumable
      * @param maxCharges amount of times the consumable can be used
-     * @param affectsPlayer determines whether the consumable will affect the player
-     * @param affectsEnemy determines whether the consumable will affect the enemy
+     * @param affectsHolder determines whether the consumable will affect the user
+     * @param affectsTarget determines whether the consumable will affect the target
      * @param statsToEffect array of stats to be affected, 1 to 1 with the int array
      * @param statValuesToEffect array of values that will affect the corresponding stats, 1 to 1 with the String array
      * @param affectingTurns amount of turns the consumable remains active
@@ -115,11 +116,12 @@ public abstract class Consumable {
      * Constructor for consumables that affect either the player or enemy
      * @param name unique name of the consumable
      * @param type unique type of the consumable, assumed all types are valid
+     * @param image image of the consumable
      * @param maxCharges amount of times the consumable can be used
-     * @param statsToAffectPlayer array of player stats to be affected, 1 to 1 with the statValuesToAffectPlayer array
-     * @param statValuesToAffectPlayer array of values that will affect the corresponding player stats
-     * @param statsToAffectEnemy array of enemy stats to be affected, 1 to 1 with the statValuesToAffectEnemy array
-     * @param statValuesToAffectEnemy array of values that will affect the corresponding enemy stats
+     * @param statsToAffectHolder array of player stats to be affected, 1 to 1 with the statValuesToAffectPlayer array
+     * @param statValuesToAffectHolder array of values that will affect the corresponding player stats
+     * @param statsToAffectTarget array of enemy stats to be affected, 1 to 1 with the statValuesToAffectEnemy array
+     * @param statValuesToAffectTarget array of values that will affect the corresponding enemy stats
      * @param affectingTurns amount of turns the consumable remains active
      */
     public Consumable(String name, String type, ImageIcon image, int maxCharges, String[] statsToAffectHolder, int[] statValuesToAffectHolder,
@@ -179,6 +181,10 @@ public abstract class Consumable {
 
     }
 
+    /**
+     * Getter method to retrieve the consumable's image
+     * @return image of the consumable
+     */
     public ImageIcon getImage(){
 
         return image;
@@ -327,8 +333,12 @@ public abstract class Consumable {
 
     //Consumable Methods
 
-
-    public abstract void useConsumable(Character holder, Character target);
+    /**
+     * Abstract method to be implemented by subclasses
+     * @param holder entity object using the consumable
+     * @param target entity object targeted by the consumable
+     */
+    public abstract void useConsumable(Entity holder, Entity target);
 
 
     //Creates the description for playerConsumableDescription
@@ -463,10 +473,10 @@ public abstract class Consumable {
     /**
      * Method to keep track of the amount of turns the consumable has remained active, once it reaches the same
      * value as affectingTurns, it restores the stat effects
-     * @param player player object whose stats are to be restored
-     * @param enemy player object whose stats are to be restored
+     * @param holder entity object whose stats are to be restored
+     * @param target entity object whose stats are to be restored
      */
-    public void countAffectingTurns(Character holder, Character target){
+    public void countAffectingTurns(Entity holder, Entity target){
 
         //Checks if the instance is a consumable
         if(isTemporary){
@@ -485,7 +495,7 @@ public abstract class Consumable {
 
 
     //Method restore the stats from temporary effects
-    private void restoreStats(Character holder, Character target){
+    private void restoreStats(Entity holder, Entity target){
 
         int size = 0;
 

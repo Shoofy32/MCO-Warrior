@@ -1,9 +1,9 @@
 import javax.swing.ImageIcon;
 
 /**
- * Class file for the Weapon class, this class will be updated later on for MCO2.
+ * Class file for the abstract Weapon class.
  * <p>
- *     This class contains mainly getter methods as most attributes are declared upon construction.
+ *     This class contains mainly getter methods as most attributes are declared upon construction and do not change.
  * </p>
  * <p>
  *     This class also contains a static attribute that keeps count of the total Weapon objects generated.
@@ -27,9 +27,9 @@ public abstract class Weapon{
     /**
      * Constructor for the Weapon class
      * @param name The weapon's unique name, assumes all names passed are valid
-     * @param type Indicates the weapon's type, assumes all types passed are valid
      * @param attack The weapon's atk value, assumes any value as valid
      * @param speedPenalty The weapon's speed penalty, assumes any value as valid
+     * @param image The weapon's image
      */
     //Method Constructor
     public Weapon(String name, int attack, int speedPenalty, ImageIcon image){
@@ -44,6 +44,11 @@ public abstract class Weapon{
     }
 
     //Setters
+
+    /**
+     * Assign an ability/ passive to the weapon
+     * @param abilityType ability to be assigned to the weapon
+     */
     protected void setAbility(Ability abilityType){
 
         this.abilityType = abilityType;
@@ -62,7 +67,10 @@ public abstract class Weapon{
 
     }
 
-
+    /**
+     * Getter method for the image of the weapon
+     * @return image of the weapon
+     */
     protected ImageIcon getImage(){
 
         return image;
@@ -122,11 +130,14 @@ public abstract class Weapon{
         
     }
 
+    /**
+     * Method to activate the current weapon's equipped ability/ passive
+     * @param entity entity object that has the weapon equipped
+     * @param target entity object which is the target of the weapon's ability
+     */
+    public void usePassiveAbility(Entity entity, Entity target){
 
-
-    public void usePassiveAbility(Character character, Character target){
-
-        abilityType.activateAbility(character, target);
+        abilityType.activateAbility(entity, target);
         
     }
 

@@ -21,7 +21,7 @@ import java.util.Scanner;
  * @see SelectionController
  * @author Stefan_Martin
  */
-public class EventController implements ActionListener, DocumentListener{
+public class EventController{
     
     //Main Attributes
     private Player player; //Stores player that will be used in the program
@@ -49,7 +49,6 @@ public class EventController implements ActionListener, DocumentListener{
         this.cliView = cliView;
 
         selection = new SelectionController(cliView);
-        guiView.setActionListener(this);
         
     }
 
@@ -78,7 +77,10 @@ public class EventController implements ActionListener, DocumentListener{
 
     }
 
-
+    /**
+     * Method to run the initial starting menu of the program
+     * @param input user's choice
+     */
     public void start(Scanner input){
 
         char choiceInput = '\u0000'; //Sets choiceInput to null
@@ -205,7 +207,6 @@ public class EventController implements ActionListener, DocumentListener{
 
     /**
      * Method to control actual running battle
-     * @param choice The user's choice of a given action they want to do in one turn
      */
     public void turnSystem(){
 
@@ -580,37 +581,6 @@ public class EventController implements ActionListener, DocumentListener{
 
         isRunning = true;
     
-    }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-  
-
-        
-
-
-    }
-
-
-    @Override
-    public void insertUpdate(DocumentEvent e) {
-
-    }
-
-
-    @Override
-    public void removeUpdate(DocumentEvent e) {
-
-
-    }
-
-
-    @Override
-    public void changedUpdate(DocumentEvent e) {
-
-
     }
 
 }

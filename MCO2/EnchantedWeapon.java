@@ -1,9 +1,27 @@
 import javax.swing.ImageIcon;
 
+/**
+ * Class file for the EnchantedWeapon class, this is a subclass of the abstract Weapon class
+ * <p>
+ *     This is a special bonus weapon subclass that can make use of special active abilities/skills.
+ * </p>
+ * @see Weapon
+ * @see Skill
+ * @author Stefan_Martin
+ */
 public class EnchantedWeapon extends Weapon{
     
     private Skill weaponSkill;
 
+    /**
+     * Constructor for the EnchantedWeapon class
+     * @param name name of the weapon, all names are assumed valid
+     * @param type type of the weapon, all types are assumed valid
+     * @param attack attack value of the weapon, additive to the character's base attack
+     * @param speedPenalty speed penalty of the weapon, this value deducted from the character's base speed
+     * @param image image of the enchanted weapon
+     * @param skillName skill to be applied/equipped to the weapon, assumed all ability names are valid
+     */
     public EnchantedWeapon(String name, String type, int attack, int speedPenalty, ImageIcon image, String skillName){
 
         super(name, attack, speedPenalty, image);

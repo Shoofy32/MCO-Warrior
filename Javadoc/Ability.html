@@ -118,18 +118,18 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>abstract void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#activateAbility(Character,Character)" class="member-name-link">activateAbility</a><wbr>(<a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;character,
- <a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;target)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#activateAbility(Character,Character)" class="member-name-link">activateAbility</a><wbr>(<a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;entity,
+ <a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;target)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Abstract method to be implemented by subclasses, activates the weapon's ability</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>abstract void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#checkAbilityCondition(Character)" class="member-name-link">checkAbilityCondition</a><wbr>(<a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;character)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#checkAbilityCondition(Character)" class="member-name-link">checkAbilityCondition</a><wbr>(<a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;entity)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Abstract method to be implemented by subclasses, checks if the weapon's ability conditions have been met</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>abstract void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#deactivateAbility(Character)" class="member-name-link">deactivateAbility</a><wbr>(<a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;character)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#deactivateAbility(Character)" class="member-name-link">deactivateAbility</a><wbr>(<a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;entity)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Abstract method to be implemented by subclasses, deactivates the weapon's ability</div>
 </div>
@@ -238,35 +238,35 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="checkAbilityCondition(Character)">
 <h3>checkAbilityCondition</h3>
-<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">checkAbilityCondition</span><wbr><span class="parameters">(<a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;character)</span></div>
+<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">checkAbilityCondition</span><wbr><span class="parameters">(<a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;entity)</span></div>
 <div class="block">Abstract method to be implemented by subclasses, checks if the weapon's ability conditions have been met</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>character</code> - Character object that has equipped the weapon</dd>
+<dd><code>entity</code> - Entity object that has equipped the weapon</dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="activateAbility(Character,Character)">
 <h3>activateAbility</h3>
-<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">activateAbility</span><wbr><span class="parameters">(<a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;character,
- <a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;target)</span></div>
+<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">activateAbility</span><wbr><span class="parameters">(<a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;entity,
+ <a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;target)</span></div>
 <div class="block">Abstract method to be implemented by subclasses, activates the weapon's ability</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>character</code> - Character object that has equipped the weapon</dd>
-<dd><code>target</code> - Character object that is the target for the weapon's ability</dd>
+<dd><code>entity</code> - Entity object that has equipped the weapon</dd>
+<dd><code>target</code> - Entity object that is the target for the weapon's ability</dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="deactivateAbility(Character)">
 <h3>deactivateAbility</h3>
-<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">deactivateAbility</span><wbr><span class="parameters">(<a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;character)</span></div>
+<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">deactivateAbility</span><wbr><span class="parameters">(<a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;entity)</span></div>
 <div class="block">Abstract method to be implemented by subclasses, deactivates the weapon's ability</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>character</code> - Character object that has equipped the weapon</dd>
+<dd><code>entity</code> - Entity object that has equipped the weapon</dd>
 </dl>
 </section>
 </li>

@@ -1,3 +1,8 @@
+/**
+ * Class file for the Dagger_Ability class, this is a subclass of the abstract Ability class
+ * @see Ability
+ * @author Stefan_Martin
+ */
 public class Dagger_Ability extends Ability{
     
     int numOfDefend = 0;
@@ -9,10 +14,13 @@ public class Dagger_Ability extends Ability{
 
     }
 
+    /**
+     * Constructor for the Dagger_Ability class
+     * @param entity entity object that has equipped the Dagger
+     */
+    public void checkAbilityCondition(Entity entity){
 
-    public void checkAbilityCondition(Character character){
-
-        if(character.getTurnInputAction() == 'D')
+        if(entity.getTurnInputAction() == 'D')
             numOfDefend++;
 
         if(numOfDefend == 2){
@@ -24,21 +32,30 @@ public class Dagger_Ability extends Ability{
 
     }
 
-    public void activateAbility(Character character, Character target){
+    /**
+     * Concrete implementation of the abstract method <i>checkAbilityCondition</i>
+     * @param entity entity object that has equipped the Dagger
+     * @param target entity object that is the target for the Dagger's ability
+     */
+    public void activateAbility(Entity entity, Entity target){
 
-        checkAbilityCondition(character);
+        checkAbilityCondition(entity);
         
         if(getHasMetConditions())
-            character.setIsInvulnerable(getHasMetConditions());
+            entity.setIsInvulnerable(getHasMetConditions());
 
     }
 
-    public void deactivateAbility(Character character){
+    /**
+     * Concrete implementation of the abstract method <i>activateAbility</i>
+     * @param entity entity object that has equipped the Dagger
+     */
+    public void deactivateAbility(Entity entity){
 
-        if(character.getIsInvulnerable()){
+        if(entity.getIsInvulnerable()){
 
             setHasMetConditions(false);
-            character.setIsInvulnerable(getHasMetConditions());
+            entity.setIsInvulnerable(getHasMetConditions());
 
         }
 

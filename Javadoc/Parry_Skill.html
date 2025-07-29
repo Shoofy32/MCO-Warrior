@@ -126,29 +126,29 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#activateSkill(Character,Character)" class="member-name-link">activateSkill</a><wbr>(<a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;character,
- <a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;target)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#activateSkill(Character,Character)" class="member-name-link">activateSkill</a><wbr>(<a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;entity,
+ <a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;target)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Concrete implementation of the <i>activateSkill</i> method
  This method only becomes available to use when the skill's condition has been met</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#checkSkillConditionCounter(Character,Character)" class="member-name-link">checkSkillConditionCounter</a><wbr>(<a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;character,
- <a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;target)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#checkSkillConditionCounter(Character,Character)" class="member-name-link">checkSkillConditionCounter</a><wbr>(<a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;entity,
+ <a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;target)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Concrete implementation of the <i>checkSkillConditionCounter</i> method
  The skill activates when a weapon's passive has activated an x amount of times since either the start of the battle or the last time the skill has been used</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createActiveSkillResultDescription(Character,Character)" class="member-name-link">createActiveSkillResultDescription</a><wbr>(<a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;character,
- <a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;target)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createActiveSkillResultDescription(Character,Character)" class="member-name-link">createActiveSkillResultDescription</a><wbr>(<a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;entity,
+ <a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;target)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Concrete implementation of the <i>createActiveSkillResult Description</i> method
  Generates the text to be displayed when the user activates the skill</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deactivateSkill(Character,Character)" class="member-name-link">deactivateSkill</a><wbr>(<a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;character,
- <a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;target)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deactivateSkill(Character,Character)" class="member-name-link">deactivateSkill</a><wbr>(<a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;entity,
+ <a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;target)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Concrete implementation of the <i>deactivateSkill</i> method
  The condition count is reset upon skill activation, whether any damage was reflected or not</div>
@@ -195,64 +195,64 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="createActiveSkillResultDescription(Character,Character)">
 <h3>createActiveSkillResultDescription</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">createActiveSkillResultDescription</span><wbr><span class="parameters">(<a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;character,
- <a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;target)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">createActiveSkillResultDescription</span><wbr><span class="parameters">(<a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;entity,
+ <a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;target)</span></div>
 <div class="block">Concrete implementation of the <i>createActiveSkillResult Description</i> method
  Generates the text to be displayed when the user activates the skill</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Skill.html#createActiveSkillResultDescription(Character,Character)">createActiveSkillResultDescription</a></code>&nbsp;in class&nbsp;<code><a href="Skill.html" title="class in Unnamed Package">Skill</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>character</code> - character object that has the skill equipped</dd>
-<dd><code>target</code> - character object that is the target of the skill</dd>
+<dd><code>entity</code> - entity object that has the skill equipped</dd>
+<dd><code>target</code> - entity object that is the target of the skill</dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="checkSkillConditionCounter(Character,Character)">
 <h3>checkSkillConditionCounter</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">checkSkillConditionCounter</span><wbr><span class="parameters">(<a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;character,
- <a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;target)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">checkSkillConditionCounter</span><wbr><span class="parameters">(<a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;entity,
+ <a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;target)</span></div>
 <div class="block">Concrete implementation of the <i>checkSkillConditionCounter</i> method
  The skill activates when a weapon's passive has activated an x amount of times since either the start of the battle or the last time the skill has been used</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Skill.html#checkSkillConditionCounter(Character,Character)">checkSkillConditionCounter</a></code>&nbsp;in class&nbsp;<code><a href="Skill.html" title="class in Unnamed Package">Skill</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>character</code> - Character object that has the skill equipped</dd>
-<dd><code>target</code> - Character object that is the target of the skill</dd>
+<dd><code>entity</code> - Entity object that has the skill equipped</dd>
+<dd><code>target</code> - Entity object that is the target of the skill</dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="activateSkill(Character,Character)">
 <h3>activateSkill</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">activateSkill</span><wbr><span class="parameters">(<a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;character,
- <a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;target)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">activateSkill</span><wbr><span class="parameters">(<a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;entity,
+ <a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;target)</span></div>
 <div class="block">Concrete implementation of the <i>activateSkill</i> method
  This method only becomes available to use when the skill's condition has been met</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Skill.html#activateSkill(Character,Character)">activateSkill</a></code>&nbsp;in class&nbsp;<code><a href="Skill.html" title="class in Unnamed Package">Skill</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>character</code> - Character object using the skill</dd>
-<dd><code>target</code> - Character object that is the target of the skill</dd>
+<dd><code>entity</code> - Entity object using the skill</dd>
+<dd><code>target</code> - Entity object that is the target of the skill</dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="deactivateSkill(Character,Character)">
 <h3>deactivateSkill</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">deactivateSkill</span><wbr><span class="parameters">(<a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;character,
- <a href="Character.html" title="class in Unnamed Package">Character</a>&nbsp;target)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">deactivateSkill</span><wbr><span class="parameters">(<a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;entity,
+ <a href="Character.html" title="class in Unnamed Package">Entity</a>&nbsp;target)</span></div>
 <div class="block">Concrete implementation of the <i>deactivateSkill</i> method
  The condition count is reset upon skill activation, whether any damage was reflected or not</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Skill.html#deactivateSkill(Character,Character)">deactivateSkill</a></code>&nbsp;in class&nbsp;<code><a href="Skill.html" title="class in Unnamed Package">Skill</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>character</code> - Character object using the skill</dd>
-<dd><code>target</code> - Character object that is the target of the skill</dd>
+<dd><code>entity</code> - Entity object using the skill</dd>
+<dd><code>target</code> - Entity object that is the target of the skill</dd>
 </dl>
 </section>
 </li>
