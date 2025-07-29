@@ -5,9 +5,9 @@
  */
 public class Fists_Ability extends Ability{
 
-    int numOfAttack = 0;
-    int counter = 0;
-    int enemyHealth;
+    private int numOfAttack = 0;
+    private int counter = 0;
+    private int enemyHealth;
 
     /**
      * Constructor for the Fists_Ability class
