@@ -179,12 +179,12 @@ public class GUISelectionController implements ActionListener{
         Environment environment7 = new Environment("Black Egg Temple", true, new ImageIcon("Assets/Environment/Environment_Temp.png"), -1, "Attack", 5, "HitPoints");
 
         //Bonus - Create Consumable instances
-        Consumable estusFlask = new Healing("Estus Flask", new ImageIcon("Assets/Consumable/Consumable_Temp.png"), 2, 45);
-        Consumable rageElixer = new Buff("Rage Elixer", new ImageIcon("Assets/Consumable/Consumable_Temp.png"), 1, new String[]{"Attack", "Defense"}, new int[]{20, -10}, 3);
-        Consumable windstormFlask = new Bomb("Windstorm Flask", new ImageIcon("Assets/Consumable/Consumable_Temp.png"), 1, new String[]{"Speed"}, new int[]{25}, new String[]{"Speed"}, new int[]{-15}, 3);
-        Consumable recklessGamble = new Bomb("Reckless Gamble", new ImageIcon("Assets/Consumable/Consumable_Temp.png"),1, new String[]{"Speed"}, new int[]{50}, new String[]{"Attack"}, new int[]{30}, 3);
-        Consumable equivalentExchange = new Buff("Equivalent Exchange", new ImageIcon("Assets/Consumable/Consumable_Temp.png"), 1, new String[]{"Defense", "Speed"}, new int[]{20, -20}, 3);
-        Consumable redPotion = new Bomb("Red Potion", new ImageIcon("Assets/Consumable/Consumable_Temp.png"), 1, new String[]{"Defense", "Speed", "Attack"}, new int[]{-10, -10, -10}, new String[]{"Defense", "Speed", "Attack"}, new int[]{10, 10, 10}, 10);
+        Consumable estusFlask = new Healing("Estus Flask", new ImageIcon("Assets/Consumable/EstusFlask_Consumable.png"), 2, 45);
+        Consumable rageElixer = new Buff("Rage Elixer", new ImageIcon("Assets/Consumable/RageElixer_Consumable.png"), 1, new String[]{"Attack", "Defense"}, new int[]{20, -10}, 3);
+        Consumable windstormFlask = new Bomb("Windstorm Flask", new ImageIcon("Assets/Consumable/WindstormFlask_Consumable.png"), 1, new String[]{"Speed"}, new int[]{25}, new String[]{"Speed"}, new int[]{-15}, 3);
+        Consumable recklessGamble = new Bomb("Reckless Gamble", new ImageIcon("Assets/Consumable/RecklessGamle_Consumable.png"),1, new String[]{"Speed"}, new int[]{50}, new String[]{"Attack"}, new int[]{30}, 3);
+        Consumable equivalentExchange = new Buff("Equivalent Exchange", new ImageIcon("Assets/Consumable/EquivalentExchange_Consumable.png"), 1, new String[]{"Defense", "Speed"}, new int[]{20, -20}, 3);
+        Consumable redPotion = new Bomb("Red Potion", new ImageIcon("Assets/Consumable/RedPotion_Consumable.png"), 1, new String[]{"Defense", "Speed", "Attack"}, new int[]{-10, -10, -10}, new String[]{"Defense", "Speed", "Attack"}, new int[]{10, 10, 10}, 10);
 
         //Store Weapon instances to Weapon ArrayList
         weapons.add(dagger);
