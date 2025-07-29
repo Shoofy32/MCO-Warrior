@@ -188,7 +188,7 @@ public class GUIEnvironmentSelectPanel extends JFrame{
 
         environmentPlayerDescription.setText(playerDescription);
         environmentEnemyDescription.setText(enemyDescription);
-;
+
         environmentStatsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
 
         if(!firstUpdate){
