@@ -5,7 +5,7 @@
  */
 public class Katana_Ability extends Ability{
 
-    int numOfAttack = 0;
+    private int numOfAttack = 0;
 
     /**
      * Constructor for the Katana_Ability class
