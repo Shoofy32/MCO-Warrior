@@ -305,6 +305,7 @@ public class GUIEventController implements ActionListener{
 
             case "Main Menu":
 
+                gameSystem.resetValues(); //Reset the values to original
                 guiView.showPanel("Start"); //Shows panel for main menu
 
 
