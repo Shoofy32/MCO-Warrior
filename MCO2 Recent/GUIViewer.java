@@ -632,10 +632,11 @@ public class GUIViewer extends JFrame{
      * @param speedPenalty weapon object's speed penalty
      * @param ability weapon object's corresponding ability
      * @param skill weapon object's skill if it possesses any
+     * @param condition weapon object's condition if it possesses any
      */
-    public void updateWeaponSelectPanel(String name, String type, ImageIcon image, int damage, int speedPenalty, String ability, String skill){
+    public void updateWeaponSelectPanel(String name, String type, ImageIcon image, int damage, int speedPenalty, String ability, String skill, String condition){
 
-        weaponSelectPanel.updateView(name, type, image, damage, speedPenalty, ability, skill);
+        weaponSelectPanel.updateView(name, type, image, damage, speedPenalty, ability, skill, condition);
         
     }
 

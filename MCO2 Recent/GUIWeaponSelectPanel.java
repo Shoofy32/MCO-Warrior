@@ -26,6 +26,7 @@ public class GUIWeaponSelectPanel extends JPanel{
     private JLabel weaponSpeedPenalty;
     private JTextArea weaponAbility;
     private JTextArea weaponSkill;
+    private JTextArea weaponCondition;
 
     //Wrappers
     JPanel nameWrapper;
@@ -50,6 +51,7 @@ public class GUIWeaponSelectPanel extends JPanel{
         weaponSpeedPenalty = new JLabel();
         weaponAbility = new JTextArea();
         weaponSkill = new JTextArea();
+        weaponCondition = new JTextArea();
 
         weaponName.setFont(new Font("FFF Forward", Font.PLAIN, 50));
 
@@ -196,6 +198,8 @@ public class GUIWeaponSelectPanel extends JPanel{
             info.setForeground(Color.BLUE);
         else if(typeOfInfo.equals("SKILL"))
             info.setForeground(Color.RED);
+        else if(typeOfInfo.equals("CONDITION"))
+            info.setForeground(new Color(255, 127, 127));
 
         typeWrapper.add(info);
 
@@ -214,8 +218,9 @@ public class GUIWeaponSelectPanel extends JPanel{
      * @param speedPenalty speed penalty of the weapon
      * @param ability ability of the weapon
      * @param skill skill of the weapon if it has one
+     * @param condition condition of the weapon if it has one
      */
-    public void updateView(String name, String type, ImageIcon image, int damage, int speedPenalty, String ability, String skill){
+    public void updateView(String name, String type, ImageIcon image, int damage, int speedPenalty, String ability, String skill, String condition){
 
         weaponName.setText(name);
         weaponType.setText(type);
@@ -226,12 +231,20 @@ public class GUIWeaponSelectPanel extends JPanel{
         weaponSpeedPenalty.setText("" + -speedPenalty);
         weaponAbility.setText(ability);
 
-        if(skill != null)
-            weaponSkill.setText(skill);
-        else
-            weaponSkill.setText(null);
-        
+        if(skill != null){
 
+            weaponSkill.setText(skill);
+            weaponCondition.setText(condition);
+
+        }
+
+        else{
+
+            weaponSkill.setText(null);
+            weaponCondition.setText(null);  
+
+        }
+        
         weaponStatsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
 
         if(!firstUpdate){
@@ -249,6 +262,7 @@ public class GUIWeaponSelectPanel extends JPanel{
             weaponStatsPanel.add(Box.createVerticalGlue());
             createInfoSection("ABILITY", weaponAbility);
             createInfoSection("SKILL", weaponSkill);
+            createInfoSection("CONDITION", weaponCondition);
 
         }
 

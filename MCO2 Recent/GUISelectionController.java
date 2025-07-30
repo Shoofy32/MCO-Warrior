@@ -303,16 +303,27 @@ public class GUISelectionController implements ActionListener{
             case "Weapon":
                 Weapon weaponTemp = weapons.get(index);
                 String skillName;
+                String skillCondition;
     
                 //Checks if the weapon in the index is an enchanted weapon and gets the description
-                if(weaponTemp instanceof EnchantedWeapon)
+                if(weaponTemp instanceof EnchantedWeapon){
+
                     skillName = ((EnchantedWeapon) weaponTemp).getWeaponSkill().getskillDescription();
-                else
+                    skillCondition = ((EnchantedWeapon) weaponTemp).getWeaponSkill().getskillConditionDescription();
+
+                }
+
+                else{
+
                     skillName = null;
+                    skillCondition = null;
+
+                }
+
 
                 //Updates the weapon selection view
                 guiView.updateWeaponSelectPanel(weaponTemp.getName(), weaponTemp.getType(), weaponTemp.getImage(), weaponTemp.getAttack(),
-                        weaponTemp.getSpeedPenalty(), weaponTemp.getAbility().getAbilityDecsription(), skillName);
+                        weaponTemp.getSpeedPenalty(), weaponTemp.getAbility().getAbilityDecsription(), skillName, skillCondition);
                 break;
 
             case "Armor":
