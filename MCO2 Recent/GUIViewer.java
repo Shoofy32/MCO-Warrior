@@ -79,8 +79,8 @@ public class GUIViewer extends JFrame{
     
     //For use
     private Border padding = BorderFactory.createEmptyBorder(15, 15, 15, 15);
-    private Font largeText = new Font("SansSerif", Font.BOLD , 50);    
-    private Font smallText = new Font("SansSerif", Font.BOLD , 20);
+    private Font largeText = pixelFont;
+    private Font smallText = boldPixelFont;
 
     /**
      * Constructor for the GUIViewer class
