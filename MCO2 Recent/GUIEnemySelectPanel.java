@@ -34,8 +34,7 @@ public class GUIEnemySelectPanel extends JFrame{
 
     //For use
     private Border padding = BorderFactory.createEmptyBorder(15, 15, 15, 15);
-    private Font largeText = new Font("SansSerif", Font.BOLD , 40);    
-    private Font smallText = new Font("SansSerif", Font.BOLD , 20);
+
 
     /**
      * Constructor for the GUIEnemySelectPanel class
@@ -57,7 +56,7 @@ public class GUIEnemySelectPanel extends JFrame{
         enemyWeapon = new JLabel();
         enemyConsumable = new JLabel();
 
-        enemyName.setFont(largeText);
+        enemyName.setFont(new Font("FFF Forward", Font.PLAIN, 50));
 
         enemyName.setAlignmentX(CENTER_ALIGNMENT);
         enemyImage.setAlignmentX(CENTER_ALIGNMENT);
@@ -92,17 +91,19 @@ public class GUIEnemySelectPanel extends JFrame{
         enemyChoices.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10)); 
 
         JLabel enemyponSelectLabel = new JLabel("Enemy Selection");
-        enemyponSelectLabel.setFont(largeText);
+        enemyponSelectLabel.setFont(new Font("FFF Forward", Font.PLAIN, 50));
 
         JPanel textWrapper = new JPanel();
         textWrapper.setLayout(new BoxLayout(textWrapper, BoxLayout.Y_AXIS));
-        textWrapper.setPreferredSize(new Dimension(450, 100));  
-        textWrapper.setMaximumSize(new Dimension(450, 100));   
-        textWrapper.setMinimumSize(new Dimension(450, 100)); 
+        textWrapper.setPreferredSize(new Dimension(600, 100));  
+        textWrapper.setMaximumSize(new Dimension(600, 100));   
+        textWrapper.setMinimumSize(new Dimension(600, 100)); 
         textWrapper.setAlignmentX(RIGHT_ALIGNMENT);
         textWrapper.setAlignmentY(CENTER_ALIGNMENT);  
         textWrapper.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 15));
+        textWrapper.add(Box.createVerticalGlue());
         textWrapper.add(enemyponSelectLabel);
+        textWrapper.add(Box.createVerticalGlue());
 
         topPanel.add(buttonWrapper, BorderLayout.WEST);
         topPanel.add(textWrapper, BorderLayout.EAST);
@@ -170,12 +171,12 @@ public class GUIEnemySelectPanel extends JFrame{
         JPanel typeWrapper = new JPanel(new BorderLayout());
         JLabel infoType = new JLabel(typeOfInfo);
 
-        infoType.setFont(smallText);
-        info.setFont(smallText);
+        infoType.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
+        info.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
 
-        typeWrapper.setPreferredSize(new Dimension(400, 30));
-        typeWrapper.setMaximumSize(new Dimension(400, 30));
-        typeWrapper.setMinimumSize(new Dimension(400, 30));
+        typeWrapper.setPreferredSize(new Dimension(600, 30));
+        typeWrapper.setMaximumSize(new Dimension(600, 30));
+        typeWrapper.setMinimumSize(new Dimension(600, 30));
 
         typeWrapper.add(infoType, BorderLayout.WEST); 
 

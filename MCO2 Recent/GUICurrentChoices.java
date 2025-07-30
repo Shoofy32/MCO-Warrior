@@ -41,8 +41,6 @@ public class GUICurrentChoices extends JFrame{
     private JLabel environmentName;
 
     //For use
-    private Font largeText = new Font("SansSerif", Font.BOLD , 40);    
-    private Font smallText = new Font("SansSerif", Font.BOLD , 25);
 
     /**
      * Constructor for the GUICurrentChoices class
@@ -53,29 +51,31 @@ public class GUICurrentChoices extends JFrame{
         textWrapper = new JPanel();
         finalChoicesLabel = new JLabel();
 
+        //Initalize the names and their properties
+
         playerName = new JLabel();
-        playerName.setFont(smallText);
-        playerName.setForeground(Color.WHITE);
+        playerName.setFont(new Font("Medodica Regular", Font.PLAIN, 50));
+        playerName.setForeground(Color.BLUE);
 
         weaponName = new JLabel();
-        weaponName.setFont(smallText);
-        weaponName.setForeground(Color.WHITE);
+        weaponName.setFont(new Font("Medodica Regular", Font.PLAIN, 50));
+        weaponName.setForeground(Color.BLUE);
 
         armorName = new JLabel();
-        armorName.setFont(smallText);
-        armorName.setForeground(Color.WHITE);
+        armorName.setFont(new Font("Medodica Regular", Font.PLAIN, 50));
+        armorName.setForeground(Color.BLUE);
 
         consumableName = new JLabel();
-        consumableName.setFont(smallText);
-        consumableName.setForeground(Color.WHITE);
+        consumableName.setFont(new Font("Medodica Regular", Font.PLAIN, 50));
+        consumableName.setForeground(Color.BLUE);
 
         enemyName = new JLabel();
-        enemyName.setFont(smallText);
-        enemyName.setForeground(Color.WHITE);
+        enemyName.setFont(new Font("Medodica Regular", Font.PLAIN, 50));
+        enemyName.setForeground(Color.BLUE);
 
         environmentName = new JLabel();
-        environmentName.setFont(largeText);
-        environmentName.setForeground(Color.WHITE);
+        environmentName.setFont(new Font("FFF Forward", Font.PLAIN, 50));
+        environmentName.setForeground(Color.BLUE);
 
     }
 
@@ -98,9 +98,11 @@ public class GUICurrentChoices extends JFrame{
         topPanel.setLayout(new BorderLayout());
         topPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
 
+        //Set label and font
         finalChoicesLabel.setText("Final Choices");
-        finalChoicesLabel.setFont(largeText);
+        finalChoicesLabel.setFont(new Font("FFF Forward", Font.PLAIN, 50));
 
+        //Wrapper properties and add finalChoices to wrraper
         textWrapper.setLayout(new BoxLayout(textWrapper, BoxLayout.Y_AXIS));
         textWrapper.setPreferredSize(new Dimension(450, 100));  
         textWrapper.setMaximumSize(new Dimension(450, 100));   
@@ -110,12 +112,13 @@ public class GUICurrentChoices extends JFrame{
         textWrapper.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 15));
         textWrapper.add(finalChoicesLabel);
 
+        //Add components to topPanel
         topPanel.add(buttonWrapper, BorderLayout.WEST);
         topPanel.add(textWrapper, BorderLayout.EAST);
 
+        //Create display panel and add to main panel
         displayPanel = new JPanel(new BorderLayout());
         displayPanel.add(topPanel, BorderLayout.NORTH);
-
         mainPanel.add(displayPanel, "currentChoices");
 
     }
@@ -129,13 +132,14 @@ public class GUICurrentChoices extends JFrame{
 
         Image scaledImage;
 
+        //Update player name and image
         playerName.setText(names[0]);
         scaledImage = images[0].getImage().getScaledInstance(400, 500, Image.SCALE_SMOOTH);
         playerImage.setIcon(new ImageIcon(scaledImage));
         playerName.setAlignmentX(CENTER_ALIGNMENT);
         playerImage.setAlignmentX(CENTER_ALIGNMENT);
-        playerImage.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
 
+        //Update weapon name and image
         weaponName.setText(names[1]);
         scaledImage = images[1].getImage().getScaledInstance(175, 150, Image.SCALE_SMOOTH);
         weaponImage.setIcon(new ImageIcon(scaledImage));
@@ -143,7 +147,7 @@ public class GUICurrentChoices extends JFrame{
         weaponImage.setAlignmentX(CENTER_ALIGNMENT);
         weaponImage.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
 
-
+        //Update armor name and image
         armorName.setText(names[2]);
         scaledImage = images[2].getImage().getScaledInstance(175, 150, Image.SCALE_SMOOTH);
         armorImage.setIcon(new ImageIcon(scaledImage));
@@ -151,7 +155,7 @@ public class GUICurrentChoices extends JFrame{
         armorImage.setAlignmentX(CENTER_ALIGNMENT);
         armorImage.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
 
-
+        //Update consumable name and image
         consumableName.setText(names[3]);
         scaledImage = images[3].getImage().getScaledInstance(175, 150, Image.SCALE_SMOOTH);
         consumableImage.setIcon(new ImageIcon(scaledImage));
@@ -159,13 +163,12 @@ public class GUICurrentChoices extends JFrame{
         consumableImage.setAlignmentX(CENTER_ALIGNMENT);
         consumableImage.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
 
-
+        //Update enemy name and image
         enemyName.setText(names[4]);
         scaledImage = images[4].getImage().getScaledInstance(400, 500, Image.SCALE_SMOOTH);
         enemyImage.setIcon(new ImageIcon(scaledImage));
         enemyName.setAlignmentX(CENTER_ALIGNMENT);
         enemyImage.setAlignmentX(CENTER_ALIGNMENT);
-        enemyImage.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
 
         environmentName.setText(names[5]);
         environmentName.setAlignmentX(CENTER_ALIGNMENT);

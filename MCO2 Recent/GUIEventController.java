@@ -160,17 +160,17 @@ public class GUIEventController implements ActionListener{
 
         //Attributes that store the names and images of the equipment used by the Player and Enemy
         String pWeaponName = "NONE";
-        ImageIcon pWeaponImage = new ImageIcon("Assets/UI/None_Temp.png");
+        ImageIcon pWeaponImage = new ImageIcon("Assets/UI/NoneIcon_UI.png");
         String pArmorName = "NONE";
-        ImageIcon pArmorImage = new ImageIcon("Assets/UI/None_Temp.png");
+        ImageIcon pArmorImage = new ImageIcon("Assets/UI/NoneIcon_UI.png");
         String pConsumableName = "NONE";
-        ImageIcon pConsumableImage = new ImageIcon("Assets/UI/None_Temp.png");
+        ImageIcon pConsumableImage = new ImageIcon("Assets/UI/NoneIcon_UI.png");
         String eWeaponName = "NONE";
-        ImageIcon eWeaponImage = new ImageIcon("Assets/UI/None_Temp.png");
+        ImageIcon eWeaponImage = new ImageIcon("Assets/UI/NoneIcon_UI.png");
         String eArmorName = "NONE";
-        ImageIcon eArmorImage = new ImageIcon("Assets/UI/None_Temp.png");
+        ImageIcon eArmorImage = new ImageIcon("Assets/UI/NoneIcon_UI.png");
         String eConsumableName = "NONE";
-        ImageIcon eConsumableImage = new ImageIcon("Assets/UI/None_Temp.png");
+        ImageIcon eConsumableImage = new ImageIcon("Assets/UI/NoneIcon_UI.png");
 
 
         //Checks if player weapon has an enchanted weapon and gets the required condition counter of the weapon
@@ -185,10 +185,10 @@ public class GUIEventController implements ActionListener{
         //Update the Arrays that store the different values to be used to create the game Panel
         playerStats = new int[]{playerHitPoints, playerSkillCooldown, player.getAttack(), player.getDefense(), player.getSpeed()};
         enemyStats = new int[]{enemyHitPoints, enemySkillCooldown, enemy.getAttack(), enemy.getDefense(), enemy.getSpeed()};
-        statImages = new ImageIcon[]{new ImageIcon("Assets/UI/AttackIcon_Temp.png"), new ImageIcon("Assets/UI/DefenseIcon_Temp.png"),
-                new ImageIcon("Assets/UI/SpeedIcon_Temp.png")};
+        statImages = new ImageIcon[]{new ImageIcon("Assets/UI/AttackIcon_UI.png"), new ImageIcon("Assets/UI/DefenseIcon_UI.png"),
+                new ImageIcon("Assets/UI/SpeedIcon_UI.png")};
         uiImages = new ImageIcon[]{environment.getImage(), player.getImage(), enemy.getImage(), 
-        new ImageIcon("Assets/UI/HealthIcon_Temp.png"), new ImageIcon("Assets/UI/SkillIcon_Temp.png"), new ImageIcon("Assets/UI/InformationIcon_Temp.png")};
+        new ImageIcon("Assets/UI/HealthIcon_UI.png"), new ImageIcon("Assets/UI/SkillIcon_UI.png"), new ImageIcon("Assets/UI/InformationIcon_UI.png")};
 
         
         //Checks if player weapon exists
@@ -305,7 +305,7 @@ public class GUIEventController implements ActionListener{
 
             case "Main Menu":
 
-                gameSystem.resetValues(); //Reset the values to original
+                gameSystem.resetValues(); //Reset values to original
                 guiView.showPanel("Start"); //Shows panel for main menu
 
 

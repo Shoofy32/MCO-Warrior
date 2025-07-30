@@ -31,8 +31,6 @@ public class GUIConsumableSelectPanel extends JPanel{
 
     //For use
     private Border padding = BorderFactory.createEmptyBorder(15, 15, 15, 15);
-    private Font largeText = new Font("SansSerif", Font.BOLD , 40);    
-    private Font smallText = new Font("SansSerif", Font.BOLD , 25);
 
     /**
      * Constructor for the GUIConsumableSelectPanel class
@@ -51,7 +49,7 @@ public class GUIConsumableSelectPanel extends JPanel{
         consumableHolderDesc = new JTextArea();
         consumableTargetDesc = new JTextArea();
 
-        consumableName.setFont(largeText);
+        consumableName.setFont(new Font("FFF Forward", Font.PLAIN, 40));
 
         consumableName.setAlignmentX(CENTER_ALIGNMENT);
         consumableImage.setAlignmentX(CENTER_ALIGNMENT);
@@ -86,17 +84,19 @@ public class GUIConsumableSelectPanel extends JPanel{
         consumableChoices.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10)); 
 
         JLabel weaponSelectLabel = new JLabel("Consumable Selection");
-        weaponSelectLabel.setFont(largeText);
+        weaponSelectLabel.setFont(new Font("FFF Forward", Font.PLAIN, 40));
 
         JPanel textWrapper = new JPanel();
         textWrapper.setLayout(new BoxLayout(textWrapper, BoxLayout.Y_AXIS));
-        textWrapper.setPreferredSize(new Dimension(450, 100));  
-        textWrapper.setMaximumSize(new Dimension(450, 100));   
-        textWrapper.setMinimumSize(new Dimension(450, 100)); 
+        textWrapper.setPreferredSize(new Dimension(600, 100));  
+        textWrapper.setMaximumSize(new Dimension(600, 100));   
+        textWrapper.setMinimumSize(new Dimension(600, 100)); 
         textWrapper.setAlignmentX(RIGHT_ALIGNMENT);
         textWrapper.setAlignmentY(CENTER_ALIGNMENT);  
         textWrapper.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 15));
+        textWrapper.add(Box.createVerticalGlue());
         textWrapper.add(weaponSelectLabel);
+        textWrapper.add(Box.createVerticalGlue());
 
         topPanel.add(buttonWrapper, BorderLayout.WEST);
         topPanel.add(textWrapper, BorderLayout.EAST);
@@ -163,8 +163,8 @@ public class GUIConsumableSelectPanel extends JPanel{
         JPanel typeWrapper = new JPanel(new BorderLayout());
         JLabel infoType = new JLabel(typeOfInfo);
 
-        infoType.setFont(smallText);
-        info.setFont(smallText);
+        infoType.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
+        info.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
 
         typeWrapper.setPreferredSize(new Dimension(400, 40));
         typeWrapper.setMaximumSize(new Dimension(400, 40));
@@ -183,7 +183,7 @@ public class GUIConsumableSelectPanel extends JPanel{
         JPanel typeWrapper = new JPanel();
         typeWrapper.setLayout(new BoxLayout(typeWrapper, BoxLayout.Y_AXIS));
 
-        info.setFont(smallText);
+        info.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
         info.setLineWrap(true);
         info.setWrapStyleWord(true);
         info.setOpaque(false);

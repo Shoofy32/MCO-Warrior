@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -61,11 +62,6 @@ public class GUIGamePanel extends JFrame{
     private JScrollPane turnHistoryScroll;
 
 
-    //For use
-    private Font largeText = new Font("SansSerif", Font.BOLD , 40);    
-    private Font smallText = new Font("SansSerif", Font.BOLD , 25); 
-    private Font turnHistoryText = new Font("SansSerif", Font.PLAIN , 20);
-
     /**
      * Constructor for the GUIGamePanel class
      */
@@ -75,38 +71,38 @@ public class GUIGamePanel extends JFrame{
         enemyImage = new JLabel();
 
         playerName = new JLabel();
-        playerName.setFont(smallText);
+        playerName.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
 
         weaponName = new JLabel();
-        weaponName.setFont(smallText);
+        weaponName.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
         armorName = new JLabel();
-        armorName.setFont(smallText);
+        armorName.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
         consumableName = new JLabel();
-        consumableName.setFont(smallText);
+        consumableName.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
         enemyName = new JLabel();
-        enemyName.setFont(smallText);
+        enemyName.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
         environmentName = new JLabel();
-        environmentName.setFont(largeText);
+        environmentName.setFont(new Font("FFF Forward", Font.PLAIN, 40));
     
         gameLayers = new JLayeredPane();
         playerAttackLabel = new JLabel();
-        playerAttackLabel.setFont(smallText);
+        playerAttackLabel.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
         playerDefenseLabel = new JLabel();
-        playerDefenseLabel.setFont(smallText);
+        playerDefenseLabel.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
         playerSpeedLabel = new JLabel();
-        playerSpeedLabel.setFont(smallText);
+        playerSpeedLabel.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
         enemyAttackLabel = new JLabel();
-        enemyAttackLabel.setFont(smallText);
+        enemyAttackLabel.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
         enemyDefenseLabel = new JLabel();
-        enemyDefenseLabel.setFont(smallText);
+        enemyDefenseLabel.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
         enemySpeedLabel = new JLabel();
-        enemySpeedLabel.setFont(smallText);
+        enemySpeedLabel.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
 
         playerImage = new JLabel();
         historyPanel = new JPanel();
 
         turnHistory = new JTextArea();
-        turnHistory.setFont(turnHistoryText);
+        turnHistory.setFont(new Font("Medodica Regular", Font.PLAIN, 25));
         turnHistory.setEditable(false);
         turnHistory.setLineWrap(true);
         turnHistory.setWrapStyleWord(true);
@@ -114,15 +110,15 @@ public class GUIGamePanel extends JFrame{
 
         recentTurnHistory = new JTextArea();
         recentTurnHistory.setBounds(50, 200, 600, 300);
-        recentTurnHistory.setFont(turnHistoryText);
-        recentTurnHistory.setForeground(Color.WHITE);
+        recentTurnHistory.setFont(new Font("Medodica Regular", Font.PLAIN, 25));
+        recentTurnHistory.setForeground(Color.BLUE);
         recentTurnHistory.setEditable(false);
         recentTurnHistory.setLineWrap(true);
         recentTurnHistory.setWrapStyleWord(true);
         recentTurnHistory.setOpaque(false);
 
         historyTitle = new JLabel("Turn History");
-        historyTitle.setFont(largeText);
+        historyTitle.setFont(new Font("FFF Forward", Font.PLAIN, 40));
 
         turnHistoryScroll = new JScrollPane(turnHistory);
         turnHistoryScroll.setBounds(0, 0, 450, 700);
@@ -163,11 +159,42 @@ public class GUIGamePanel extends JFrame{
         backgroundPanel.setBounds(0, 0, 1500,1000);
 
 
+        //Buffered Image for empty display
+        BufferedImage emptyImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB);
+
+        //Weapon Image Overlay
+        if(!equipmentNames[0].equals("NONE"))
+            scaledImage =  equipmentImages[0].getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        else
+            scaledImage = emptyImage;
+
+        JLabel playerWeaponOverlay = new JLabel(new ImageIcon(scaledImage));
+        playerWeaponOverlay.setBounds(470, 445, 150, 150);
+
+        //Armor Image Overlay
+        if(!equipmentNames[1].equals("NONE"))
+            scaledImage =  equipmentImages[1].getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        else
+            scaledImage = emptyImage;
+
+        JLabel playerArmorOverlay = new JLabel(new ImageIcon(scaledImage));
+        playerArmorOverlay.setBounds(360, 530, 150, 150);
+
+        //Consumable Image Overlay
+        if(!equipmentNames[2].equals("NONE"))
+            scaledImage =  equipmentImages[2].getImage().getScaledInstance(75, 75, Image.SCALE_SMOOTH);
+        else
+            scaledImage = emptyImage;
+
+        JLabel playerConsumableOverlay = new JLabel(new ImageIcon(scaledImage));
+        playerConsumableOverlay.setBounds(350, 640, 75, 75);
+
+        //Player Image        
         scaledImage = uiImages[1].getImage().getScaledInstance(450, 500, Image.SCALE_SMOOTH);
         playerImage.setIcon(new ImageIcon(scaledImage));
         playerImage.setBounds(200, 350, 450, 500);
 
-
+        //Enemy Image
         scaledImage = uiImages[2].getImage().getScaledInstance(450, 500, Image.SCALE_SMOOTH);
         enemyImage.setIcon(new ImageIcon(scaledImage));
         enemyImage.setBounds(800, 350, 450, 500);
@@ -186,6 +213,7 @@ public class GUIGamePanel extends JFrame{
         buttonsPanel.setBounds(50, 500, 200, 900);
         buttonsPanel.setOpaque(false); 
 
+        //Creates a struct for each button added
         for(int i = 0; i < buttons.length; i++){
 
             buttonsPanel.add(buttons[i]);
@@ -206,6 +234,9 @@ public class GUIGamePanel extends JFrame{
         //Combines all of the panels into one main panel
         gameLayers.add(backgroundPanel, Integer.valueOf(0));
         gameLayers.add(playerImage, Integer.valueOf(1));
+        gameLayers.add(playerWeaponOverlay, Integer.valueOf(3));
+        gameLayers.add(playerArmorOverlay, Integer.valueOf(3));
+        gameLayers.add(playerConsumableOverlay, Integer.valueOf(3));
         gameLayers.add(enemyImage, Integer.valueOf(1));
         gameLayers.add(buttonsPanel, Integer.valueOf(2));
         gameLayers.add(buttons[5], Integer.valueOf(3));
@@ -213,6 +244,7 @@ public class GUIGamePanel extends JFrame{
         gameLayers.add(informationPanel, Integer.valueOf(4));
 
 
+        //Create display panel and add to main panel
         displayPanel = new JPanel(new BorderLayout());
         displayPanel.add(gameLayers, BorderLayout.CENTER);
         mainPanel.add(displayPanel, "game");
@@ -236,11 +268,12 @@ public class GUIGamePanel extends JFrame{
         infoLeftColumn.setBounds(0, 0, 700, 800);
         infoLeftColumn.setOpaque(false);
 
-        //INFORMATION - PLAYER
+        //Create the panel for player info
         JPanel playerEquipInfo = new JPanel();
         playerEquipInfo.setOpaque(false);
         playerEquipInfo.setLayout(new BoxLayout(playerEquipInfo, BoxLayout.X_AXIS));
 
+        //Create the player info and set their properties
         JPanel playerWeaponInfo = new JPanel();
         JPanel playerArmorInfo = new JPanel();
         JPanel playerConsumableInfo = new JPanel();
@@ -251,8 +284,9 @@ public class GUIGamePanel extends JFrame{
         playerArmorInfo.setOpaque(false);
         playerConsumableInfo.setOpaque(false);
 
+        //Update the player weapon name and image
         JLabel playerWeaponName = new JLabel(equipmentNames[0]);
-        playerWeaponName.setFont(smallText);
+        playerWeaponName.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
         playerWeaponName.setAlignmentX(CENTER_ALIGNMENT);
         scaledImage =  equipmentImages[0].getImage().getScaledInstance(225, 225, Image.SCALE_SMOOTH);
         JLabel playerWeaponImage = new JLabel(new ImageIcon(scaledImage));
@@ -260,8 +294,9 @@ public class GUIGamePanel extends JFrame{
         playerWeaponInfo.add(playerWeaponImage);
         playerWeaponInfo.add(playerWeaponName);
 
+        //Update the player armor name and image
         JLabel playerArmorName = new JLabel(equipmentNames[1]);
-        playerArmorName.setFont(smallText);
+        playerArmorName.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
         playerArmorName.setAlignmentX(CENTER_ALIGNMENT);
         scaledImage =  equipmentImages[1].getImage().getScaledInstance(225, 225, Image.SCALE_SMOOTH);
         JLabel playerArmorImage = new JLabel(new ImageIcon(scaledImage));
@@ -269,8 +304,9 @@ public class GUIGamePanel extends JFrame{
         playerArmorInfo.add(playerArmorImage);
         playerArmorInfo.add(playerArmorName);
 
+        //Update the player consumable name and image
         JLabel playerConsumableName = new JLabel(equipmentNames[2]);
-        playerConsumableName.setFont(smallText);
+        playerConsumableName.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
         playerConsumableName.setAlignmentX(CENTER_ALIGNMENT);
         scaledImage =  equipmentImages[2].getImage().getScaledInstance(225, 225, Image.SCALE_SMOOTH);
         JLabel playerConsumableImage = new JLabel(new ImageIcon(scaledImage));
@@ -278,6 +314,7 @@ public class GUIGamePanel extends JFrame{
         playerConsumableInfo.add(playerConsumableImage);
         playerConsumableInfo.add(playerConsumableName);
 
+        //Add all player components to playerEquipInfo
         playerEquipInfo.add(Box.createHorizontalStrut(10));
         playerEquipInfo.add(playerWeaponInfo);
         playerEquipInfo.add(Box.createHorizontalStrut(20));
@@ -286,11 +323,12 @@ public class GUIGamePanel extends JFrame{
         playerEquipInfo.add(playerConsumableInfo);
         playerEquipInfo.add(Box.createHorizontalStrut(10));
 
-        //INFORMATION - ENEMY
+        //Create the panel for enemy info
         JPanel enemyEquipInfo = new JPanel();    
         enemyEquipInfo.setOpaque(false);
         enemyEquipInfo.setLayout(new BoxLayout(enemyEquipInfo, BoxLayout.X_AXIS)); 
 
+        //Create the enemy info and set their properties
         JPanel enemyWeaponInfo = new JPanel();
         JPanel enemyArmorInfo = new JPanel();
         JPanel enemyConsumableInfo = new JPanel();
@@ -301,8 +339,9 @@ public class GUIGamePanel extends JFrame{
         enemyArmorInfo.setOpaque(false);
         enemyConsumableInfo.setOpaque(false);
 
+        //Update the enemy weapon name and image
         JLabel enemyWeaponName = new JLabel(equipmentNames[3]);
-        enemyWeaponName.setFont(smallText);
+        enemyWeaponName.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
         enemyWeaponName.setAlignmentX(CENTER_ALIGNMENT);
         scaledImage =  equipmentImages[3].getImage().getScaledInstance(225, 225, Image.SCALE_SMOOTH);
         JLabel enemyWeaponImage = new JLabel(new ImageIcon(scaledImage));
@@ -310,8 +349,9 @@ public class GUIGamePanel extends JFrame{
         enemyWeaponInfo.add(enemyWeaponImage);
         enemyWeaponInfo.add(enemyWeaponName);
 
+        //Update the enemy armor name and image
         JLabel enemyArmorName = new JLabel(equipmentNames[4]);
-        enemyArmorName.setFont(smallText);
+        enemyArmorName.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
         enemyArmorName.setAlignmentX(CENTER_ALIGNMENT);
         scaledImage =  equipmentImages[4].getImage().getScaledInstance(225, 225, Image.SCALE_SMOOTH);
         JLabel enemyArmorImage = new JLabel(new ImageIcon(scaledImage));
@@ -319,8 +359,9 @@ public class GUIGamePanel extends JFrame{
         enemyArmorInfo.add(enemyArmorImage);
         enemyArmorInfo.add(enemyArmorName);
 
+        //Update the enemy consumable name and image
         JLabel enemyConsumableName = new JLabel(equipmentNames[5]);
-        enemyConsumableName.setFont(smallText);
+        enemyConsumableName.setFont(new Font("Medodica Regular", Font.PLAIN, 40));
         enemyConsumableName.setAlignmentX(CENTER_ALIGNMENT);
         scaledImage =  equipmentImages[5].getImage().getScaledInstance(225, 225, Image.SCALE_SMOOTH);
         JLabel enemyConsumableImage = new JLabel(new ImageIcon(scaledImage));
@@ -328,6 +369,7 @@ public class GUIGamePanel extends JFrame{
         enemyConsumableInfo.add(enemyConsumableImage);
         enemyConsumableInfo.add(enemyConsumableName);
 
+        //Add all enemy components to enemyEquipInfo
         enemyEquipInfo.add(Box.createHorizontalStrut(10));
         enemyEquipInfo.add(enemyWeaponInfo);
         enemyEquipInfo.add(Box.createHorizontalStrut(20));
@@ -337,29 +379,30 @@ public class GUIGamePanel extends JFrame{
         enemyEquipInfo.add(Box.createHorizontalStrut(10));
 
 
-        //INFORMATION - ADDING TO MAIN PANEL
+        //Creating player and enemy equipment labels and their properties 
         JLabel playerInfoTitle = new JLabel("Player Equipment");
-        playerInfoTitle.setFont(largeText);
+        playerInfoTitle.setFont(new Font("FFF Forward", Font.PLAIN, 40));
         playerInfoTitle.setAlignmentX(CENTER_ALIGNMENT);
 
         JLabel enemyInfoTitle = new JLabel("Enemy Equipment");
-        enemyInfoTitle.setFont(largeText);
+        enemyInfoTitle.setFont(new Font("FFF Forward", Font.PLAIN, 40));
         enemyInfoTitle.setAlignmentX(CENTER_ALIGNMENT);
 
 
-        //TURN HISTORY SECTION
+        //Set the turnHistory Panel and thei properties
         turnHistory.setText("");
         recentTurnHistory.setText("");
         historyPanel.setLayout(new BoxLayout(historyPanel, BoxLayout.Y_AXIS));
         historyPanel.setBounds(0, 0, 450, 800);
         historyPanel.setBackground(Color.GRAY);
 
+        //Add components to historyPanel
         historyPanel.add(historyTitle);
         historyPanel.add(Box.createVerticalStrut(10));
         historyPanel.add(turnHistoryScroll);        
 
 
-        //COMBINING EVERYTHING
+        //Comnbining player and enemy components to the leftColmn
         infoLeftColumn.add(Box.createHorizontalStrut(5));
         infoLeftColumn.add(playerInfoTitle);
         infoLeftColumn.add(Box.createHorizontalStrut(5));
@@ -369,13 +412,14 @@ public class GUIGamePanel extends JFrame{
         infoLeftColumn.add(Box.createHorizontalStrut(5));
         infoLeftColumn.add(enemyEquipInfo);
 
-
+        //Add both column and historyPanel to informationPanel
         informationPanel.add(infoLeftColumn);
         informationPanel.add(historyPanel);
 
     }
 
 
+    //Initializes the progress bars
     private void initProgressBars(int[] playerStats, int[] enemyStats, ImageIcon[] statImages, ImageIcon healthIcon, ImageIcon skillIcon){;
         
         int playerHealth = playerStats[0];
@@ -412,10 +456,10 @@ public class GUIGamePanel extends JFrame{
         enemyHealthBar.setString("" +enemyHealthBar.getValue() + " / " + enemyHealthBar.getMaximum());
         enemySkillBar.setString("" +enemySkillBar.getValue() + " / " + enemySkillBar.getMaximum());
 
-        playerHealthBar.setFont(smallText);
-        playerSkillBar.setFont(smallText);
-        enemyHealthBar.setFont(smallText);
-        enemySkillBar.setFont(smallText);
+        playerHealthBar.setFont(new Font("FFF Forward", Font.PLAIN, 20));
+        playerSkillBar.setFont(new Font("FFF Forward", Font.PLAIN, 20));
+        enemyHealthBar.setFont(new Font("FFF Forward", Font.PLAIN, 20));
+        enemySkillBar.setFont(new Font("FFF Forward", Font.PLAIN, 20));
 
         playerHealthBar.setPreferredSize(healthBarDimensions);
         playerSkillBar.setPreferredSize(skillBarDimensions);
@@ -598,10 +642,16 @@ public class GUIGamePanel extends JFrame{
         int enemyDefense = enemyStats[3];
         int enemySpeed = enemyStats[4]; 
 
-        playerHealthBar.setValue(playerHealth);
+        if(playerHealth > playerHealthBar.getMaximum())
+            playerHealthBar.setMaximum(playerHealth);
+
+        playerHealthBar.setValue(playerHealth); 
+
+
         playerSkillBar.setValue(playerSkillCooldown);
         enemyHealthBar.setValue(enemyHealth);
         enemySkillBar.setValue(enemySkillCooldown);
+
 
         playerHealthBar.setString("" + playerHealthBar.getValue() + " / " + playerHealthBar.getMaximum());
         playerSkillBar.setString("" + playerSkillBar.getValue() + " / " + playerSkillBar.getMaximum());

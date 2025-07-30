@@ -1,13 +1,19 @@
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Class file for the GUIViewer class, this class serves a similar purpose to CLIViewer.
@@ -79,8 +85,8 @@ public class GUIViewer extends JFrame{
     
     //For use
     private Border padding = BorderFactory.createEmptyBorder(15, 15, 15, 15);
-    private Font largeText = pixelFont;
-    private Font smallText = boldPixelFont;
+    private Font pixelFont;
+    private Font boldPixelFont;
 
     /**
      * Constructor for the GUIViewer class
@@ -111,9 +117,36 @@ public class GUIViewer extends JFrame{
         setResizable(false); //Prevent resizing to avoid breaking any components
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Allows to close the program when clicking the X in the program window
 
+
+        //Uploading custom font 1 with additional Exception Handling for IOExceptions
+        try{
+            
+            pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("Assets/Font/MedodicaRegular.otf")).deriveFont(30f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(pixelFont);
+            
+        }catch (IOException | FontFormatException e){
+
+            e.printStackTrace();
+        }
+
+        //Uploading custom font 2 with additional Exception Handling for IOExceptions
+        try{
+            
+            boldPixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("Assets/Font/FFFFORWA.TTF")).deriveFont(30f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(boldPixelFont);
+            
+        }catch (IOException | FontFormatException e){
+
+            e.printStackTrace();
+        }
+
+
         initialization(numWeapons, numArmors, numConsumables, numEnemies, numEnvironments); //Initializes the basic components
 
         setVisible(true); //Makes the JFrame visible
+                
 
     }
 
@@ -209,6 +242,25 @@ public class GUIViewer extends JFrame{
     public void setGameOverLabel(String text){
  
         gameOverLabel.setText(text);
+
+        //Switch statement to change the background of the panel depending on the winning condiiton
+        switch(text){
+
+            case "YOU WIN!":
+           
+            gameOverScreen.setBackground(Color.YELLOW);
+            break;
+
+            case "YOU LOST!":
+
+            gameOverScreen.setBackground(Color.RED);
+            break;
+
+            case "TIE!":
+
+            gameOverScreen.setBackground(Color.GRAY);
+
+        }
         
     }
 
@@ -280,20 +332,26 @@ public class GUIViewer extends JFrame{
         panelNorth = new JPanel(new FlowLayout());
         gameOverScreen = new JPanel(new BorderLayout());
 
+        //Property for Game Over Screen
+        gameOverScreen.setOpaque(true);
+
         //Title 
         title = new JLabel("Warrior");
-        title.setFont(new Font("SansSerif", Font.BOLD , 100));
+        title.setFont(boldPixelFont.deriveFont(150f));
         panelNorth.add(title);
 
         //Start Button
         startButton = new JButton("Start");
         startButton.setPreferredSize(new Dimension(400, 100));
-        startButton.setFont(largeText);
+        startButton.setFont(pixelFont.deriveFont(75f));
+        startButton.setFocusPainted(false);
+
 
         //Quit Button
         quitButton = new JButton("Quit");
         quitButton.setPreferredSize(new Dimension(400, 100));
-        quitButton.setFont(largeText);
+        quitButton.setFont(pixelFont.deriveFont(75f));
+        quitButton.setFocusPainted(false);
 
         //Combine to a center panel
         panelCenter.add(startButton);
@@ -336,11 +394,11 @@ public class GUIViewer extends JFrame{
         //Create resstart and return to main menu buttins
         resetButton = new JButton("Restart");
         quitButton.setPreferredSize(new Dimension(400, 100));
-        quitButton.setFont(largeText);
+        quitButton.setFont(pixelFont.deriveFont(75f));
         
         mainMenuButton = new JButton("Main Menu");
         quitButton.setPreferredSize(new Dimension(400, 100));
-        quitButton.setFont(largeText);
+        quitButton.setFont(pixelFont.deriveFont(75f));
         
         //Label for game over screen
         gameOverLabel = new JLabel();
@@ -364,19 +422,19 @@ public class GUIViewer extends JFrame{
 
         //Enter Player Name label
         JLabel enterNameDisplay = new JLabel("Enter Player Name");
-        enterNameDisplay.setFont(largeText);
+        enterNameDisplay.setFont(boldPixelFont.deriveFont(75f));
         enterNameDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 
         //Text field to enter player name
         tfName = new JTextField();
         tfName.setPreferredSize(new Dimension(600, 50)); 
-        tfName.setFont(smallText);
+        tfName.setFont(pixelFont.deriveFont(50f));
         centerWrapper.add(tfName);
 
         //Button to enter the name typed
         enterNameButton = new JButton("Enter Name");
         enterNameButton.setPreferredSize(new Dimension(250, 100));
-        enterNameButton.setFont(smallText);
+        enterNameButton.setFont(pixelFont.deriveFont(40f));
         centerWrapper.add(enterNameButton);
 
         //The actual panel where all contents will be stored
@@ -393,20 +451,21 @@ public class GUIViewer extends JFrame{
     private void initGameOver(){
 
         //Change Properties of gameOverLabel
-        gameOverLabel.setFont(new Font("SansSerif", Font.BOLD , 100));
+        gameOverLabel.setFont(boldPixelFont.deriveFont(150f));
         gameOverLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        gameOverLabel.setBorder(new EmptyBorder(100, 0, 0, 0));
 
         //Change/Add Properties of reset and main menu button
         resetButton.setPreferredSize(new Dimension(400, 100));
         resetButton.setMaximumSize(new Dimension(400, 100));
         resetButton.setMinimumSize(new Dimension(400, 100));
-        resetButton.setFont(largeText);
+        resetButton.setFont(pixelFont.deriveFont(75f));
         resetButton.setAlignmentX(CENTER_ALIGNMENT);
         
         mainMenuButton.setPreferredSize(new Dimension(400, 100));
         mainMenuButton.setMaximumSize(new Dimension(400, 100));
         mainMenuButton.setMinimumSize(new Dimension(400, 100));
-        mainMenuButton.setFont(largeText);
+        mainMenuButton.setFont(pixelFont.deriveFont(75f));
         mainMenuButton.setAlignmentX(CENTER_ALIGNMENT);
 
         //Center Panel
@@ -440,7 +499,7 @@ public class GUIViewer extends JFrame{
         backButton.setPreferredSize(new Dimension(180, 60));  
         backButton.setMaximumSize(new Dimension(180, 60));   
         backButton.setMinimumSize(new Dimension(180, 60));    
-        backButton.setFont(smallText);
+        backButton.setFont(pixelFont.deriveFont(55f));
         backButton.setBorder(padding);
 
         if(type.equals("Final"))
@@ -450,7 +509,7 @@ public class GUIViewer extends JFrame{
         selectButton.setPreferredSize(new Dimension(180, 60));  
         selectButton.setMaximumSize(new Dimension(180, 60));   
         selectButton.setMinimumSize(new Dimension(180, 60));    
-        selectButton.setFont(smallText);
+        selectButton.setFont(pixelFont.deriveFont(55f));
         selectButton.setBorder(padding);
 
         //Button wrapper and properties
@@ -553,7 +612,7 @@ public class GUIViewer extends JFrame{
             buttons[i].setPreferredSize(new Dimension(600, 60));  
             buttons[i].setMaximumSize(new Dimension(600, 60));   
             buttons[i].setMinimumSize(new Dimension(600, 60));    
-            buttons[i].setFont(smallText);
+            buttons[i].setFont(pixelFont.deriveFont(50f));
             buttons[i].setBorder(padding);
 
         }

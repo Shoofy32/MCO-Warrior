@@ -272,7 +272,7 @@ public class GUIGameController implements ActionListener{
 
             else if(player.getHitPoints() <= 0 && enemy.getHitPoints() > 0){ //Display loss
 
-                guiView.setGameOverLabel("YOU LOSE!");
+                guiView.setGameOverLabel("YOU LOST!");
                 guiView.showPanel("Game Over");
 
             }

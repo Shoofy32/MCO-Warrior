@@ -244,9 +244,9 @@ public class GUISelectionController implements ActionListener{
     public void createSelectionButtons(){
 
         //Create buttons for selecting None
-        guiView.setSelectionActionListener(this, 0, "Weapon", "None", new ImageIcon("Assets/UI/None_Temp.png"));
-        guiView.setSelectionActionListener(this, 0, "Armor", "None", new ImageIcon("Assets/UI/None_Temp.png"));
-        guiView.setSelectionActionListener(this, 0, "Consumable", "None", new ImageIcon("Assets/UI/None_Temp.png"));
+        guiView.setSelectionActionListener(this, 0, "Weapon", "None", new ImageIcon("Assets/UI/NoneIcon_UI.png"));
+        guiView.setSelectionActionListener(this, 0, "Armor", "None", new ImageIcon("Assets/UI/NoneIcon_UI.png"));
+        guiView.setSelectionActionListener(this, 0, "Consumable", "None", new ImageIcon("Assets/UI/NoneIcon_UI.png"));
 
         /* Each for loop corresponds to a different type that the button will be tied to.
          * It will get the name and weapon of the object indexed at that array and make that object tied to the button.
@@ -370,11 +370,11 @@ public class GUISelectionController implements ActionListener{
 
         //Each String and ImageIcon attribute here check if the corresponding weapon, armor, or consumable exists via ternary operator.
         String weaponName = (selectedWeapon != null) ? selectedWeapon.getName() : "None";
-        ImageIcon weaponImage= (selectedWeapon != null) ? selectedWeapon.getImage() : new ImageIcon("Assets/UI/None_Temp.png");
+        ImageIcon weaponImage= (selectedWeapon != null) ? selectedWeapon.getImage() : new ImageIcon("Assets/UI/NoneIcon_UI.png");
         String armorName = (selectedArmor != null) ? selectedArmor.getName() : "None";
-        ImageIcon armorIamge= (selectedArmor != null) ? selectedArmor.getImage() : new ImageIcon("Assets/UI/None_Temp.png");
+        ImageIcon armorIamge= (selectedArmor != null) ? selectedArmor.getImage() : new ImageIcon("Assets/UI/NoneIcon_UI.png");
         String consumableName = (selectedConsumable != null) ? selectedConsumable.getName() : "None";
-        ImageIcon consumableImage = (selectedConsumable != null) ? selectedConsumable.getImage() : new ImageIcon("Assets/UI/None_Temp.png");
+        ImageIcon consumableImage = (selectedConsumable != null) ? selectedConsumable.getImage() : new ImageIcon("Assets/UI/NoneIcon_UI.png");
 
         //Stores the needed values in a String and ImageIcon array
         String[] selectedNames = new String[]{event.getPlayer().getName(), weaponName, armorName, consumableName, 
