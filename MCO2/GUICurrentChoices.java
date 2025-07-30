@@ -19,28 +19,28 @@ public class GUICurrentChoices extends JFrame{
     
     private boolean firstUpdate = false;
 
-    JPanel topPanel;
-    JPanel leftPanel;
-    JPanel centerPanel;
-    JPanel rightPanel;
-    JPanel bottomPanel;
-    JPanel displayPanel;
-    JPanel textWrapper;
-    JLabel finalChoicesLabel;
+    private JPanel topPanel;
+    private JPanel leftPanel;
+    private JPanel centerPanel;
+    private JPanel rightPanel;
+    private JPanel bottomPanel;
+    private JPanel displayPanel;
+    private JPanel textWrapper;
+    private JLabel finalChoicesLabel;
 
-    JLabel playerImage;
-    JLabel weaponImage;
-    JLabel armorImage;
-    JLabel consumableImage;
-    JLabel enemyImage;
-    JLabel environmentImage;
+    private JLabel playerImage;
+    private JLabel weaponImage;
+    private JLabel armorImage;
+    private JLabel consumableImage;
+    private JLabel enemyImage;
+    private JLabel environmentImage;
 
-    JLabel playerName;
-    JLabel weaponName;
-    JLabel armorName;
-    JLabel consumableName;
-    JLabel enemyName;
-    JLabel environmentName;
+    private JLabel playerName;
+    private JLabel weaponName;
+    private JLabel armorName;
+    private JLabel consumableName;
+    private JLabel enemyName;
+    private JLabel environmentName;
 
     //For use
     private Font largeText = new Font("SansSerif", Font.BOLD , 40);    
