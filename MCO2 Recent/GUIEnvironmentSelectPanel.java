@@ -125,9 +125,11 @@ public class GUIEnvironmentSelectPanel extends JFrame{
 
     private void createEnvironmentButtons(JPanel panel, JButton button){
 
-        JPanel weaponPanel = new JPanel(new BorderLayout());
-        weaponPanel.setPreferredSize(new Dimension(300, 150));
-        weaponPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
+        JPanel environmentPanel = new JPanel(new BorderLayout());
+        environmentPanel.setPreferredSize(new Dimension(300, 250));
+        environmentPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
+
+        button.putClientProperty("panel", environmentPanel);
 
         button.setBorderPainted(false);
         button.setContentAreaFilled(false);
@@ -136,13 +138,13 @@ public class GUIEnvironmentSelectPanel extends JFrame{
         buttonWrapper.setOpaque(false);
         buttonWrapper.add(button);    
 
-        weaponPanel.add(buttonWrapper, BorderLayout.CENTER);
+        environmentPanel.add(buttonWrapper, BorderLayout.CENTER);
 
 
         JPanel border = new JPanel(new FlowLayout());
         border.setOpaque(false);
         border.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        border.add(weaponPanel);
+        border.add(environmentPanel);
 
         panel.add(border);
 
@@ -183,7 +185,7 @@ public class GUIEnvironmentSelectPanel extends JFrame{
     public void updateView(String name, ImageIcon image, String playerDescription, String enemyDescription){
 
         environmentName.setText(name);
-        Image scaledImage = image.getImage().getScaledInstance(350, 275, Image.SCALE_SMOOTH);
+        Image scaledImage = image.getImage().getScaledInstance(525, 325, Image.SCALE_SMOOTH);
         environmentImage.setIcon(new ImageIcon(scaledImage));
 
         environmentPlayerDescription.setText(playerDescription);

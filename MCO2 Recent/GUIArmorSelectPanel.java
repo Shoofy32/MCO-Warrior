@@ -17,13 +17,13 @@ public class GUIArmorSelectPanel extends JFrame{
 
     private boolean firstUpdate = false;
 
-    private JPanel weaponSelection;
+    private JPanel armorSelection;
     private JPanel armorStatsPanel;
-    private JLabel weaponName;
-    private JLabel weaponImage;
-    private JLabel weaponType;
-    private JLabel weaponAttack;
-    private JLabel weaponSpeedPenalty;
+    private JLabel armorName;
+    private JLabel armorImage;
+    private JLabel armorType;
+    private JLabel armorDefense;
+    private JLabel armorSpeedPenalty;
 
     //Wrappers
     JPanel nameWrapper;
@@ -43,16 +43,16 @@ public class GUIArmorSelectPanel extends JFrame{
         armorStatsPanel.setPreferredSize(new Dimension(700, 700));
 
 
-        weaponName = new JLabel();
-        weaponImage = new JLabel();
-        weaponType = new JLabel();
-        weaponAttack = new JLabel();
-        weaponSpeedPenalty = new JLabel();
+        armorName = new JLabel();
+        armorImage = new JLabel();
+        armorType = new JLabel();
+        armorDefense = new JLabel();
+        armorSpeedPenalty = new JLabel();
 
-        weaponName.setFont(largeText);
+        armorName.setFont(largeText);
 
-        weaponName.setAlignmentX(CENTER_ALIGNMENT);
-        weaponImage.setAlignmentX(CENTER_ALIGNMENT);
+        armorName.setAlignmentX(CENTER_ALIGNMENT);
+        armorImage.setAlignmentX(CENTER_ALIGNMENT);
 
     }
 
@@ -120,20 +120,22 @@ public class GUIArmorSelectPanel extends JFrame{
 
 
 
-        weaponSelection = new JPanel(new BorderLayout());
-        weaponSelection.add(westWrapper, BorderLayout.WEST);
-        weaponSelection.add(topPanel, BorderLayout.NORTH);
-        weaponSelection.add(wrapper, BorderLayout.CENTER);
+        armorSelection = new JPanel(new BorderLayout());
+        armorSelection.add(westWrapper, BorderLayout.WEST);
+        armorSelection.add(topPanel, BorderLayout.NORTH);
+        armorSelection.add(wrapper, BorderLayout.CENTER);
 
-        mainPanel.add(weaponSelection, "armorSelect");
+        mainPanel.add(armorSelection, "armorSelect");
     }
 
 
     private void createArmorButtons(JPanel panel, JButton button){
 
-        JPanel weaponPanel = new JPanel(new BorderLayout());
-        weaponPanel.setPreferredSize(new Dimension(300, 150));
-        weaponPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
+        JPanel armorPanel = new JPanel(new BorderLayout());
+        armorPanel.setPreferredSize(new Dimension(300, 250));
+        armorPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
+
+        button.putClientProperty("panel", armorPanel);
 
         button.setBorderPainted(false);
         button.setContentAreaFilled(false);
@@ -142,13 +144,13 @@ public class GUIArmorSelectPanel extends JFrame{
         buttonWrapper.setOpaque(false);
         buttonWrapper.add(button);    
 
-        weaponPanel.add(buttonWrapper, BorderLayout.CENTER);
+        armorPanel.add(buttonWrapper, BorderLayout.CENTER);
 
 
         JPanel border = new JPanel(new FlowLayout());
         border.setOpaque(false);
         border.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        border.add(weaponPanel);
+        border.add(armorPanel);
 
         panel.add(border);
 
@@ -186,13 +188,13 @@ public class GUIArmorSelectPanel extends JFrame{
      */
     public void updateView(String name, String type, ImageIcon image, int defense, int speedPenalty){
 
-        weaponName.setText(name);
-        weaponType.setText(type);
+        armorName.setText(name);
+        armorType.setText(type);
         Image scaledImage = image.getImage().getScaledInstance(275, 275, Image.SCALE_SMOOTH);
-        weaponImage.setIcon(new ImageIcon(scaledImage));
+        armorImage.setIcon(new ImageIcon(scaledImage));
 
-        weaponAttack.setText("" + defense);
-        weaponSpeedPenalty.setText("" + -speedPenalty);
+        armorDefense.setText("" + defense);
+        armorSpeedPenalty.setText("" + -speedPenalty);
 
         armorStatsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
 
@@ -201,13 +203,13 @@ public class GUIArmorSelectPanel extends JFrame{
             firstUpdate = true;
 
             armorStatsPanel.add(Box.createVerticalStrut(20));
-            armorStatsPanel.add(weaponName);
+            armorStatsPanel.add(armorName);
             armorStatsPanel.add(Box.createVerticalStrut(20));
-            armorStatsPanel.add(weaponImage);        
+            armorStatsPanel.add(armorImage);        
             armorStatsPanel.add(Box.createVerticalStrut(20));
-            createInfoSection("TYPE:", weaponType);
-            createInfoSection("DEFENSE:", weaponAttack);
-            createInfoSection("SPEED PENALTY:", weaponSpeedPenalty);
+            createInfoSection("TYPE:", armorType);
+            createInfoSection("DEFENSE:", armorDefense);
+            createInfoSection("SPEED PENALTY:", armorSpeedPenalty);
             armorStatsPanel.add(Box.createVerticalGlue());
 
         }

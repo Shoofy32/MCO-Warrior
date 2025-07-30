@@ -158,7 +158,7 @@ public class GUIViewer extends JFrame{
     public void setSelectionActionListener(ActionListener listener, int index, String type, String name, ImageIcon image){
 
         //Scale the image stored ImageIcon
-        Image scaledImage = image.getImage().getScaledInstance(300, 150, Image.SCALE_SMOOTH);;
+        Image scaledImage = image.getImage().getScaledInstance(300, 250, Image.SCALE_SMOOTH);;
 
         //Switch statement that creates the button for that corresponding type
         switch(type){

@@ -140,8 +140,10 @@ public class GUIEnemySelectPanel extends JFrame{
     private void createEnemyButtons(JPanel panel, JButton button){
 
         JPanel enemyPanel = new JPanel(new BorderLayout());
-        enemyPanel.setPreferredSize(new Dimension(300, 150));
+        enemyPanel.setPreferredSize(new Dimension(300, 250));
         enemyPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
+
+        button.putClientProperty("panel", enemyPanel);
 
         button.setBorderPainted(false);
         button.setContentAreaFilled(false);
@@ -178,7 +180,7 @@ public class GUIEnemySelectPanel extends JFrame{
         typeWrapper.add(infoType, BorderLayout.WEST); 
 
         if(info.getText().length() == 0)
-            info.setText("None");
+            info.setText("");
         
         typeWrapper.add(info, BorderLayout.EAST);            
         enemyStatsPanel.add(typeWrapper); 
@@ -213,9 +215,13 @@ public class GUIEnemySelectPanel extends JFrame{
 
         if(weapon != null)
             enemyWeapon.setText(weapon);
+        else
+            enemyWeapon.setText("");
 
         if(consumable != null)
             enemyConsumable.setText(consumable);
+        else
+            enemyConsumable.setText("");
 
         enemyStatsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
 

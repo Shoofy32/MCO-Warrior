@@ -23,7 +23,6 @@ public class GUICurrentChoices extends JFrame{
     private JPanel leftPanel;
     private JPanel centerPanel;
     private JPanel rightPanel;
-    private JPanel bottomPanel;
     private JPanel displayPanel;
     private JPanel textWrapper;
     private JLabel finalChoicesLabel;
@@ -33,7 +32,6 @@ public class GUICurrentChoices extends JFrame{
     private JLabel armorImage;
     private JLabel consumableImage;
     private JLabel enemyImage;
-    private JLabel environmentImage;
 
     private JLabel playerName;
     private JLabel weaponName;
@@ -57,21 +55,27 @@ public class GUICurrentChoices extends JFrame{
 
         playerName = new JLabel();
         playerName.setFont(smallText);
+        playerName.setForeground(Color.WHITE);
 
         weaponName = new JLabel();
         weaponName.setFont(smallText);
+        weaponName.setForeground(Color.WHITE);
 
         armorName = new JLabel();
         armorName.setFont(smallText);
+        armorName.setForeground(Color.WHITE);
 
         consumableName = new JLabel();
         consumableName.setFont(smallText);
+        consumableName.setForeground(Color.WHITE);
 
         enemyName = new JLabel();
         enemyName.setFont(smallText);
+        enemyName.setForeground(Color.WHITE);
 
         environmentName = new JLabel();
         environmentName.setFont(largeText);
+        environmentName.setForeground(Color.WHITE);
 
     }
 
@@ -89,7 +93,6 @@ public class GUICurrentChoices extends JFrame{
         armorImage = new JLabel();
         consumableImage = new JLabel();
         enemyImage = new JLabel();
-        environmentImage = new JLabel();
         
         //TOP PART
         topPanel.setLayout(new BorderLayout());
@@ -202,6 +205,7 @@ public class GUICurrentChoices extends JFrame{
 
             //COMBINE ALL TO ONE PANEL
             JPanel showSelectionPanel = new GUIBackgroundPanel(images[5].getImage());
+            showSelectionPanel.setLayout(new BorderLayout());
             showSelectionPanel.add(leftPanel, BorderLayout.WEST);
             showSelectionPanel.add(centerPanel, BorderLayout.CENTER);
             showSelectionPanel.add(rightPanel, BorderLayout.EAST);

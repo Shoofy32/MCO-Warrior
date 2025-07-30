@@ -41,7 +41,7 @@ public class Parry_Skill extends Skill{
             result = entity.getName() + " parried " + target.getName() + "'s attack! " + (target.getAttack() - target.getDefense())
                      + " Damage is reflected back!";
         else
-            result = entity.getName() + " try to parry but " + target.getName() + " did not attack!";
+            result = entity.getName() + " tries to parry but " + target.getName() + " did not attack!";
             
         setActiveSkillResultDescription(result);
 
@@ -79,7 +79,8 @@ public class Parry_Skill extends Skill{
 
             entity.setIsInvulnerable(getHasMetConditions());
 
-            if(target.getTurnInputAction() == 'A'){
+            if(target.getTurnInputAction() == 'A' || target.getTurnInputAction() == 'F'){
+
 
                 target.setAttack(target.getAttack() + target.getDefense());
                 target.attack(target);

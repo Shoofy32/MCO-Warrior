@@ -113,8 +113,9 @@ public class GUIGamePanel extends JFrame{
         turnHistory.setBackground(Color.WHITE);
 
         recentTurnHistory = new JTextArea();
-        recentTurnHistory.setBounds(25, 100, 600, 300);
+        recentTurnHistory.setBounds(50, 200, 600, 300);
         recentTurnHistory.setFont(turnHistoryText);
+        recentTurnHistory.setForeground(Color.WHITE);
         recentTurnHistory.setEditable(false);
         recentTurnHistory.setLineWrap(true);
         recentTurnHistory.setWrapStyleWord(true);
@@ -162,14 +163,14 @@ public class GUIGamePanel extends JFrame{
         backgroundPanel.setBounds(0, 0, 1500,1000);
 
 
-        scaledImage = uiImages[1].getImage().getScaledInstance(300, 350, Image.SCALE_SMOOTH);
+        scaledImage = uiImages[1].getImage().getScaledInstance(450, 500, Image.SCALE_SMOOTH);
         playerImage.setIcon(new ImageIcon(scaledImage));
-        playerImage.setBounds(300, 225, 300, 350);
+        playerImage.setBounds(200, 350, 450, 500);
 
 
-        scaledImage = uiImages[2].getImage().getScaledInstance(300, 350, Image.SCALE_SMOOTH);
+        scaledImage = uiImages[2].getImage().getScaledInstance(450, 500, Image.SCALE_SMOOTH);
         enemyImage.setIcon(new ImageIcon(scaledImage));
-        enemyImage.setBounds(900, 225, 300, 350);
+        enemyImage.setBounds(800, 350, 450, 500);
 
 
         //BUTTONS
@@ -182,7 +183,7 @@ public class GUIGamePanel extends JFrame{
         buttons[2].setText("Charge");
         buttons[3].setText("Consume");
         buttons[4].setText("Skill");
-        buttonsPanel.setBounds(1250, 500, 200, 900);
+        buttonsPanel.setBounds(50, 500, 200, 900);
         buttonsPanel.setOpaque(false); 
 
         for(int i = 0; i < buttons.length; i++){
@@ -508,10 +509,8 @@ public class GUIGamePanel extends JFrame{
 
         JPanel playerBarsWrapper = new JPanel();
         playerBarsWrapper.setLayout(new BoxLayout(playerBarsWrapper, BoxLayout.Y_AXIS));
-        playerBarsWrapper.setBounds(50, 690, 650, 200);
-
+        playerBarsWrapper.setBounds(50, 50, 650, 200);
         playerBarsWrapper.setOpaque(false);
-        
         playerBarsWrapper.add(playerStatsPanel);
         playerBarsWrapper.add(playerHealthWrapper);
         playerBarsWrapper.add(Box.createVerticalStrut(5));

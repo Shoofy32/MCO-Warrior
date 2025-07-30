@@ -286,7 +286,7 @@ public class GUIEventController implements ActionListener{
                 if(nameValidation(guiView.getNameInput())){
                     
                     //Creates player object with name and image parameter
-                    player = new Player(guiView.getNameInput(), "Assets/Player/Player_Temp.png");
+                    player = new Player(guiView.getNameInput(), "Assets/Player/Player.png");
 
                     guiView.clearInput(); //Clear JTextArea input
                     selection.startSelection(); //Starts the game selection

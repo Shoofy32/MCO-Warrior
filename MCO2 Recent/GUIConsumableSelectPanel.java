@@ -133,8 +133,10 @@ public class GUIConsumableSelectPanel extends JPanel{
     private void createConsumableButtons(JPanel panel, JButton button){
 
         JPanel consumablePanel = new JPanel(new BorderLayout());
-        consumablePanel.setPreferredSize(new Dimension(300, 150));
+        consumablePanel.setPreferredSize(new Dimension(300, 250));
         consumablePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
+
+        button.putClientProperty("panel", consumablePanel);
 
         button.setBorderPainted(false);
         button.setContentAreaFilled(false);

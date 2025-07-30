@@ -1,8 +1,12 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  * Class file for the GUISelectionController class
@@ -38,6 +42,9 @@ public class GUISelectionController implements ActionListener{
     //Logic for controller
     String previousButtonPressed = null; //Stores the commandName of the button click to perform double click validation
     boolean selectedChoice = false; //Checks if player has selected a choice
+
+    //Display
+    private JPanel previousPanel = null;
 
    //Constructor
 
@@ -153,30 +160,30 @@ public class GUISelectionController implements ActionListener{
         Armor armor5 = new Armor("Frost Iron Armor", "Heavy", new ImageIcon("Assets/Armor/FrostIron_armor.png"), 50, 30);
         
         //Create Enemy instances
-        Thief bandit = new Thief("Bandit", "Thief", new ImageIcon("Assets/Enemy/Enemy_Temp.png"), 150, 20, 20, 40);
-        Viking haldor = new Viking("Haldor", "Viking", new ImageIcon("Assets/Enemy/Enemy_Temp.png"), 250, 30, 30, 30);
-        Minotaur taur = new Minotaur("Taur", "Minotaur", new ImageIcon("Assets/Enemy/Enemy_Temp.png"), 350, 40, 40, 20);
+        Thief bandit = new Thief("Bandit", "Thief", new ImageIcon("Assets/Enemy/Bandit_Enemy.png"), 150, 20, 20, 40);
+        Viking haldor = new Viking("Haldor", "Viking", new ImageIcon("Assets/Enemy/Viking_Enemy.png"), 250, 30, 30, 30);
+        Minotaur taur = new Minotaur("Taur", "Minotaur", new ImageIcon("Assets/Enemy/Minotaur_Enemy.png"), 350, 40, 40, 20);
 
-        Unique_Enemy isshin = new Unique_Enemy("Isshin", "Samurai", new ImageIcon("Assets/Enemy/Enemy_Temp.png"), 200, 0, 20, 50, "AAFU", 
-        new EnchantedWeapon("Frayed Blade", "Katana", 35, 10, new ImageIcon("Assets/Weapons/Weapon_Temp.png"),  "Parry"),
-        new Bomb("Reckless Gamble", new ImageIcon("Assets/Consumable/Consumable_Temp.png"), 1, new String[]{"Speed"}, new int[]{50}, new String[]{"Attack"}, new int[]{30}, 3));
-        Unique_Enemy ornstein = new Unique_Enemy("Ornstein", "Knight", new ImageIcon("Assets/Enemy/Enemy_Temp.png"), 300, 0, 35, 30, "AUCF",
-        new EnchantedWeapon("Buster Sword", "Greatsword", 30, 20, new ImageIcon("Assets/Weapons/Weapon_Temp.png"),  "OmniSlash"),
-        new Buff("Rage Elixer", new ImageIcon("Assets/Consumable/Consumable_Temp.png"), 1, new String[]{"Attack", "Defense"}, new int[]{20, -10}, 3));
-        Unique_Enemy hornet = new Unique_Enemy("Hornet", "Knight", new ImageIcon("Assets/Enemy/Enemy_Temp.png"), 250, 0, 10, 60, "CAAUF",
-        new EnchantedWeapon("Pure Nail", "Sword", 35, 5, new ImageIcon("Assets/Weapons/Weapon_Temp.png"),  "DreamSlash"),
-        new Healing("Estus Flask", new ImageIcon("Assets/Consumable/Consumable_Temp.png"), 2, 45));
-        Unique_Enemy radiance = new Unique_Enemy("Radiance", "Deity", new ImageIcon("Assets/Enemy/Enemy_Temp.png"), 800, 70, 30, 25, "AAAAAAACA", null, null);
+        Unique_Enemy isshin = new Unique_Enemy("Isshin", "Samurai", new ImageIcon("Assets/Enemy/Isshin_Enemy.png"), 200, 0, 20, 50, "AAFU", 
+        new EnchantedWeapon("Frayed Blade", "Katana", 35, 10, new ImageIcon("Assets/Weapons/FrayedBlade_Weapon.png"), "Parry"),
+        new Bomb("Reckless Gamble", new ImageIcon("Assets/Consumable/RecklessGamle_Consumable.png"), 1, new String[]{"Speed"}, new int[]{50}, new String[]{"Attack"}, new int[]{30}, 3));
+        Unique_Enemy ornstein = new Unique_Enemy("Ornstein", "Knight", new ImageIcon("Assets/Enemy/Ornstein_Enemy.png"), 300, 0, 35, 30, "UCA",
+        new Sword("Common Sword", 30, 10, new ImageIcon("Assets/Weapons/Sword_Weapon.png")),
+        new Buff("Rage Elixer", new ImageIcon("Assets/Consumable/RageElixer_Consumable.png"), 1, new String[]{"Attack", "Defense"}, new int[]{20, -10}, 3));
+        Unique_Enemy hornet = new Unique_Enemy("Hornet", "Knight", new ImageIcon("Assets/Enemy/Hornet_Enemy.png"), 250, 0, 10, 60, "CAAUF",
+        new EnchantedWeapon("Pure Nail", "Sword", 35, 5, new ImageIcon("Assets/Weapons/PureNail_Weapon.png"), "DreamSlash"),
+        new Healing("Estus Flask", new ImageIcon("Assets/Consumable/EstusFlask_Consumable.png"), 2, 45));
+        Unique_Enemy radiance = new Unique_Enemy("Radiance", "Deity", new ImageIcon("Assets/Enemy/Radiance_Enemy.png"), 800, 70, 30, 25, "AAAAAAACA", null, null);
 
 
         //Create Environment instances
-        Environment environment1 = new Environment("Arena", false, new ImageIcon("Assets/Environment/Environment_Temp.png"));
-        Environment environment2 = new Environment("Swamp", true, new ImageIcon("Assets/Environment/Environment_Temp.png"), -1, "HitPoints", 1, "Attack");
-        Environment environment3 = new Environment("Colosseum", true, new ImageIcon("Assets/Environment/Environment_Temp.png"), 1, "Attack", -1, "Defense");
-        Environment environment4 = new Environment("Painted Ariamis", true, new ImageIcon("Assets/Environment/Environment_Temp.png"), -2, "Speed", -1, "Speed");
-        Environment environment5 = new Environment("Blight Town", true, new ImageIcon("Assets/Environment/Environment_Temp.png"), -1, "Defense", -3, "HitPoints");
-        Environment environment6 = new Environment("Fungal Wastes", true, new ImageIcon("Assets/Environment/Environment_Temp.png"), -10, "HitPoints", -10, "HitPoints");
-        Environment environment7 = new Environment("Black Egg Temple", true, new ImageIcon("Assets/Environment/Environment_Temp.png"), -1, "Attack", 5, "HitPoints");
+        Environment environment1 = new Environment("Arena", false, new ImageIcon("Assets/Environment/Arena_Environment.png"));
+        Environment environment2 = new Environment("Swamp", true, new ImageIcon("Assets/Environment/Swamp_Environment.png"), -1, "HitPoints", 1, "Attack");
+        Environment environment3 = new Environment("Colosseum", true, new ImageIcon("Assets/Environment/Colesseum_Environment.png"), 1, "Attack", -1, "Defense");
+        Environment environment4 = new Environment("Painted Ariamis", true, new ImageIcon("Assets/Environment/PaintedAriamis_Environment.png"), -2, "Speed", -1, "Speed");
+        Environment environment5 = new Environment("Blight Town", true, new ImageIcon("Assets/Environment/BlightTown_Environment.png"), -1, "Defense", -3, "HitPoints");
+        Environment environment6 = new Environment("Fungal Wastes", true, new ImageIcon("Assets/Environment/FungalWastes_Environment.png"), -10, "HitPoints", -10, "HitPoints");
+        Environment environment7 = new Environment("Black Egg Temple", true, new ImageIcon("Assets/Environment/BlackEggTemple_Environment.png"), -1, "Attack", 5, "HitPoints");
 
         //Bonus - Create Consumable instances
         Consumable estusFlask = new Healing("Estus Flask", new ImageIcon("Assets/Consumable/EstusFlask_Consumable.png"), 2, 45);
@@ -389,6 +396,11 @@ public class GUISelectionController implements ActionListener{
 
         String command = e.getActionCommand();
 
+        //Gets the button pressed
+        JButton buttonPressed = (JButton) e.getSource();
+        JPanel panelSelected = (JPanel) buttonPressed.getClientProperty("panel");
+
+
         /*
         * For confirming button inputs in the selection panel, we iterate through the array of objects and compare
         * if the command is equal to the name of an object as we set the object name as the action command of the button.
@@ -410,9 +422,10 @@ public class GUISelectionController implements ActionListener{
 
                     if(previousButtonPressed == weapons.get(i).getName()){
 
-                        System.out.println("DOUBLE CLICK");
-
                         //Update selection and update logic
+                        panelSelected.setBorder(BorderFactory.createLineBorder(Color.GREEN, 8));
+                        previousPanel = panelSelected;
+
                         selectedWeapon = weapons.get(i); 
                         selectedChoice = true;
                         previousButtonPressed = null;
@@ -436,9 +449,10 @@ public class GUISelectionController implements ActionListener{
 
                     if(previousButtonPressed == armors.get(i).getName()){
 
-                        System.out.println("DOUBLE CLICK");
-
                         //Update selection and update logic
+                        panelSelected.setBorder(BorderFactory.createLineBorder(Color.GREEN, 8));
+                        previousPanel = panelSelected;
+
                         selectedArmor = armors.get(i);
                         selectedChoice = true;
                         previousButtonPressed = null;
@@ -461,9 +475,10 @@ public class GUISelectionController implements ActionListener{
 
                     if(previousButtonPressed == consumables.get(i).getName()){
 
-                        System.out.println("DOUBLE CLICK");
-
                         //Update selection and update logic
+                        panelSelected.setBorder(BorderFactory.createLineBorder(Color.GREEN, 8));
+                        previousPanel = panelSelected;
+
                         selectedConsumable = consumables.get(i);
                         selectedChoice = true;
                         previousButtonPressed = null;
@@ -485,10 +500,11 @@ public class GUISelectionController implements ActionListener{
                     updateSelectionView("Enemy", i); //Update view
 
                     if(previousButtonPressed == enemies.get(i).getName()){
-
-                        System.out.println("DOUBLE CLICK");
         
                         //Update selection and update logic
+                        panelSelected.setBorder(BorderFactory.createLineBorder(Color.GREEN, 8));
+                        previousPanel = panelSelected;
+
                         selectedEnemy = enemies.get(i);
                         selectedChoice = true;
                         previousButtonPressed = null;
@@ -510,9 +526,11 @@ public class GUISelectionController implements ActionListener{
                     updateSelectionView("Environment", i); //Update view
 
                     if(previousButtonPressed == environments.get(i).getName()){
-                        System.out.println("DOUBLE CLICK");
             
                         //Update selection and update logic
+                        panelSelected.setBorder(BorderFactory.createLineBorder(Color.GREEN, 8));
+                        previousPanel = panelSelected;
+
                         selectedEnvironment = environments.get(i);
                         selectedChoice = true;
                         previousButtonPressed = null;
@@ -649,9 +667,10 @@ public class GUISelectionController implements ActionListener{
 
                 if(previousButtonPressed == "NONE"){
 
-                        System.out.println("DOUBLE CLICK");
-
                         //Update logic without actually selecting anything
+                        panelSelected.setBorder(BorderFactory.createLineBorder(Color.GREEN, 8));
+                        previousPanel = panelSelected;
+
                         selectedChoice = true;
                         previousButtonPressed = null;
                     
@@ -660,6 +679,9 @@ public class GUISelectionController implements ActionListener{
                     previousButtonPressed = "NONE";
 
         }
+
+        if(previousPanel != null && previousPanel != panelSelected)
+            previousPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
 
     }
 

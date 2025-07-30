@@ -135,8 +135,10 @@ public class GUIWeaponSelectPanel extends JPanel{
     private void createWeaponButtons(JPanel panel, JButton button){
 
         JPanel weaponPanel = new JPanel(new BorderLayout());
-        weaponPanel.setPreferredSize(new Dimension(300, 150));
+        weaponPanel.setPreferredSize(new Dimension(300, 250));
         weaponPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
+
+        button.putClientProperty("panel", weaponPanel);
 
         button.setBorderPainted(false);
         button.setContentAreaFilled(false);

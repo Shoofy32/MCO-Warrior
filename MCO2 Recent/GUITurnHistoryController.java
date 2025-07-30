@@ -140,7 +140,8 @@ public class GUITurnHistoryController {
         if(enemyPassiveActive)
             currentTurnHistory.add(String.format("%s %s\n", event.getEnemy().getName(), event.getEnemy().getWeapon().getAbility().getAbilityDisplayDescription()));
 
-        if(event.getEnemy().getWeapon() != null && (event.getEnemy().getTurnInputAction() == 'F' || (event.getEnemy().getTurnInputAction() != 'F' && ((EnchantedWeapon) event.getEnemy().getWeapon()).getWeaponSkill().getTurnsActive())))
+        if(event.getEnemy().getWeapon() != null && (event.getEnemy().getTurnInputAction() == 'F' || (event.getEnemy().getTurnInputAction() != 'F' && 
+                event.getEnemy().getWeapon() instanceof EnchantedWeapon && ((EnchantedWeapon) event.getEnemy().getWeapon()).getWeaponSkill().getTurnsActive())))
             currentTurnHistory.add(String.format("%s\n", ((EnchantedWeapon) event.getEnemy().getWeapon()).getWeaponSkill().getActiveSkillResultDescription()));
 
         //If conditions to check event.getPlayer().getLastCharacterAction() and display corresponding result depdning on String value
@@ -270,6 +271,7 @@ public class GUITurnHistoryController {
         if((event.getEnemy().getSpeed() < event.getPlayer().getSpeed() || event.getPlayer().getIsDefending() || event.getPlayer().getTurnInputAction() == 'C') 
                 && !event.getPlayer().getIsDefending()){
             
+            currentTurnHistory.add(String.format("%s performs their turn first!\n\n", event.getPlayer().getName()));
             playerTurnResult();
             enemyTurnResult();
 
@@ -277,12 +279,14 @@ public class GUITurnHistoryController {
         else if((event.getEnemy().getSpeed() > event.getPlayer().getSpeed() || event.getEnemy().getIsDefending() || event.getPlayer().getTurnInputAction() == 'C') 
                 && !event.getPlayer().getIsDefending()){
 
+            currentTurnHistory.add(String.format("%s performs their turn first!\n\n", event.getEnemy().getName()));
             enemyTurnResult();
             playerTurnResult();
 
         }
         else{
 
+              currentTurnHistory.add(String.format("%s and %s performs their turn first!\n\n", event.getPlayer().getName(), event.getEnemy().getName()));
             playerTurnResult();
             enemyTurnResult();
 
