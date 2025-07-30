@@ -22,7 +22,7 @@ public class Healing extends Consumable{
      */
     public Healing(String name, ImageIcon image, int maxCharges, int healingValue){
 
-        super(name, "Healing", image, maxCharges, true, false, new String[]{"Healing"}, new int[]{healingValue}, 0);
+        super(name, "Healing", image, maxCharges, true, false, new String[]{"HitPoints"}, new int[]{healingValue}, 0);
 
     }
 
