@@ -114,7 +114,6 @@ public class GUIGameController implements ActionListener{
          * Turn is determined by the checkWinner() method. (If theres a checkWin() method before their turn, then their turn was second)
          */
         if((enemy.getSpeed() < player.getSpeed() || player.getTurnInputAction() == 'D' || player.getTurnInputAction() == 'U') && !enemy.getIsDefending()){ //Checks if player is faster, defending, or consumed
-            
 
             player.think(enemy); //Player goes first
 
@@ -129,7 +128,7 @@ public class GUIGameController implements ActionListener{
             }
 
         }
-        else if(enemy.getSpeed() > player.getSpeed()){ //Checks if enemy is faster
+        else if(enemy.getSpeed() > player.getSpeed() && player.getTurnInputAction() != 'D' && player.getTurnInputAction() != 'U'){ //Checks if enemy is faster
 
             enemy.think(player); //Enemy goes first
             checkWinner(); //Check for win condition
