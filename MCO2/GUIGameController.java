@@ -128,7 +128,7 @@ public class GUIGameController implements ActionListener{
             }
 
         }
-        else if(enemy.getSpeed() > player.getSpeed() && player.getTurnInputAction() != 'D' && player.getTurnInputAction() != 'U'){ //Checks if enemy is faster
+        else if(enemy.getSpeed() > player.getSpeed() && player.getTurnInputAction() != 'D' && player.getTurnInputAction() != 'U'){ //Checks if enemy is faster and player is not defending or consuming
 
             enemy.think(player); //Enemy goes first
             checkWinner(); //Check for win condition
